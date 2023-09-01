@@ -1,0 +1,4 @@
+name: elementalProject
+version: '${project.version}'
+main: org.example.contentplugin.elementalproject.ElementalProject
+api-version: '1.20'
