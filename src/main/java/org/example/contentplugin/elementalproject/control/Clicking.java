@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.example.contentplugin.elementalproject.ElementalProject;
@@ -21,6 +22,19 @@ public abstract class Clicking {
 
         return manaCount.getOrDefault(p.getUniqueId(), playerStat.getMana());
 
+    }
+
+    public void setManaAmount(Player p, PlayerStat playerStat){
+        int mana = getManaAmount(p, playerStat);
+        if(mana >= playerStat.getMana()) return;
+        Bukkit.getScheduler().runTaskLater(ElementalProject.getPlugin(), ()->{
+            Bukkit.getScheduler().scheduleSyncRepeatingTask(ElementalProject.getPlugin(), ()->{
+                int manaFinal = mana;
+                if(getManaAmount(p, playerStat) > playerStat.getMana()) return;
+                manaFinal++;
+                manaCount.put(p.getUniqueId(), manaFinal);
+            },0,1);
+        }, 20);
     }
     public abstract void clicking(PlayerInteractEvent event, PlayerStat playerStat);
     public void sequence(PlayerInteractEvent event){
@@ -59,7 +73,9 @@ public abstract class Clicking {
                 }
             }
         }
-        Bukkit.getScheduler().runTaskLater(ElementalProject.getPlugin(), ()-> count.put(p.getUniqueId(), new int[3]),60);
+        if(!Arrays.equals(array, new int[3])){
+            Bukkit.getScheduler().runTaskLater(ElementalProject.getPlugin(), ()-> count.put(p.getUniqueId(), new int[3]),40);
+        }
     }
     public boolean sequent(PlayerInteractEvent event, Sequence sequence){
         Player p = event.getPlayer();
