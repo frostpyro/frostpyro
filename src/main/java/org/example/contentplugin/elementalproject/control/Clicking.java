@@ -24,7 +24,7 @@ public abstract class Clicking {
 
     }
 
-    public void setManaAmount(Player p, PlayerStat playerStat){
+    public void manaReset(Player p, PlayerStat playerStat){
         int mana = getManaAmount(p, playerStat);
         if(mana >= playerStat.getMana()) return;
         Bukkit.getScheduler().runTaskLater(ElementalProject.getPlugin(), ()->{
@@ -35,6 +35,14 @@ public abstract class Clicking {
                 manaCount.put(p.getUniqueId(), manaFinal);
             },0,1);
         }, 20);
+    }
+
+    public void manaConsume(Player p, PlayerStat playerStat, int consume){
+        int mana = getManaAmount(p, playerStat);
+        if(mana < consume) return;
+
+        mana -= consume;
+        manaCount.put(p.getUniqueId(), mana);
     }
     public abstract void clicking(PlayerInteractEvent event, PlayerStat playerStat);
     public void sequence(PlayerInteractEvent event){

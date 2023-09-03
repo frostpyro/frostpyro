@@ -12,7 +12,9 @@ public class RRL extends Clicking {
         Player p = event.getPlayer();
         sequence(event);
         if(!sequent(event, Sequence.RRL)) return;
+        manaConsume(p, playerStat, 40);
         p.sendMessage("RRL");
+        manaReset(p, playerStat);
     }
 }
 

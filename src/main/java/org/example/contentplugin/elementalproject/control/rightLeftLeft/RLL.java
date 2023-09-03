@@ -12,6 +12,8 @@ public class RLL extends Clicking {
         Player p = event.getPlayer();
         sequence(event);
         if(!sequent(event,Sequence.RLL)) return;
+        manaConsume(p, playerStat, 20);
         p.sendMessage("RLL");
+        manaReset(p, playerStat);
     }
 }
