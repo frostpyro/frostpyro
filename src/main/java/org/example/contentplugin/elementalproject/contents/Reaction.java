@@ -99,13 +99,64 @@ public class Reaction {
                 }
             }
             case EARTH -> {
+                switch(baseElement){
+                    case AIR -> {
+                        reaction(p, entity, Elements.AIR);
+                        react.remove(entity.getUniqueId());
+                    }
+                    case FIRE -> {
 
+                    }
+                    case ICE -> {
+
+                    }
+                    case LIGHT -> {
+
+                    }
+                    case ELECTRONIC -> {
+
+                    }
+                }
             }
             case LIGHT -> {
+                switch(baseElement){
+                    case AIR -> {
+                        reaction(p, entity, Elements.AIR);
+                        react.remove(entity.getUniqueId());
+                    }
+                    case FIRE -> {
 
+                    }
+                    case EARTH -> {
+
+                    }
+                    case ICE -> {
+
+                    }
+                    case ELECTRONIC -> {
+
+                    }
+                }
             }
             case ELECTRONIC -> {
+                switch(baseElement){
+                    case AIR -> {
+                        reaction(p, entity, Elements.AIR);
+                        react.remove(entity.getUniqueId());
+                    }
+                    case FIRE -> {
 
+                    }
+                    case EARTH -> {
+
+                    }
+                    case LIGHT -> {
+
+                    }
+                    case ICE -> {
+
+                    }
+                }
             }
         }
     }
