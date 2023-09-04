@@ -81,7 +81,8 @@ public class Reaction {
                                 react.remove(entity1.getUniqueId());
                             }
                             case ELECTRONIC -> {
-
+                                reaction(p, entity1, Elements.ELECTRONIC);
+                                react.remove(entity1.getUniqueId());
                             }
                             case FIRE -> {
 
