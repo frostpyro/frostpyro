@@ -27,7 +27,7 @@ public class Reaction {
                 switch(baseElement){
                     case AIR -> {
                         reaction(p, entity, Elements.AIR);
-
+                        react.remove(entity.getUniqueId());
                     }
                     case ICE -> {
 
