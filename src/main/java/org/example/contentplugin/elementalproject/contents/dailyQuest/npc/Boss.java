@@ -12,6 +12,7 @@ public class Boss {
     public Boss(String name){
         this.name = name;
     }
+    //TODO: add boss entity
     public Entity bossEntity(){
 
         if(entity != null){
