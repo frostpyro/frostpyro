@@ -12,7 +12,8 @@ import java.util.UUID;
 public class Reaction {
     private Map<UUID, Elements> react = new HashMap<>();
 
-    public void hit(Player p, Entity entity, Elements elements){
+    public void hit(Entity entity, Elements elements){
+        if((entity instanceof LivingEntity)) return;
         if(!react.isEmpty()) return;
         react.put(entity.getUniqueId(), elements);
     }
@@ -30,6 +31,7 @@ public class Reaction {
                         react.remove(entity.getUniqueId());
                     }
                     case ICE -> {
+
                         react.remove(entity.getUniqueId());
                     }
                     case EARTH -> {
@@ -73,26 +75,27 @@ public class Reaction {
 
                         switch(newElement){
                             case ICE->{
-                                reaction(p, entity1, Elements.ICE);
+                                reaction(p, entity, Elements.ICE);
                                 react.remove(entity1.getUniqueId());
                             }
                             case EARTH -> {
-                                reaction(p, entity1, Elements.EARTH);
+                                reaction(p, entity, Elements.EARTH);
                                 react.remove(entity1.getUniqueId());
                             }
                             case ELECTRONIC -> {
-                                reaction(p, entity1, Elements.ELECTRONIC);
+                                reaction(p, entity, Elements.ELECTRONIC);
                                 react.remove(entity1.getUniqueId());
                             }
                             case FIRE -> {
-                                reaction(p, entity1, Elements.FIRE);
+                                reaction(p, entity, Elements.FIRE);
                                 react.remove(entity1.getUniqueId());
                             }
                             case LIGHT -> {
-                                reaction(p, entity1, Elements.LIGHT);
+                                reaction(p, entity, Elements.LIGHT);
                                 react.remove(entity1.getUniqueId());
                             }
                         }
+                        react.remove(entity.getUniqueId());
                     }
                     else{
                         react.put(entity1.getUniqueId(), elements);
