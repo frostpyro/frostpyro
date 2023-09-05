@@ -30,7 +30,7 @@ public class Reaction {
                         react.remove(entity.getUniqueId());
                     }
                     case ICE -> {
-
+                        react.remove(entity.getUniqueId());
                     }
                     case EARTH -> {
 
