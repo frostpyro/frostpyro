@@ -76,7 +76,7 @@ public class Reaction {
 
                         switch(newElement){
                             case ICE->{
-                                reaction(p, entity, Elements.ICE);
+                                reaction(p, entity1, Elements.ICE);
                                 react.remove(entity1.getUniqueId());
                             }
                             case EARTH -> {
@@ -84,15 +84,15 @@ public class Reaction {
                                 react.remove(entity1.getUniqueId());
                             }
                             case ELECTRONIC -> {
-                                reaction(p, entity, Elements.ELECTRONIC);
+                                reaction(p, entity1, Elements.ELECTRONIC);
                                 react.remove(entity1.getUniqueId());
                             }
                             case FIRE -> {
-                                reaction(p, entity, Elements.FIRE);
+                                reaction(p, entity1, Elements.FIRE);
                                 react.remove(entity1.getUniqueId());
                             }
                             case LIGHT -> {
-                                reaction(p, entity, Elements.LIGHT);
+                                reaction(p, entity1, Elements.LIGHT);
                                 react.remove(entity1.getUniqueId());
                             }
                         }
