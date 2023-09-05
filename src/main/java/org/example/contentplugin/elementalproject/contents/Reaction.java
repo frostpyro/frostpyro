@@ -85,10 +85,12 @@ public class Reaction {
                                 react.remove(entity1.getUniqueId());
                             }
                             case FIRE -> {
-
+                                reaction(p, entity1, Elements.FIRE);
+                                react.remove(entity1.getUniqueId());
                             }
                             case LIGHT -> {
-
+                                reaction(p, entity1, Elements.LIGHT);
+                                react.remove(entity1.getUniqueId());
                             }
                         }
                     }
