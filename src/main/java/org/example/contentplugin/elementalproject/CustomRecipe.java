@@ -1,28 +1,41 @@
 package org.example.contentplugin.elementalproject;
 
 public class CustomRecipe {
+
     ElementalProject plugin;
     public CustomRecipe(ElementalProject _plugin){
         plugin = _plugin;
     }
 
-    public void createTable(){
+    private void createTable(){
 
     }
 
-    public void furnace(){
+    private void furnace(){
 
     }
 
-    public void smoker(){
+    private void smoker(){
 
     }
 
-    public void smite(){
+    private void smite(){
 
     }
 
-    public void blackSmith(){
+    private void blackSmith(){
 
+    }
+
+    private void forge(){
+
+    }
+    public void summary(){
+        createTable();
+        furnace();
+        smoker();
+        smite();
+        blackSmith();
+        forge();
     }
 }

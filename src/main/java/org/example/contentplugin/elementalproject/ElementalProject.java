@@ -31,7 +31,8 @@ public class ElementalProject extends JavaPlugin {
 
 
         plugin = this;
-        new CustomRecipe(this);
+        CustomRecipe custom = new CustomRecipe(this);
+
         this.dataBase = new DataBase();
         try{
             this.dataBase.initialize();
@@ -48,6 +49,7 @@ public class ElementalProject extends JavaPlugin {
                 dailyQuest.countReset(p);
             }
         }, 0, 2);
+        custom.summary();
     }
 
     @Override
