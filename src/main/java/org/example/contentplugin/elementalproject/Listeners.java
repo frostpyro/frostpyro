@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
@@ -130,6 +129,7 @@ public class Listeners implements Listener {
     @EventHandler
     private void entityDamage(EntityDamageByEntityEvent event){
         Player p = (Player) event.getDamager();
-
+        //TODO: modify damage by stat and player's build
+        event.setDamage(p.getLastDamage());
     }
 }
