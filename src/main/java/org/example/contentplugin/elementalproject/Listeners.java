@@ -7,6 +7,8 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
@@ -123,5 +125,10 @@ public class Listeners implements Listener {
         overWorld.levelSetting(entity);
         nether.levelSetting(entity);
         end.levelSetting(entity);
+    }
+
+    @EventHandler
+    private void entityDamage(EntityDamageByEntityEvent event){
+        Player p = (Player) event.getDamager();
     }
 }

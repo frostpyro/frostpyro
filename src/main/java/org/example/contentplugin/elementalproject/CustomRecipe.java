@@ -1,5 +1,7 @@
 package org.example.contentplugin.elementalproject;
 
+import org.bukkit.inventory.ShapedRecipe;
+
 public class CustomRecipe {
 
     ElementalProject plugin;
