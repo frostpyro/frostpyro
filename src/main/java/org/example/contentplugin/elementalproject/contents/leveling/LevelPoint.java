@@ -58,7 +58,7 @@ public class LevelPoint {
         Location nether = new Location(Bukkit.getServer().getWorld("world_nether"),0 , 70, 0);
 
         Location endWorld = new Location(Bukkit.getServer().getWorld("world_the_end"), 0, 70, 0);
-
+        //TODO: config 읽어오기
         switch (entity.getWorld().getName()){
             case "world" ->{
                 if(!(entity instanceof LivingEntity)) return;

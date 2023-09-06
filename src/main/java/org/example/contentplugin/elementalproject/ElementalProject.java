@@ -31,6 +31,7 @@ public class ElementalProject extends JavaPlugin {
 
 
         plugin = this;
+        new CustomRecipe(this);
         this.dataBase = new DataBase();
         try{
             this.dataBase.initialize();
@@ -59,9 +60,7 @@ public class ElementalProject extends JavaPlugin {
         return plugin;
     }
 
-    public static NamespacedKey sequence(){
-        return new NamespacedKey(plugin, "sequence");
-    }
+
     public static NamespacedKey dailyList(){
         return new NamespacedKey(getPlugin(), "dailyQuest");
     }
