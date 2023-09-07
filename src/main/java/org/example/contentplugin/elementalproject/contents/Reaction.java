@@ -13,13 +13,13 @@ import java.util.UUID;
 public class Reaction {
     private Map<UUID, Elements> react = new HashMap<>();
 
-    public void hit(Entity entity, Elements elements){
+    protected void hit(Entity entity, Elements elements){
         if((entity instanceof LivingEntity)) return;
         if(!react.isEmpty()) return;
         react.put(entity.getUniqueId(), elements);
     }
 
-    public void reaction(Player p, Entity entity, Elements baseElement){
+    protected void reaction(Player p, Entity entity, Elements baseElement){
         if(react.get(entity.getUniqueId())==null) return;
 
         Elements elements = react.get(entity.getUniqueId());
