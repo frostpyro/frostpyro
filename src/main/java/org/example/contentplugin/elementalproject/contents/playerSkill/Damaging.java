@@ -43,8 +43,6 @@ public class Damaging {
         return loc.add(vector1.multiply(Math.sin(rad))).add(vector2.multiply(Math.cos(rad)));
     }
     public void spawnParticle(Particle particle , Location location, World w, int delayTask, int particleNum){
-        Bukkit.getScheduler().runTaskLater(ElementalProject.getPlugin(), ()-> {
-            w.spawnParticle(particle, location, particleNum);
-        },delayTask);
+        Bukkit.getScheduler().runTaskLater(ElementalProject.getPlugin(), ()-> w.spawnParticle(particle, location, particleNum),delayTask);
     }
 }
