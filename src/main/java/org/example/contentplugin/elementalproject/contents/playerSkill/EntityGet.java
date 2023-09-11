@@ -4,16 +4,10 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public class EntityGet {
-    public Entity entity(Player p, double range, double radius, Location location){
-        for(Entity entity : p.getNearbyEntities(radius, radius, radius)){
-
-            double entityPos = entity.getLocation().distance(location);
-
-            if(entityPos > range) continue;
-
-            return entity;
-        }
-        return null;
+    public List<Entity> entity(Player p, double radius){
+        return p.getNearbyEntities(radius, radius, radius);
     }
 }
