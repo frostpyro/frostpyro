@@ -31,10 +31,6 @@ public class PlayerStat {
         return playerUUID;
     }
 
-    public void setPlayerUUID(String playerUUID) {
-        this.playerUUID = playerUUID;
-    }
-
     public int getLevel() {
         return level;
     }
