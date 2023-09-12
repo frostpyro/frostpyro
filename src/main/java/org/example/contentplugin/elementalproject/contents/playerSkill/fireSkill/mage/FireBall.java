@@ -1,4 +1,4 @@
-package org.example.contentplugin.elementalproject.contents.playerSkill.fireSkill;
+package org.example.contentplugin.elementalproject.contents.playerSkill.fireSkill.mage;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -8,5 +8,8 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.attackMet
 
 
 public class FireBall extends Reaction implements BaseAttack {
+    @Override
+    public void attacking(PlayerInteractEvent event) {
 
+    }
 }
