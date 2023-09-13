@@ -1,10 +1,10 @@
-package org.example.contentplugin.elementalproject.contents.playerSkill.lightSkill.mage;
+package org.example.contentplugin.elementalproject.contents.playerSkill.electronicSkill.archer;
 
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.example.contentplugin.elementalproject.contents.Reaction;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.BaseAttack;
 
-public class LightChain extends Reaction implements BaseAttack {
+public class ElectronicBolt extends Reaction implements BaseAttack {
     @Override
     public void attacking(PlayerInteractEvent event) {
 
