@@ -1,18 +1,12 @@
 package org.example.contentplugin.elementalproject.damageMethod.classes;
 
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.example.contentplugin.elementalproject.contents.playerSkill.airSkill.mage.AirEmit;
 import org.example.contentplugin.elementalproject.contents.playerSkill.airSkill.sword.AirWhip;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.BaseAttack;
-import org.example.contentplugin.elementalproject.contents.playerSkill.earthSkill.mage.EarthRock;
 import org.example.contentplugin.elementalproject.contents.playerSkill.earthSkill.sword.EarthStrike;
-import org.example.contentplugin.elementalproject.contents.playerSkill.electronicSkill.mage.ElectronicChain;
 import org.example.contentplugin.elementalproject.contents.playerSkill.electronicSkill.sword.ElectronicCharge;
-import org.example.contentplugin.elementalproject.contents.playerSkill.fireSkill.mage.FireBall;
 import org.example.contentplugin.elementalproject.contents.playerSkill.fireSkill.sword.FIreSlash;
-import org.example.contentplugin.elementalproject.contents.playerSkill.iceSkill.mage.IceSpike;
 import org.example.contentplugin.elementalproject.contents.playerSkill.iceSkill.sword.IceSlash;
-import org.example.contentplugin.elementalproject.contents.playerSkill.lightSkill.mage.LightEmit;
 import org.example.contentplugin.elementalproject.contents.playerSkill.lightSkill.sword.LightSlash;
 import org.example.contentplugin.elementalproject.damageMethod.ClassAttack;
 
