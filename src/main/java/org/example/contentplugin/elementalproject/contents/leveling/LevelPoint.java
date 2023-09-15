@@ -1,6 +1,8 @@
 package org.example.contentplugin.elementalproject.contents.leveling;
 
 import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -109,6 +111,7 @@ public class LevelPoint {
                 else if(distance <= rad * 10.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(95));
 
                 else data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(100));
+
             }
 
             case "world_nether" ->{
@@ -172,6 +175,10 @@ public class LevelPoint {
                 else data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(150));
             }
         }
+        PersistentDataContainer dataSum = entity.getPersistentDataContainer();
+        int level = dataSum.get(ElementalProject.level(), PersistentDataType.INTEGER);
+        AttributeInstance attribute = ((LivingEntity) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        attribute.setBaseValue(attribute.getDefaultValue() + (level * 0.5));
     }
     public void expModifyByMob(Player p, Entity entity){
         try{
