@@ -1,0 +1,32 @@
+mobs:
+  slimes:
+      "SLIME"
+      "MAGMA_CUBE"
+  first:
+      "SHEEP"
+      "COW"
+      "BAT"
+      "PIG"
+      "LLAMA"
+      "BEE"
+      "CHICKEN"
+      "VILLAGER"
+      "FOX"
+  second:
+      "ZOMBIE"
+      "SKELETON"
+      "CREEPER"
+      "SPIDER"
+      "ZOMBIFIED_VILLAGER"
+      "DROWNED"
+  third:
+      "PIGLIN"
+      "HOGLIN"
+      "IRON_GOLEM"
+      "WITCH"
+exp:
+  overWorld:
+
+  nether:
+
+  end:

@@ -60,6 +60,9 @@ public class LevelPoint {
         Location nether = new Location(Bukkit.getServer().getWorld("world_nether"),0 , 70, 0);
 
         Location endWorld = new Location(Bukkit.getServer().getWorld("world_the_end"), 0, 70, 0);
+
+        AttributeInstance attribute = ((LivingEntity)entity).getAttribute(Attribute.GENERIC_MAX_HEALTH);
+
         //TODO: config 읽어오기
         switch (entity.getWorld().getName()){
             case "world" ->{
@@ -112,6 +115,8 @@ public class LevelPoint {
 
                 else data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(100));
 
+                int level = data.get(ElementalProject.level(), PersistentDataType.INTEGER);
+                attribute.setBaseValue(attribute.getBaseValue() + ((double)level * 0.5));
             }
 
             case "world_nether" ->{
@@ -162,6 +167,9 @@ public class LevelPoint {
                 else if(distance <= rad * 10.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(110));
 
                 else data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(115));
+
+                int level = data.get(ElementalProject.level(), PersistentDataType.INTEGER);
+                attribute.setBaseValue(attribute.getBaseValue() + (double)level);
             }
             case "world_the_end" ->{
                 if(!(entity instanceof LivingEntity)) return;
@@ -173,12 +181,12 @@ public class LevelPoint {
                 if(distance <= rad) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(100));
 
                 else data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(150));
+
+                int level = data.get(ElementalProject.level(), PersistentDataType.INTEGER);
+                attribute.setBaseValue(attribute.getBaseValue() + ((double)level * 1.4));
             }
         }
-        PersistentDataContainer dataSum = entity.getPersistentDataContainer();
-        int level = dataSum.get(ElementalProject.level(), PersistentDataType.INTEGER);
-        AttributeInstance attribute = ((LivingEntity) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH);
-        attribute.setBaseValue(attribute.getDefaultValue() + (level * 0.5));
+
     }
     public void expModifyByMob(Player p, Entity entity){
         try{
@@ -187,7 +195,6 @@ public class LevelPoint {
 
 
             PersistentDataContainer data = entity.getPersistentDataContainer();
-
             int amplify;
             //level amplifying method by getting level
             if(!data.has(new NamespacedKey(ElementalProject.getPlugin(), "level"), PersistentDataType.INTEGER)){
@@ -208,12 +215,12 @@ public class LevelPoint {
                     playerStat.setExp(playerStat.getExp() + amplify/5.0);
                     dataBase.updateData(playerStat);
                 }
-                case ZOMBIE, SKELETON, SPIDER, CREEPER, ZOMBIE_VILLAGER-> {
+                case ZOMBIE, SKELETON, SPIDER, CREEPER, ZOMBIE_VILLAGER, DROWNED-> {
                     if(playerStat.getLevel() >= 100) return;
                     playerStat.setExp(playerStat.getExp() + (8 + amplify * 1.5));
                     dataBase.updateData(playerStat);
                 }
-                case PIGLIN, HOGLIN, WITCH -> {
+                case PIGLIN, HOGLIN, WITCH, IRON_GOLEM -> {
                     if(playerStat.getLevel() >= 100) return;
                     playerStat.setExp(playerStat.getExp() + (12 + amplify * 1.5));
                     dataBase.updateData(playerStat);
