@@ -3,7 +3,9 @@ package org.example.contentplugin.elementalproject;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
+import org.bukkit.World;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Panda;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,15 +31,18 @@ public class ElementalProject extends JavaPlugin {
     public void onEnable() {
         this.dataBase = new DataBase();
 
-
+        World over = getServer().getWorld("world");
+        World nether = getServer().getWorld("world_nether");
+        World end = getServer().getWorld("world_the_end");
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_AQUA + "main DB site is player_stat");
-        levelPoint = new LevelPoint(1);
+        levelPoint = new LevelPoint();
 
 
         plugin = this;
         CustomRecipe custom = new CustomRecipe(this);
         dataBase.configFunc();
+
 
         try{
             this.dataBase.initialize();
@@ -46,7 +51,6 @@ public class ElementalProject extends JavaPlugin {
             e.printStackTrace();
             console.sendMessage(ChatColor.RED + "Failed to initialize data");
         }
-
         new Listeners(this);
         console.sendMessage(ChatColor.GREEN + "PLUGIN ENABLED");
         getServer().getScheduler().scheduleSyncRepeatingTask(this, () ->{

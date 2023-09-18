@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.persistence.PersistentDataType;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuestGet;
@@ -32,11 +33,9 @@ import java.util.Date;
 public class Listeners implements Listener {
 
     DailyQuestGet dailyQuest = new DailyQuestGet("differentDay");
-    LevelPoint levelPoint = new LevelPoint(300);
+    LevelPoint levelPoint = new LevelPoint();
 
-    LevelPoint overWorld = new LevelPoint(300);
-    LevelPoint nether = new LevelPoint(200);
-    LevelPoint end = new LevelPoint(10);
+
     DataBase dataBase = new DataBase();
     Clicking left = new LeftClick();
     Clicking rll = new RLL();
@@ -121,14 +120,14 @@ public class Listeners implements Listener {
     @EventHandler
     private void entitySpawn(EntitySpawnEvent event){
         Entity entity = event.getEntity();
-        overWorld.levelSetting(entity);
-        nether.levelSetting(entity);
-        end.levelSetting(entity);
+        levelPoint.levelSetting(entity);
+        levelPoint.maxHealthMod(entity);
     }
 
     @EventHandler
     private void entityDamage(EntityDamageByEntityEvent event){
-        Player p = (Player) event.getDamager();
+
+
         //TODO: modify damage by stat and player's build
 
     }

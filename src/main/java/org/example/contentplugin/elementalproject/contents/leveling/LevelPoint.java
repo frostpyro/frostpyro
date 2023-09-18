@@ -4,6 +4,8 @@ import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -23,17 +25,11 @@ public class LevelPoint {
     DataBase dataBase = new DataBase();
     Random random = new Random();
 
-    Location overWorld = Objects.requireNonNull(Bukkit.getServer().getWorld("world")).getSpawnLocation();
 
-    Location nether = new Location(Bukkit.getServer().getWorld("world_nether"),0 , 70, 0);
 
-    Location endWorld = new Location(Bukkit.getServer().getWorld("world_the_end"), 0, 70, 0);
 
-    private double rad;
 
-    public LevelPoint(double rad){
-        this.rad = rad;
-    }
+
     private PlayerStat getPlayerStat(Player p) throws SQLException {
         PlayerStat playerStat = dataBase.findUUID(p.getUniqueId().toString());
         if(playerStat == null){
@@ -47,50 +43,46 @@ public class LevelPoint {
         return 1 + randValue + amplify;
     }
 
-    private int defaultDistance(Entity entity, int locate, String world){
-        double distance;
-        double maxDistance;
-        switch(world){
-            case "overWorld" ->{
-                distance = entity.getLocation().distance(overWorld);
-                maxDistance = 3150;
-            }
-            case "nether" ->{
-                distance = entity.getLocation().distance(nether);
-                maxDistance = 2100;
-            }
-            case "end" ->{
-                distance = entity.getLocation().distance(endWorld);
-                maxDistance = 10;
-            }
-            default ->{
-                distance = 0;
-                maxDistance = 0;
-            }
-        }
-        int level = 0;
-        for(String rangeKey : ElementalProject.getPlugin().getConfig().getConfigurationSection("expDistance."+ world).getKeys(false)){
-            double range = Double.parseDouble(rangeKey);
-            if(distance <= range){
-                level = ElementalProject.getPlugin().getConfig().getInt("expDistance" + rangeKey);
-                break;
-            }
-            if(distance > maxDistance){
-                switch(world){
-                    case "overWorld" ->{
-                        level = 100;
+    private void levelMod(Entity entity, int locate, String world){
+        World over = Bukkit.getServer().getWorld("world");
+        World nether = Bukkit.getServer().getWorld("world_nether");
+        World end = Bukkit.getServer().getWorld("world_the_end");
 
+        Location overLoc = new Location(over,0,60,0);
+        Location netherLoc = new Location(nether,0,60,0);
+        Location endLoc = new Location(end,0,60,0);
+
+        PersistentDataContainer data = entity.getPersistentDataContainer();
+        if(!(entity instanceof LivingEntity)) return;
+        ConfigurationSection config = ElementalProject.getPlugin().getConfig().getConfigurationSection("expDistance."+ world);
+        if(config != null){
+            double distance = 0;
+            switch(world){
+                case "overWorld" -> distance = entity.getLocation().distance(overLoc);
+                case "nether" -> distance = entity.getLocation().distance(netherLoc);
+                case "end" -> distance = entity.getLocation().distance(endLoc);
+            }
+            int level = 10;
+
+            for(String key : config.getKeys(false)){
+                Bukkit.getConsoleSender().sendMessage("확인용");
+                ConfigurationSection section = ElementalProject.getPlugin().getConfig().getConfigurationSection(key);
+                //TODO : for 문은 문제가 없으나 section 부분에 문제가 생김. 따라서 이 부분을 고치는 것이 주요 목표 이다.
+                if(section != null){
+
+                    if(1000 >= distance){
+                        level = config.getInt(key);
+                        break;
                     }
-                    case "nether" ->{
-                        level = 115;
-                    }
-                    case "end" ->{
-                        level = 150;
-                    }
+
                 }
             }
+            if(!data.has(ElementalProject.level(), PersistentDataType.INTEGER)){
+                data.set(ElementalProject.level(), PersistentDataType.INTEGER, level);
+            }
+            data.set(ElementalProject.level(), PersistentDataType.INTEGER, level);
         }
-        return level;
+
     }
 
     private void levelModBase(PlayerStat playerStat, int level, int point, double exp, double expMod){
@@ -110,40 +102,31 @@ public class LevelPoint {
     }
     public void levelSetting(Entity entity){
 
-
-
+        if(!(entity instanceof LivingEntity)) return;
+        AttributeInstance attribute = ((LivingEntity) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        PersistentDataContainer data = entity.getPersistentDataContainer();
+        if(!data.has(ElementalProject.level(), PersistentDataType.INTEGER)) data.set(ElementalProject.level(), PersistentDataType.INTEGER, 1);
         //TODO: config 읽어오기
         switch (entity.getWorld().getName()){
             case "world" ->{
-                if(!(entity instanceof LivingEntity)) return;
+
                 if((entity instanceof Player)) return;
-
-                PersistentDataContainer data = entity.getPersistentDataContainer();
-                if(data.has(ElementalProject.level(), PersistentDataType.INTEGER)) return;
-
-                data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(defaultDistance(entity, 0, "overWorld")));
+                levelMod(entity, 0, "overWorld");
 
             }
 
             case "world_nether" ->{
-                if(!(entity instanceof LivingEntity)) return;
+
                 if((entity instanceof Player)) return;
-
-                PersistentDataContainer data = entity.getPersistentDataContainer();
-                if(data.has(ElementalProject.level(), PersistentDataType.INTEGER)) return;
-
-                data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(defaultDistance(entity, 1, "nether")));
+                levelMod(entity, 0, "nether");
 
 
             }
             case "world_the_end" ->{
-                if(!(entity instanceof LivingEntity)) return;
+
                 if((entity instanceof Player)) return;
+                levelMod(entity, 0, "end");
 
-                PersistentDataContainer data = entity.getPersistentDataContainer();
-                if(data.has(ElementalProject.level(), PersistentDataType.INTEGER)) return;
-
-                data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(defaultDistance(entity, 2, "end")));
             }
         }
     }
@@ -322,5 +305,16 @@ public class LevelPoint {
             e.printStackTrace();
             p.kickPlayer("error while updating data!!" + "error : levelUp");
         }
+    }
+    public void maxHealthMod(Entity entity){
+        if(!(entity instanceof LivingEntity)) return;
+        AttributeInstance maxHealth = ((LivingEntity) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        PersistentDataContainer data = entity.getPersistentDataContainer();
+        int level = data.get(ElementalProject.level(), PersistentDataType.INTEGER);
+        double health = ((LivingEntity) entity).getHealth() + level;
+        if(maxHealth != null){
+            maxHealth.setBaseValue(health);
+        }
+        ((LivingEntity) entity).setHealth(health);
     }
 }
