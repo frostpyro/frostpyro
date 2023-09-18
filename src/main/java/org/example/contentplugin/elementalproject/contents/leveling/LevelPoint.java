@@ -165,7 +165,7 @@ public class LevelPoint {
             EntityType entityType = entity.getType();
 
             switch(entityType){
-                case BAT, COW, MUSHROOM_COW, SHEEP, PIG, CHICKEN, LLAMA, FOX-> {
+                case BAT, COW, MUSHROOM_COW, SHEEP, PIG, CHICKEN, LLAMA, FOX, HORSE, SKELETON_HORSE, ZOMBIE_HORSE-> {
                     if(playerStat.getLevel() == 100) return;
                     playerStat.setExp(playerStat.getExp() + 2 + amplify/10.0);
                     dataBase.updateData(playerStat);
