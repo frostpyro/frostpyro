@@ -29,7 +29,7 @@ public class ElementalProject extends JavaPlugin {
     public void onEnable() {
         this.dataBase = new DataBase();
 
-        dataBase.configFunc();
+
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_AQUA + "main DB site is player_stat");
         levelPoint = new LevelPoint(1);
@@ -37,7 +37,7 @@ public class ElementalProject extends JavaPlugin {
 
         plugin = this;
         CustomRecipe custom = new CustomRecipe(this);
-
+        dataBase.configFunc();
 
         try{
             this.dataBase.initialize();

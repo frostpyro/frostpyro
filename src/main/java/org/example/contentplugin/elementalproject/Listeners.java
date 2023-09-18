@@ -130,6 +130,6 @@ public class Listeners implements Listener {
     private void entityDamage(EntityDamageByEntityEvent event){
         Player p = (Player) event.getDamager();
         //TODO: modify damage by stat and player's build
-        event.setDamage(p.getLastDamage());
+
     }
 }

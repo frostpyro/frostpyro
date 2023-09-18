@@ -13,6 +13,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
+import org.example.contentplugin.elementalproject.contents.Elements;
 
 
 import java.sql.SQLException;
@@ -21,6 +22,13 @@ import java.util.*;
 public class LevelPoint {
     DataBase dataBase = new DataBase();
     Random random = new Random();
+
+    Location overWorld = Objects.requireNonNull(Bukkit.getServer().getWorld("world")).getSpawnLocation();
+
+    Location nether = new Location(Bukkit.getServer().getWorld("world_nether"),0 , 70, 0);
+
+    Location endWorld = new Location(Bukkit.getServer().getWorld("world_the_end"), 0, 70, 0);
+
     private double rad;
 
     public LevelPoint(double rad){
@@ -37,6 +45,52 @@ public class LevelPoint {
     private int randomLevel(int amplify){
         int randValue = random.nextInt(4);
         return 1 + randValue + amplify;
+    }
+
+    private int defaultDistance(Entity entity, int locate, String world){
+        double distance;
+        double maxDistance;
+        switch(world){
+            case "overWorld" ->{
+                distance = entity.getLocation().distance(overWorld);
+                maxDistance = 3150;
+            }
+            case "nether" ->{
+                distance = entity.getLocation().distance(nether);
+                maxDistance = 2100;
+            }
+            case "end" ->{
+                distance = entity.getLocation().distance(endWorld);
+                maxDistance = 10;
+            }
+            default ->{
+                distance = 0;
+                maxDistance = 0;
+            }
+        }
+        int level = 0;
+        for(String rangeKey : ElementalProject.getPlugin().getConfig().getConfigurationSection("expDistance."+ world).getKeys(false)){
+            double range = Double.parseDouble(rangeKey);
+            if(distance <= range){
+                level = ElementalProject.getPlugin().getConfig().getInt("expDistance" + rangeKey);
+                break;
+            }
+            if(distance > maxDistance){
+                switch(world){
+                    case "overWorld" ->{
+                        level = 100;
+
+                    }
+                    case "nether" ->{
+                        level = 115;
+                    }
+                    case "end" ->{
+                        level = 150;
+                    }
+                }
+            }
+        }
+        return level;
     }
 
     private void levelModBase(PlayerStat playerStat, int level, int point, double exp, double expMod){
@@ -56,13 +110,7 @@ public class LevelPoint {
     }
     public void levelSetting(Entity entity){
 
-        Location overWorld = Objects.requireNonNull(Bukkit.getServer().getWorld("world")).getSpawnLocation();
 
-        Location nether = new Location(Bukkit.getServer().getWorld("world_nether"),0 , 70, 0);
-
-        Location endWorld = new Location(Bukkit.getServer().getWorld("world_the_end"), 0, 70, 0);
-
-        AttributeInstance attribute = ((LivingEntity)entity).getAttribute(Attribute.GENERIC_MAX_HEALTH);
 
         //TODO: config 읽어오기
         switch (entity.getWorld().getName()){
@@ -72,122 +120,32 @@ public class LevelPoint {
 
                 PersistentDataContainer data = entity.getPersistentDataContainer();
                 if(data.has(ElementalProject.level(), PersistentDataType.INTEGER)) return;
-                double distance = entity.getLocation().distance(overWorld);
-                //mob leveling by distance
-                if(distance <= rad) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(0));
 
-                else if(distance <= rad * 1.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(5));
+                data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(defaultDistance(entity, 0, "overWorld")));
 
-                else if(distance <= rad * 2) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(10));
-
-                else if(distance <= rad * 2.5)  data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(15));
-
-                else if(distance <= rad * 3) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(20));
-
-                else if(distance <= rad * 3.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(25));
-
-                else if(distance <= rad * 4.0) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(30));
-
-                else if(distance <= rad * 4.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(35));
-
-                else if(distance <= rad * 5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(40));
-
-                else if(distance <= rad * 5.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(45));
-
-                else if(distance <= rad * 6) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(50));
-
-                else if(distance <= rad * 6.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(55));
-
-                else if(distance <= rad * 7) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(60));
-
-                else if(distance <= rad * 7.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(65));
-
-                else if(distance <= rad * 8) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(70));
-
-                else if(distance <= rad * 8.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(75));
-
-                else if(distance <= rad * 9) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(80));
-
-                else if(distance <= rad * 9.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(85));
-
-                else if(distance <= rad * 10) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(90));
-
-                else if(distance <= rad * 10.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(95));
-
-                else data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(100));
-
-                int level = data.get(ElementalProject.level(), PersistentDataType.INTEGER);
-                attribute.setBaseValue(attribute.getBaseValue() + ((double)level * 0.5));
             }
 
             case "world_nether" ->{
                 if(!(entity instanceof LivingEntity)) return;
                 if((entity instanceof Player)) return;
+
                 PersistentDataContainer data = entity.getPersistentDataContainer();
                 if(data.has(ElementalProject.level(), PersistentDataType.INTEGER)) return;
-                double distance = entity.getLocation().distance(nether);
-                //mob leveling by distance
-                if(distance <= rad) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(10));
 
-                else if(distance <= rad * 1.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(20));
+                data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(defaultDistance(entity, 1, "nether")));
 
-                else if(distance <= rad * 2) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(25));
 
-                else if(distance <= rad * 2.5)  data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(30));
-
-                else if(distance <= rad * 3) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(35));
-
-                else if(distance <= rad * 3.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(40));
-
-                else if(distance <= rad * 4.0) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(45));
-
-                else if(distance <= rad * 4.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(50));
-
-                else if(distance <= rad * 5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(55));
-
-                else if(distance <= rad * 5.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(60));
-
-                else if(distance <= rad * 6) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(65));
-
-                else if(distance <= rad * 6.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(70));
-
-                else if(distance <= rad * 7) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(75));
-
-                else if(distance <= rad * 7.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(80));
-
-                else if(distance <= rad * 8) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(85));
-
-                else if(distance <= rad * 8.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(90));
-
-                else if(distance <= rad * 9) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(95));
-
-                else if(distance <= rad * 9.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(100));
-
-                else if(distance <= rad * 10) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(105));
-
-                else if(distance <= rad * 10.5) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(110));
-
-                else data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(115));
-
-                int level = data.get(ElementalProject.level(), PersistentDataType.INTEGER);
-                attribute.setBaseValue(attribute.getBaseValue() + (double)level);
             }
             case "world_the_end" ->{
                 if(!(entity instanceof LivingEntity)) return;
                 if((entity instanceof Player)) return;
+
                 PersistentDataContainer data = entity.getPersistentDataContainer();
                 if(data.has(ElementalProject.level(), PersistentDataType.INTEGER)) return;
-                double distance = entity.getLocation().distance(endWorld);
-                //mob leveling by distance
-                if(distance <= rad) data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(100));
 
-                else data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(150));
-
-                int level = data.get(ElementalProject.level(), PersistentDataType.INTEGER);
-                attribute.setBaseValue(attribute.getBaseValue() + ((double)level * 1.4));
+                data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(defaultDistance(entity, 2, "end")));
             }
         }
-
     }
     public void expModifyByMob(Player p, Entity entity){
         try{
@@ -205,6 +163,7 @@ public class LevelPoint {
                 amplify = data.get(new NamespacedKey(ElementalProject.getPlugin(), "level"), PersistentDataType.INTEGER);
             }
             EntityType entityType = entity.getType();
+
             switch(entityType){
                 case BAT, COW, MUSHROOM_COW, SHEEP, PIG, CHICKEN, LLAMA, FOX-> {
                     if(playerStat.getLevel() == 100) return;
