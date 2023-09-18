@@ -67,7 +67,7 @@ public class LevelPoint {
             for(String key : config.getKeys(false)){
                 Bukkit.getConsoleSender().sendMessage("확인용");
                 ConfigurationSection section = ElementalProject.getPlugin().getConfig().getConfigurationSection(key);
-                //TODO : for 문은 문제가 없으나 section 부분에 문제가 생김. 따라서 이 부분을 고치는 것이 주요 목표 이다.
+                //TODO : for 문은 문제가 없으나 section 부분에 문제가 생김. 따라서 이 부분을 고치는 것이 주요 목표 이다
                 if(section != null){
 
                     if(1000 >= distance){
