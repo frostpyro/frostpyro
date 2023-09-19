@@ -65,16 +65,28 @@ public class LevelPoint {
             int level = 10;
 
             for(String key : config.getKeys(false)){
-                Bukkit.getConsoleSender().sendMessage("확인용");
-                ConfigurationSection section = ElementalProject.getPlugin().getConfig().getConfigurationSection(key);
-                //TODO : for 문은 문제가 없으나 section 부분에 문제가 생김. 따라서 이 부분을 고치는 것이 주요 목표 이다
-                if(section != null){
+                int dist = Integer.parseInt(key);
+                int lev = config.getInt(key);
 
-                    if(1000 >= distance){
-                        level = config.getInt(key);
-                        break;
+                if(distance <= dist){
+                    level = lev;
+                }
+                switch(world){
+                    case "overWorld" ->{
+                        if(dist >= 3150){
+                            level = 100;
+                        }
                     }
-
+                    case "nether" ->{
+                        if(dist >= 2100){
+                            level = 115;
+                        }
+                    }
+                    case "end" ->{
+                        if(dist >= 10){
+                            level = 150;
+                        }
+                    }
                 }
             }
             if(!data.has(ElementalProject.level(), PersistentDataType.INTEGER)){
@@ -82,7 +94,6 @@ public class LevelPoint {
             }
             data.set(ElementalProject.level(), PersistentDataType.INTEGER, level);
         }
-
     }
 
     private void levelModBase(PlayerStat playerStat, int level, int point, double exp, double expMod){
