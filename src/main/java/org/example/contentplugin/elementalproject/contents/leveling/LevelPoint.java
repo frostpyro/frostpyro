@@ -29,7 +29,7 @@ public class LevelPoint {
 
 
 
-
+    //The role of this function : calls player data from SQL
     private PlayerStat getPlayerStat(Player p) throws SQLException {
         PlayerStat playerStat = dataBase.findUUID(p.getUniqueId().toString());
         if(playerStat == null){
@@ -38,11 +38,14 @@ public class LevelPoint {
         }
         return playerStat;
     }
+
+    //The role of this function : add int amplify 1 from 3
     private int randomLevel(int amplify){
         int randValue = random.nextInt(4);
         return 1 + randValue + amplify;
     }
 
+    //The role of this function : set entity's level by distance from (0, 60, 0) and calls distance from YAML
     private void levelMod(Entity entity, int locate, String world){
         //get distance from yaml
         World over = Bukkit.getServer().getWorld("world");
@@ -97,6 +100,7 @@ public class LevelPoint {
         }
     }
 
+    //The role of this function : when the player's exp is full, it changes player's level in SQL
     private void levelModBase(PlayerStat playerStat, int level, int point, double exp, double expMod){
         if(level >= 100) return;
         try{
@@ -318,6 +322,8 @@ public class LevelPoint {
             p.kickPlayer("error while updating data!!" + "error : levelUp");
         }
     }
+
+    //The role of this function : changes entity's max health attribute
     public void maxHealthMod(Entity entity){
         if(!(entity instanceof LivingEntity)) return;
         AttributeInstance maxHealth = ((LivingEntity) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH);
