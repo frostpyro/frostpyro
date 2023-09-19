@@ -26,9 +26,6 @@ public class LevelPoint {
     Random random = new Random();
 
 
-
-
-
     //The role of this function : calls player data from SQL
     private PlayerStat getPlayerStat(Player p) throws SQLException {
         PlayerStat playerStat = dataBase.findUUID(p.getUniqueId().toString());
