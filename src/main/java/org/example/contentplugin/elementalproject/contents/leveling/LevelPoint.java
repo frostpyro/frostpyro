@@ -43,7 +43,7 @@ public class LevelPoint {
     }
 
     //The role of this function : set entity's level by distance from (0, 60, 0) and calls distance from YAML
-    private void levelMod(Entity entity, int locate, String world){
+    private void levelMod(Entity entity, String world){
         //get distance from yaml
         World over = Bukkit.getServer().getWorld("world");
         World nether = Bukkit.getServer().getWorld("world_nether");
@@ -124,21 +124,21 @@ public class LevelPoint {
             case "world" ->{
 
                 if((entity instanceof Player)) return;
-                levelMod(entity, 0, "overWorld");
+                levelMod(entity, "overWorld");
 
             }
 
             case "world_nether" ->{
 
                 if((entity instanceof Player)) return;
-                levelMod(entity, 0, "nether");
+                levelMod(entity, "nether");
 
 
             }
             case "world_the_end" ->{
 
                 if((entity instanceof Player)) return;
-                levelMod(entity, 0, "end");
+                levelMod(entity, "end");
 
             }
         }
