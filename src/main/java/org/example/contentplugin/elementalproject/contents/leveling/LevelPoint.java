@@ -44,6 +44,7 @@ public class LevelPoint {
     }
 
     private void levelMod(Entity entity, int locate, String world){
+        //get distance from yaml
         World over = Bukkit.getServer().getWorld("world");
         World nether = Bukkit.getServer().getWorld("world_nether");
         World end = Bukkit.getServer().getWorld("world_the_end");
@@ -117,7 +118,7 @@ public class LevelPoint {
         AttributeInstance attribute = ((LivingEntity) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH);
         PersistentDataContainer data = entity.getPersistentDataContainer();
         if(!data.has(ElementalProject.level(), PersistentDataType.INTEGER)) data.set(ElementalProject.level(), PersistentDataType.INTEGER, 1);
-        //TODO: config 읽어오기
+        //DONE
         switch (entity.getWorld().getName()){
             case "world" ->{
 
