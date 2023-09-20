@@ -6,6 +6,7 @@ import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -41,7 +42,6 @@ public class LevelPoint {
         int randValue = random.nextInt(4);
         return 1 + randValue + amplify;
     }
-
     //The role of this function : set entity's level by distance from (0, 60, 0) and calls distance from YAML
     private void levelMod(Entity entity, String world){
         //get distance from yaml
@@ -96,6 +96,15 @@ public class LevelPoint {
             data.set(ElementalProject.level(), PersistentDataType.INTEGER, level);
         }
     }
+    private void levelUp(Player p){
+        ConfigurationSection config = ElementalProject.getPlugin().getConfig().getConfigurationSection("level");
+
+        if(config != null){
+            for(String key : config.getKeys(false)){
+
+            }
+        }
+    }
 
     //The role of this function : when the player's exp is full, it changes player's level in SQL
     private void levelModBase(PlayerStat playerStat, int level, int point, double exp, double expMod){
@@ -122,24 +131,18 @@ public class LevelPoint {
         //DONE
         switch (entity.getWorld().getName()){
             case "world" ->{
-
                 if((entity instanceof Player)) return;
                 levelMod(entity, "overWorld");
-
             }
 
             case "world_nether" ->{
-
                 if((entity instanceof Player)) return;
                 levelMod(entity, "nether");
-
-
             }
-            case "world_the_end" ->{
 
+            case "world_the_end" ->{
                 if((entity instanceof Player)) return;
                 levelMod(entity, "end");
-
             }
         }
     }
@@ -219,7 +222,7 @@ public class LevelPoint {
                 case PLAYER ->{
                     if(playerStat.getLevel() <= 100) return;
                     if(playerStat.getLevel() >= 200) return;
-                    playerStat.setExp(playerStat.getExp() + 100 + ((Player)entity).getLevel());
+                    playerStat.setExp(playerStat.getExp() + 1000 + ((Player)entity).getLevel());
                     dataBase.updateData(playerStat);
                 }
                 default -> playerStat.setExp(playerStat.getExp());
@@ -312,11 +315,10 @@ public class LevelPoint {
 
                 case 99 -> levelModBase(playerStat, level, point, exp, 60000);
             }
-
         }
         catch (SQLException e){
             e.printStackTrace();
-            p.kickPlayer("error while updating data!!" + "error : levelUp");
+            p.kickPlayer("error while updating data. " + "error : levelUp");
         }
     }
 
