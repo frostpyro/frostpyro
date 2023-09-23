@@ -30,10 +30,8 @@ public class ElementalProject extends JavaPlugin {
     @Override
     public void onEnable() {
         this.dataBase = new DataBase();
+        saveConfig();
 
-        World over = getServer().getWorld("world");
-        World nether = getServer().getWorld("world_nether");
-        World end = getServer().getWorld("world_the_end");
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_AQUA + "main DB site is player_stat");
         levelPoint = new LevelPoint();
@@ -43,6 +41,7 @@ public class ElementalProject extends JavaPlugin {
         CustomRecipe custom = new CustomRecipe(this);
         dataBase.configFunc();
 
+        reloadConfig();
 
         try{
             this.dataBase.initialize();

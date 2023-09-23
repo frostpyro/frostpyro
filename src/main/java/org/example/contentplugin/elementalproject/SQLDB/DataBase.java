@@ -36,11 +36,12 @@ public class DataBase extends SQLBase{
     }
 
     public void configFunc(){
-        ElementalProject.getPlugin().saveConfig();
+
         File configFile = new File(ElementalProject.getPlugin().getDataFolder(),  "config.yml");
         if(configFile.length() != 0) return;
         ElementalProject.getPlugin().getConfig().options().copyDefaults(true);
         ElementalProject.getPlugin().saveConfig();
+        Bukkit.getConsoleSender().sendMessage("config enabled!");
     }
 }
 

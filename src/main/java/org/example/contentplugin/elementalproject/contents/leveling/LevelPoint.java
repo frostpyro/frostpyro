@@ -56,27 +56,29 @@ public class LevelPoint {
 
         PersistentDataContainer data = entity.getPersistentDataContainer();
         if(!(entity instanceof LivingEntity)) return;
-        ConfigurationSection configBase = ElementalProject.getPlugin().getConfig().getConfigurationSection("expDistance");
-        if(configBase != null){
-            ConfigurationSection config = configBase.getConfigurationSection(world);
-            double distance = 0;
-            switch(world){
-                case "overWorld" -> distance = entity.getLocation().distance(overLoc);
-                case "nether" -> distance = entity.getLocation().distance(netherLoc);
-                case "end" -> distance = entity.getLocation().distance(endLoc);
-            }
-            int level = 0;
 
+        ConfigurationSection configRoot = ElementalProject.getPlugin().getConfig().getConfigurationSection("expDistance");
+        if(configRoot != null){
+            ConfigurationSection config = configRoot.getConfigurationSection(world);
             if(config != null){
+                Bukkit.getConsoleSender().sendMessage("checked");
+                double distance = 0;
+                switch(world){
+                    case "over" -> distance = entity.getLocation().distance(overLoc);
+                    case "nether" -> distance = entity.getLocation().distance(netherLoc);
+                    case "end" -> distance = entity.getLocation().distance(endLoc);
+                }
+
+                int level = 0;
                 for(String key : config.getKeys(false)){
+
                     int dist = Integer.parseInt(key);
                     int lev = config.getInt(key);
-
                     if(distance >= dist){
                         level = lev;
                     }
                     switch(world){
-                        case "overWorld" ->{
+                        case "over" ->{
                             if(distance >= 3150){
                                 level = 100;
                             }
@@ -93,22 +95,14 @@ public class LevelPoint {
                         }
                     }
                 }
-            }
-            if(!data.has(ElementalProject.level(), PersistentDataType.INTEGER)){
-                data.set(ElementalProject.level(), PersistentDataType.INTEGER, level);
-            }
-            data.set(ElementalProject.level(), PersistentDataType.INTEGER, level);
-        }
-    }
-    private void levelUp(Player p){
-        ConfigurationSection config = ElementalProject.getPlugin().getConfig().getConfigurationSection("level");
-
-        if(config != null){
-            for(String key : config.getKeys(false)){
-
+                if(!data.has(ElementalProject.level(), PersistentDataType.INTEGER)){
+                    data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(level));
+                }
+                data.set(ElementalProject.level(), PersistentDataType.INTEGER, randomLevel(level));
             }
         }
     }
+
 
     //The role of this function : when the player's exp is full, it changes player's level in SQL
     private void levelModBase(PlayerStat playerStat, int level, int point, double exp, double expMod){
@@ -127,7 +121,7 @@ public class LevelPoint {
         }
     }
     public void levelSetting(Entity entity){
-
+        if(entity == null) return;
         if(!(entity instanceof LivingEntity)) return;
         AttributeInstance attribute = ((LivingEntity) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH);
         PersistentDataContainer data = entity.getPersistentDataContainer();
@@ -136,7 +130,7 @@ public class LevelPoint {
         switch (entity.getWorld().getName()){
             case "world" ->{
                 if((entity instanceof Player)) return;
-                levelMod(entity, "overWorld");
+                levelMod(entity, "over");
             }
 
             case "world_nether" ->{
