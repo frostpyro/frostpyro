@@ -19,6 +19,7 @@ import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.Elements;
 
 
+import java.io.ObjectInputFilter;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -55,37 +56,40 @@ public class LevelPoint {
 
         PersistentDataContainer data = entity.getPersistentDataContainer();
         if(!(entity instanceof LivingEntity)) return;
-        ConfigurationSection config = ElementalProject.getPlugin().getConfig().getConfigurationSection("expDistance."+ world);
-        if(config != null){
+        ConfigurationSection configBase = ElementalProject.getPlugin().getConfig().getConfigurationSection("expDistance");
+        if(configBase != null){
+            ConfigurationSection config = configBase.getConfigurationSection(world);
             double distance = 0;
             switch(world){
                 case "overWorld" -> distance = entity.getLocation().distance(overLoc);
                 case "nether" -> distance = entity.getLocation().distance(netherLoc);
                 case "end" -> distance = entity.getLocation().distance(endLoc);
             }
-            int level = 10;
+            int level = 0;
 
-            for(String key : config.getKeys(false)){
-                int dist = Integer.parseInt(key);
-                int lev = config.getInt(key);
+            if(config != null){
+                for(String key : config.getKeys(false)){
+                    int dist = Integer.parseInt(key);
+                    int lev = config.getInt(key);
 
-                if(distance <= dist){
-                    level = lev;
-                }
-                switch(world){
-                    case "overWorld" ->{
-                        if(dist >= 3150){
-                            level = 100;
-                        }
+                    if(distance >= dist){
+                        level = lev;
                     }
-                    case "nether" ->{
-                        if(dist >= 2100){
-                            level = 115;
+                    switch(world){
+                        case "overWorld" ->{
+                            if(distance >= 3150){
+                                level = 100;
+                            }
                         }
-                    }
-                    case "end" ->{
-                        if(dist >= 10){
-                            level = 150;
+                        case "nether" ->{
+                            if(distance >= 2100){
+                                level = 115;
+                            }
+                        }
+                        case "end" ->{
+                            if(distance >= 10){
+                                level = 150;
+                            }
                         }
                     }
                 }
