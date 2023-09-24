@@ -123,7 +123,6 @@ public class LevelPoint {
     public void levelSetting(Entity entity){
         if(entity == null) return;
         if(!(entity instanceof LivingEntity)) return;
-        AttributeInstance attribute = ((LivingEntity) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH);
         PersistentDataContainer data = entity.getPersistentDataContainer();
         if(!data.has(ElementalProject.level(), PersistentDataType.INTEGER)) data.set(ElementalProject.level(), PersistentDataType.INTEGER, 1);
         //DONE
@@ -242,76 +241,15 @@ public class LevelPoint {
             double exp = playerStat.getExp();
             int point = playerStat.getPoint();
 
-            switch (level){
-                case 0, 1, 2 -> {
-                    levelModBase(playerStat, level, point, exp, 50);
+            ConfigurationSection config = ElementalProject.getPlugin().getConfig().getConfigurationSection("levelUp");
+            if(config != null){
+                for(String key : config.getKeys(false)){
+                    int lev = Integer.parseInt(key);
+                    double expr = config.getDouble(key);
+                    if(level == lev){
+                        levelModBase(playerStat, level, point, exp, expr);
+                    }
                 }
-
-                case 3, 4, 5 -> levelModBase(playerStat, level, point, exp, 150);
-
-                case 6, 7, 8 -> levelModBase(playerStat, level, point, exp, 250);
-
-                case 9, 10, 11 -> levelModBase(playerStat, level, point, exp, 350);
-
-                case 12, 13, 14 -> levelModBase(playerStat, level, point, exp, 450);
-
-                case 15, 16, 17 -> levelModBase(playerStat, level, point, exp, 550);
-
-                case 18, 19, 20 -> levelModBase(playerStat, level, point, exp, 650);
-
-                case 21, 22, 23 -> levelModBase(playerStat, level, point, exp, 750);
-
-                case 24, 25, 26 -> levelModBase(playerStat, level, point, exp, 850);
-
-                case 27, 28, 29 -> levelModBase(playerStat, level, point, exp, 950);
-
-                case 30, 31, 32 -> levelModBase(playerStat, level, point, exp, 1200);
-
-                case 33, 34, 35 -> levelModBase(playerStat, level, point, exp, 1500);
-
-                case 36, 37, 38 -> levelModBase(playerStat, level, point, exp, 1800);
-
-                case 39, 40, 41 -> levelModBase(playerStat, level, point, exp, 2100);
-
-                case 42, 43, 44 -> levelModBase(playerStat, level, point ,exp, 2400);
-
-                case 45, 46, 47 -> levelModBase(playerStat, level, point, exp, 2700);
-
-                case 48, 49, 50 -> levelModBase(playerStat, level, point, exp, 3000);
-
-                case 51, 52, 53 -> levelModBase(playerStat, level, point, exp, 3600);
-
-                case 54, 55, 56 -> levelModBase(playerStat, level, point, exp, 4200);
-
-                case 57, 58, 59 -> levelModBase(playerStat, level, point, exp, 4800);
-
-                case 60, 61, 62 -> levelModBase(playerStat, level, point, exp, 5400);
-
-                case 63, 64, 65 -> levelModBase(playerStat, level, point, exp, 6000);
-
-                case 66, 67, 68 -> levelModBase(playerStat, level, point, exp, 6600);
-
-                case 69, 70, 71 -> levelModBase(playerStat, level, point, exp, 7600);
-
-                case 72, 73, 74 -> levelModBase(playerStat, level, point, exp, 8600);
-
-                case 75, 76, 77 -> levelModBase(playerStat, level, point, exp, 9600);
-
-                case 78, 79, 80 -> levelModBase(playerStat, level, point, exp, 11000);
-
-                case 81, 82, 83 -> levelModBase(playerStat, level, point, exp, 15000);
-
-                case 84, 85, 86 -> levelModBase(playerStat, level, point, exp, 19000);
-
-                case 87, 88, 89 -> levelModBase(playerStat, level, point, exp, 23000);
-
-                case 90, 91, 92 -> levelModBase(playerStat, level, point, exp, 30000);
-
-                case 93, 94, 95 -> levelModBase(playerStat, level, point, exp, 36000);
-
-                case 96, 97, 98 -> levelModBase(playerStat, level, point, exp, 46000);
-
-                case 99 -> levelModBase(playerStat, level, point, exp, 60000);
             }
         }
         catch (SQLException e){
