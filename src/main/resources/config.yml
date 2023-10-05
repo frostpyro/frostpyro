@@ -145,3 +145,6 @@ levelUp:
    98: 70000
    99: 75000
 
+
+weaponSpeed:
+  0.5

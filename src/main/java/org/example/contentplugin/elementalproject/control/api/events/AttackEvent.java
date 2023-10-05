@@ -7,7 +7,7 @@ import org.bukkit.event.HandlerList;
 import javax.annotation.Nonnull;
 
 public class AttackEvent extends Event {
-    private static HandlerList handlerList;
+    private static final HandlerList handlerList = new HandlerList();
     public AttackEvent(boolean isAsync) {
         super(isAsync);
     }
@@ -19,7 +19,7 @@ public class AttackEvent extends Event {
 
     @Nonnull
     public HandlerList getHandlers() {
-        return getHandlerList();
+        return handlerList;
     }
 
     public static HandlerList getHandlerList(){

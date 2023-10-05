@@ -28,6 +28,7 @@ import org.example.contentplugin.elementalproject.control.rightRightRight.RRR;
 
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 
 public class Listeners implements Listener {
@@ -56,6 +57,7 @@ public class Listeners implements Listener {
     @EventHandler
     private void listener(PlayerInteractEvent event){
         Player p = event.getPlayer();
+
         try{
             PlayerStat playerStat = getPlayerStat(p);
             left.clicking(event, playerStat);
@@ -126,9 +128,6 @@ public class Listeners implements Listener {
 
     @EventHandler
     private void entityDamage(EntityDamageByEntityEvent event){
-
-
-        //TODO: modify damage by stat and player's build
 
     }
 
