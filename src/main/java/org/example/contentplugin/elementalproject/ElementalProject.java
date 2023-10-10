@@ -3,22 +3,16 @@ package org.example.contentplugin.elementalproject;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
-import org.bukkit.World;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Panda;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
-import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuest;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuestGet;
 import org.example.contentplugin.elementalproject.contents.leveling.LevelPoint;
+import org.example.contentplugin.elementalproject.listners.DBSet;
+import org.example.contentplugin.elementalproject.listners.EntityInteraction;
 
-import java.io.File;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.List;
-import java.util.logging.Level;
 
 public class ElementalProject extends JavaPlugin {
     DailyQuestGet dailyQuest = new DailyQuestGet("midnight");
@@ -50,7 +44,8 @@ public class ElementalProject extends JavaPlugin {
             e.printStackTrace();
             console.sendMessage(ChatColor.RED + "Failed to initialize data");
         }
-        new Listeners(this);
+        new DBSet(this);
+        new EntityInteraction(this);
         console.sendMessage(ChatColor.GREEN + "PLUGIN ENABLED");
         getServer().getScheduler().scheduleSyncRepeatingTask(this, () ->{
             for(Player p : getServer().getOnlinePlayers()){
