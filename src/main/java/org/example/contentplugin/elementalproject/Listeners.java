@@ -15,11 +15,13 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.LecternInventory;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuestGet;
 import org.example.contentplugin.elementalproject.contents.leveling.LevelPoint;
 import org.example.contentplugin.elementalproject.control.Clicking;
+import org.example.contentplugin.elementalproject.control.api.system.ExpAddSkill;
 import org.example.contentplugin.elementalproject.control.leftClick.LeftClick;
 import org.example.contentplugin.elementalproject.control.rightLeftLeft.RLL;
 import org.example.contentplugin.elementalproject.control.rightLeftRight.RLR;
@@ -36,7 +38,7 @@ public class Listeners implements Listener {
     DailyQuestGet dailyQuest = new DailyQuestGet("differentDay");
     LevelPoint levelPoint = new LevelPoint();
 
-
+    ExpAddSkill exp = new ExpAddSkill();
     DataBase dataBase = new DataBase();
     Clicking left = new LeftClick();
     Clicking rll = new RLL();
@@ -128,8 +130,19 @@ public class Listeners implements Listener {
 
     @EventHandler
     private void entityDamage(EntityDamageByEntityEvent event){
-
+        Entity entity = event.getEntity();
+        if(event.getDamager() instanceof Player){
+            exp.setKiller(entity, (Player) event.getDamager());
+        }
     }
 
+    @EventHandler
+    private void entityDeath(EntityDeathEvent event){
+        Entity entity = event.getEntity();
+        if(!(entity instanceof LivingEntity)) return;
 
+        if(exp.getKiller(entity) == null) return;
+
+        exp.addExp(entity, Bukkit.getPlayer(exp.getKiller(entity)));
+    }
 }
