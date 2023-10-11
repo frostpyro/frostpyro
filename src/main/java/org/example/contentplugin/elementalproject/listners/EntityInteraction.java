@@ -78,15 +78,14 @@ public class EntityInteraction implements Listener {
     @EventHandler
     private void entityDamage(EntityDamageByEntityEvent event){
         Entity entity = event.getEntity();
-        if(event.getDamager() instanceof Player){
-            exp.setKiller(entity, (Player) event.getDamager());
-        }
+        if(event.getDamager() instanceof Player) return;
+        exp.setKiller(entity, (Player) event.getDamager());
     }
 
     @EventHandler
     private void entityKill(EntityDeathEvent event){
-        Entity entity = event.getEntity();
-        Player p = ((LivingEntity) entity).getKiller();
+        LivingEntity entity = event.getEntity();
+        Player p = entity.getKiller();
         if(p == null) return;
         dailyQuest.killMob(p, entity);
         dailyQuest.killBoss(p, entity);

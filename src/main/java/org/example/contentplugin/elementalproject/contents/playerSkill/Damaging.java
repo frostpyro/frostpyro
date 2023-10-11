@@ -27,7 +27,7 @@ public class Damaging {
     public void damageMethod(Player p, Entity entity, double damageAmount){
         if(!(entity instanceof LivingEntity)) return;
 
-        ((LivingEntity)entity).damage(damageAmount, p);
+        ((LivingEntity)entity).damage(damageAmount);
         entity.setVelocity(p.getLocation().getDirection().multiply(0.3));
     }
     public Location locationFunction(boolean skillType, Player p){
