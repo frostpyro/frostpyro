@@ -1,26 +1,33 @@
 package org.example.contentplugin.elementalproject.contents.dailyQuest.npc;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.EnderDragon;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Zombie;
+import org.bukkit.Sound;
+import org.bukkit.entity.*;
 
-public class Boss {
-    private String name;
-    private Entity entity;
-    public Boss(String name){
-        this.name = name;
+public class Boss implements Mob {
+
+    @Override
+    public Sound getAmbientSound() {
+        return null;
     }
-    //TODO: add boss entity
-    public Entity bossEntity(){
 
-        if(entity != null){
-            return entity;
-        }
-        switch (name){
+    @Override
+    public LivingEntity getTarget() {
+        return null;
+    }
 
-        }
-        return entity;
+    @Override
+    public boolean isAware() {
+        return false;
+    }
+
+    @Override
+    public void setAware(boolean b) {
+
+    }
+
+    @Override
+    public void setTarget(LivingEntity livingEntity) {
+
     }
 }
