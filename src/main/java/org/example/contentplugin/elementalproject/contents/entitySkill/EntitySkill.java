@@ -3,6 +3,8 @@ package org.example.contentplugin.elementalproject.contents.entitySkill;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.example.contentplugin.elementalproject.ElementalProject;
 
 import java.util.HashSet;
@@ -17,6 +19,10 @@ public class EntitySkill {
         switch(entityType){
             case ZOMBIE -> {
                 if(coolDown.contains(entity.getUniqueId())) return;
+                for(Entity ent : entity.getNearbyEntities(10,10,10)){
+                    if(!(ent instanceof LivingEntity)) continue;
+                    if(!(ent instanceof Player)) continue;
+                }
                 //TODO:add zombie skill
                 coolDown.add(entity.getUniqueId());
                 Bukkit.getScheduler().runTaskLater(ElementalProject.getPlugin(), ()->{
