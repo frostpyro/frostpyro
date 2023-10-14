@@ -13,7 +13,10 @@ import org.example.contentplugin.elementalproject.listners.DBSet;
 import org.example.contentplugin.elementalproject.listners.EntityInteraction;
 
 import java.sql.SQLException;
-
+/**
+ * This code is main class
+ * @author frostpyro
+ */
 public class ElementalProject extends JavaPlugin {
     DailyQuestGet dailyQuest = new DailyQuestGet("midnight");
     LevelPoint levelPoint;

@@ -15,13 +15,7 @@ import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuestGet;
 import org.example.contentplugin.elementalproject.contents.leveling.LevelPoint;
-import org.example.contentplugin.elementalproject.control.Clicking;
-import org.example.contentplugin.elementalproject.control.api.system.ExpAddSkill;
-import org.example.contentplugin.elementalproject.control.leftClick.LeftClick;
-import org.example.contentplugin.elementalproject.control.rightLeftLeft.RLL;
-import org.example.contentplugin.elementalproject.control.rightLeftRight.RLR;
-import org.example.contentplugin.elementalproject.control.rightRightLeft.RRL;
-import org.example.contentplugin.elementalproject.control.rightRightRight.RRR;
+
 
 import java.net.http.WebSocket;
 import java.sql.SQLException;
@@ -30,13 +24,9 @@ import java.util.Date;
 public class EntityInteraction implements Listener {
     LevelPoint levelPoint = new LevelPoint();
     DailyQuestGet dailyQuest = new DailyQuestGet();
-    ExpAddSkill exp = new ExpAddSkill();
+
     DataBase dataBase = new DataBase();
-    Clicking left = new LeftClick();
-    Clicking rll = new RLL();
-    Clicking rlr = new RLR();
-    Clicking rrr = new RRR();
-    Clicking rrl = new RRL();
+
     private PlayerStat getPlayerStat(Player p) throws SQLException {
         PlayerStat playerStat = dataBase.findUUID(p.getUniqueId().toString());
         if(playerStat == null){
@@ -49,37 +39,21 @@ public class EntityInteraction implements Listener {
     public EntityInteraction(ElementalProject plugin){
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
-    @EventHandler
-    private void listener(PlayerInteractEvent event){
-        Player p = event.getPlayer();
 
-        try{
-            PlayerStat playerStat = getPlayerStat(p);
-            left.clicking(event, playerStat);
-            rll.clicking(event, playerStat);
-            rlr.clicking(event, playerStat);
-            rrl.clicking(event, playerStat);
-            rrr.clicking(event, playerStat);
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
 
     @EventHandler
     private void entityDeath(EntityDeathEvent event){
         Entity entity = event.getEntity();
         if(!(entity instanceof LivingEntity)) return;
 
-        if(exp.getKiller(entity) == null) return;
 
-        exp.addExp(entity, Bukkit.getPlayer(exp.getKiller(entity)));
     }
 
     @EventHandler
     private void entityDamage(EntityDamageByEntityEvent event){
         Entity entity = event.getEntity();
         if(event.getDamager() instanceof Player) return;
-        exp.setKiller(entity, (Player) event.getDamager());
+
     }
 
     @EventHandler

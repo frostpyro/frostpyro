@@ -17,13 +17,7 @@ import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuestGet;
 import org.example.contentplugin.elementalproject.contents.leveling.LevelPoint;
-import org.example.contentplugin.elementalproject.control.Clicking;
-import org.example.contentplugin.elementalproject.control.api.system.ExpAddSkill;
-import org.example.contentplugin.elementalproject.control.leftClick.LeftClick;
-import org.example.contentplugin.elementalproject.control.rightLeftLeft.RLL;
-import org.example.contentplugin.elementalproject.control.rightLeftRight.RLR;
-import org.example.contentplugin.elementalproject.control.rightRightLeft.RRL;
-import org.example.contentplugin.elementalproject.control.rightRightRight.RRR;
+
 
 import java.sql.SQLException;
 import java.util.Date;
