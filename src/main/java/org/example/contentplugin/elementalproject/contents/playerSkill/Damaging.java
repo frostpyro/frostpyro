@@ -9,35 +9,41 @@ import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.contents.Elements;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class Damaging {
-    private double rad;
-    private double lNR;
-    private double fNB;
 
     public Damaging(){
 
     }
 
-    public Damaging(double rad, double lNR, double fNB){
-        this.rad = rad;
-        this.lNR = lNR;
-        this.fNB = fNB;
-    }
-    public void damageMethod(Player p, Entity entity, double damageAmount){
-        if(!(entity instanceof LivingEntity)) return;
 
-        ((LivingEntity)entity).damage(damageAmount);
-        entity.setVelocity(p.getLocation().getDirection().multiply(0.3));
+    public void damageEntity(Player p, Location location,double range, double damageAmount, boolean knockBack){
+        List<Entity> entityList = p.getNearbyEntities(range, range, range);
+        for(Entity entity : entityList){
+            if(entity.getCustomName().equals("skillCheck")) continue;
+            if(!(entity instanceof LivingEntity)) continue;
+
+            Location entityLoc = entity.getLocation();
+            double distance = entityLoc.distance(location);
+
+            if(distance > range) continue;
+
+            ((LivingEntity)entity).damage(damageAmount, p);
+            if(knockBack){
+                entity.setVelocity(p.getLocation().getDirection().multiply(-0.2).add(new Vector(0, 0.2,0)));
+            }
+        }
     }
-    public Location locationFunction(boolean skillType, Player p){
+    public Location skillLocation(Player p, double multiply1, double multiplyCross){
         Location loc = p.getLocation();
-        Vector vector1 = loc.getDirection().normalize();
-        Vector vector2 = vector1.clone().crossProduct(new Vector(0,1,0)).normalize();
+        Vector crossVec = new Vector(0,1,0);
 
-        if(!skillType) return loc.add(vector2.multiply(fNB)).add(vector1.multiply(lNR));
+        Vector vector = loc.getDirection().normalize();
 
-        return loc.add(vector1.multiply(Math.sin(rad))).add(vector2.multiply(Math.cos(rad)));
+        Vector finalVec = vector.clone().crossProduct(crossVec).normalize();
+
+        return loc.add(vector.multiply(multiply1)).add(finalVec.multiply(multiplyCross));
     }
     public void spawnParticle(Particle particle , Location location, World w, int delayTask, int particleNum){
         Bukkit.getScheduler().runTaskLater(ElementalProject.getPlugin(), ()-> w.spawnParticle(particle, location, particleNum),delayTask);
