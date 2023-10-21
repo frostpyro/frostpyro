@@ -9,12 +9,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.player.PlayerChangedMainHandEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuestGet;
 import org.example.contentplugin.elementalproject.contents.leveling.LevelPoint;
+import org.example.contentplugin.elementalproject.interaction.click.Clicking;
+import org.example.contentplugin.elementalproject.interaction.interacting.Summoning;
 
 
 import java.net.http.WebSocket;
@@ -26,6 +31,10 @@ public class EntityInteraction implements Listener {
     DailyQuestGet dailyQuest = new DailyQuestGet();
 
     DataBase dataBase = new DataBase();
+
+    Clicking clicking = new Clicking();
+
+    Summoning summoning = new Summoning();
 
     private PlayerStat getPlayerStat(Player p) throws SQLException {
         PlayerStat playerStat = dataBase.findUUID(p.getUniqueId().toString());
@@ -50,9 +59,22 @@ public class EntityInteraction implements Listener {
     }
 
     @EventHandler
+    private void swapping(PlayerItemHeldEvent event){
+        summoning.playerItemChange(event);
+    }
+
+    @EventHandler
+    private void entityInteract(PlayerInteractAtEntityEvent event){
+        clicking.rightClick(event);
+    }
+
+    @EventHandler
     private void entityDamage(EntityDamageByEntityEvent event){
         Entity entity = event.getEntity();
-        if(event.getDamager() instanceof Player) return;
+        if(!(event.getDamager() instanceof Player)) return;
+
+        clicking.leftClick(event);
+
 
     }
 

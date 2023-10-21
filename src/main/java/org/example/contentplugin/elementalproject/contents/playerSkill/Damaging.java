@@ -2,6 +2,7 @@ package org.example.contentplugin.elementalproject.contents.playerSkill;
 
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
@@ -10,6 +11,7 @@ import org.example.contentplugin.elementalproject.contents.Elements;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 public class Damaging {
 
@@ -20,8 +22,9 @@ public class Damaging {
 
     public void damageEntity(Player p, Location location,double range, double damageAmount, boolean knockBack){
         List<Entity> entityList = p.getNearbyEntities(range, range, range);
+
         for(Entity entity : entityList){
-            if(entity.getCustomName().equals("skillCheck")) continue;
+
             if(!(entity instanceof LivingEntity)) continue;
 
             Location entityLoc = entity.getLocation();

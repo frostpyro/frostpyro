@@ -2,6 +2,7 @@ package org.example.contentplugin.elementalproject.interaction.click;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Interaction;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -16,8 +17,13 @@ public class Clicking extends Sequence {
 
     public void leftClick(EntityDamageByEntityEvent event){
         Entity entity = event.getEntity();
-        if(entity instanceof Interaction||event.getDamager() == null) return;
+        if(!(entity instanceof Interaction)) return;
         Player p = (Player) event.getDamager();
+        p.sendMessage("testing");
+        for(Entity entity1 : p.getNearbyEntities(10,10,10)){
+            if(!(entity instanceof LivingEntity)) continue;
+            ((LivingEntity)entity1).damage(5, p);
+        }
         if(true) return;
         int[] array = getArray(p);
         setArray(p, 1);
@@ -27,7 +33,8 @@ public class Clicking extends Sequence {
     public void rightClick(PlayerInteractAtEntityEvent event){
         Player p = event.getPlayer();
         Entity entity = event.getRightClicked();
-        if(entity instanceof Interaction) return;
+        if(!(entity instanceof Interaction)) return;
+        p.sendMessage("testing2");
         if(true) return;
         int[] array = getArray(p);
         setArray(p, -1);

@@ -4,6 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Interaction;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
@@ -24,8 +26,11 @@ public class ElementalProject extends JavaPlugin {
     private static ElementalProject plugin;
     ConsoleCommandSender console = Bukkit.getConsoleSender();
     private DataBase dataBase;
+
+
     @Override
     public void onEnable() {
+
         this.dataBase = new DataBase();
         saveConfig();
 
