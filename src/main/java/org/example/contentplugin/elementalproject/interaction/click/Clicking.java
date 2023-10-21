@@ -5,13 +5,8 @@ import org.bukkit.entity.Interaction;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.interaction.Sequence;
-import org.example.contentplugin.elementalproject.listners.EntityInteraction;
 
 public class Clicking extends Sequence {
 
