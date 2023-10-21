@@ -1,16 +1,17 @@
 package org.example.contentplugin.elementalproject;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Interaction;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuestGet;
 import org.example.contentplugin.elementalproject.contents.leveling.LevelPoint;
+import org.example.contentplugin.elementalproject.interaction.interacting.Summoning;
 import org.example.contentplugin.elementalproject.listners.DBSet;
 import org.example.contentplugin.elementalproject.listners.EntityInteraction;
 
@@ -26,6 +27,8 @@ public class ElementalProject extends JavaPlugin {
     private static ElementalProject plugin;
     ConsoleCommandSender console = Bukkit.getConsoleSender();
     private DataBase dataBase;
+    Summoning summoning = new Summoning();
+
 
 
     @Override
@@ -61,6 +64,17 @@ public class ElementalProject extends JavaPlugin {
             }
         }, 0, 2);
         custom.summary();
+        for(Player p : Bukkit.getOnlinePlayers()){
+            for(Entity entity : p.getNearbyEntities(10, 10, 10)){
+                if(entity instanceof Interaction){
+                    entity.remove();
+                }
+            }
+            ItemStack item = p.getInventory().getItemInMainHand();
+            if(item.getType()== Material.NETHERITE_SWORD){
+                summoning.spawnOnReload(p);
+            }
+        }
     }
 
     @Override
@@ -68,6 +82,8 @@ public class ElementalProject extends JavaPlugin {
         // Plugin shutdown logic
 
     }
+
+
 
     public static ElementalProject getPlugin() {
         return plugin;

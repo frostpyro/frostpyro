@@ -8,6 +8,7 @@ import org.bukkit.entity.Interaction;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerChangedMainHandEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -19,27 +20,55 @@ public class Summoning {
     public void playerItemChange(PlayerItemHeldEvent event){
         Player p = event.getPlayer();
         int slot = event.getNewSlot();
-        spawnInteraction(p, p.getInventory().getItem(slot).equals(new ItemStack(Material.NETHERITE_SWORD)));
+        ItemStack item = p.getInventory().getItem(slot);
+        if(item != null && item.getType()==Material.NETHERITE_SWORD)
+            spawnInteraction(p);
+        else
+            removeInteraction(p);
     }
 
-
-
-    private void spawnInteraction(Player player, boolean bool){
+    public void joinInteraction(PlayerJoinEvent event){
+        Player player = event.getPlayer();
+        for(Entity entity : player.getNearbyEntities(5,5,5)){
+            if(entity instanceof Interaction){
+                entity.remove();
+            }
+        }
+        ItemStack item = player.getInventory().getItemInMainHand();
+        if(item != null && item.getType()==Material.NETHERITE_SWORD)
+            spawnInteraction(player);
+    }
+    public void spawnOnReload(Player p){
+        spawnInteraction(p);
+    }
+    public void removeOnDead(Player p){
+        removeInteraction(p);
+    }
+    private void spawnInteraction(Player player){
         Interaction interaction = (Interaction) player.getWorld().spawnEntity(player.getLocation(), EntityType.INTERACTION);
-        interaction.setInteractionHeight(2.0F);
+        interaction.setInteractionHeight(3F);
+        interaction.setInteractionWidth(3F);
         interaction.setCustomName("skillCheck");
         new BukkitRunnable(){
             @Override
             public void run() {
-                if(bool){
-                    Location location = player.getLocation();
-                    interaction.teleport(location);
+                if(!player.isOnline()){
+                    interaction.remove();
                 }
                 else{
-                    interaction.remove();
-                    cancel();
+                    Location location = player.getLocation();
+                    location.setY(location.getY()-0.3);
+                    interaction.teleport(location);
                 }
             }
         }.runTaskTimer(ElementalProject.getPlugin(), 0, 1L);
+    }
+
+    private void removeInteraction(Player player){
+        for(Entity interaction : player.getNearbyEntities(1.5,1.5,1.5)){
+            if(!(interaction instanceof Interaction))continue;
+            if(interaction.getCustomName().equals("skillCheck"))
+                interaction.remove();
+        }
     }
 }

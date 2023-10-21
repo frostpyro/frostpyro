@@ -21,7 +21,7 @@ public class Clicking extends Sequence {
         Player p = (Player) event.getDamager();
         p.sendMessage("testing");
         for(Entity entity1 : p.getNearbyEntities(10,10,10)){
-            if(!(entity instanceof LivingEntity)) continue;
+            if(!(entity1 instanceof LivingEntity)) continue;
             ((LivingEntity)entity1).damage(5, p);
         }
         if(true) return;

@@ -2,6 +2,7 @@ package org.example.contentplugin.elementalproject.listners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Interaction;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,10 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.player.PlayerChangedMainHandEvent;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.*;
 import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
@@ -51,11 +49,11 @@ public class EntityInteraction implements Listener {
 
 
     @EventHandler
-    private void entityDeath(EntityDeathEvent event){
-        Entity entity = event.getEntity();
-        if(!(entity instanceof LivingEntity)) return;
+    private void interactionRemover(EntityDeathEvent event){
 
-
+        if(!(event.getEntity() instanceof Player)) return;
+        Player p = (Player) event.getEntity();
+        summoning.removeOnDead(p);
     }
 
     @EventHandler
@@ -72,10 +70,13 @@ public class EntityInteraction implements Listener {
     private void entityDamage(EntityDamageByEntityEvent event){
         Entity entity = event.getEntity();
         if(!(event.getDamager() instanceof Player)) return;
-
+        if(!(entity instanceof Interaction)) return;
         clicking.leftClick(event);
+    }
 
-
+    @EventHandler
+    private void playerInteractionJoin(PlayerJoinEvent event){
+        summoning.joinInteraction(event);
     }
 
     @EventHandler
