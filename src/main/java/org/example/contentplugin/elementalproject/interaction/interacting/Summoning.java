@@ -6,12 +6,10 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Interaction;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerChangedMainHandEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 import org.example.contentplugin.elementalproject.ElementalProject;
 
 public class Summoning {
@@ -44,6 +42,9 @@ public class Summoning {
     public void removeOnDead(Player p){
         removeInteraction(p);
     }
+    public void removeOnDimensionChange(Player p){
+        removeInteraction(p);
+    }
     private void spawnInteraction(Player player){
         Interaction interaction = (Interaction) player.getWorld().spawnEntity(player.getLocation(), EntityType.INTERACTION);
         interaction.setInteractionHeight(3F);
@@ -67,8 +68,11 @@ public class Summoning {
     private void removeInteraction(Player player){
         for(Entity interaction : player.getNearbyEntities(1.5,1.5,1.5)){
             if(!(interaction instanceof Interaction))continue;
+
             if(interaction.getCustomName().equals("skillCheck"))
                 interaction.remove();
+                if(player.getWorld() != interaction.getWorld())
+                    interaction.remove();
         }
     }
 }

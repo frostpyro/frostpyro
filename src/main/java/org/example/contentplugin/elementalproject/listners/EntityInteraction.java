@@ -78,6 +78,11 @@ public class EntityInteraction implements Listener {
     private void playerInteractionJoin(PlayerJoinEvent event){
         summoning.joinInteraction(event);
     }
+    @EventHandler
+    private void playerChangeDimension(PlayerChangedWorldEvent event){
+        Player p = event.getPlayer();
+        summoning.removeOnDimensionChange(p);
+    }
 
     @EventHandler
     private void entityKill(EntityDeathEvent event){
