@@ -69,10 +69,11 @@ public class Summoning {
         for(Entity interaction : player.getNearbyEntities(1.5,1.5,1.5)){
             if(!(interaction instanceof Interaction))continue;
 
-            if(interaction.getCustomName().equals("skillCheck"))
+            if(interaction.getCustomName().equals("skillCheck")) {
                 interaction.remove();
-                if(player.getWorld() != interaction.getWorld())
+                if (player.getWorld() != interaction.getWorld())
                     interaction.remove();
+            }
         }
     }
 }
