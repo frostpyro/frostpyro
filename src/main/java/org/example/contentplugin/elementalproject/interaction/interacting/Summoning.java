@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 import org.example.contentplugin.elementalproject.ElementalProject;
 
 public class Summoning {
@@ -47,8 +48,8 @@ public class Summoning {
     }
     private void spawnInteraction(Player player){
         Interaction interaction = (Interaction) player.getWorld().spawnEntity(player.getLocation(), EntityType.INTERACTION);
-        interaction.setInteractionHeight(3F);
-        interaction.setInteractionWidth(3F);
+        interaction.setInteractionHeight(2F);
+        interaction.setInteractionWidth(1F);
         interaction.setCustomName("skillCheck");
         new BukkitRunnable(){
             @Override
@@ -58,8 +59,10 @@ public class Summoning {
                 }
                 else{
                     Location location = player.getLocation();
-                    location.setY(location.getY()-0.3);
-                    interaction.teleport(location);
+                    location.setY(location.getY()+0.5);
+                    Vector vector = location.getDirection();
+                    Location finalLoc = location.add(vector);
+                    interaction.teleport(finalLoc);
                 }
             }
         }.runTaskTimer(ElementalProject.getPlugin(), 0, 1L);
