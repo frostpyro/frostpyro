@@ -69,7 +69,7 @@ public class Summoning {
     }
 
     private void removeInteraction(Player player){
-        for(Entity interaction : player.getNearbyEntities(1.5,1.5,1.5)){
+        for(Entity interaction : player.getWorld().getEntities()){
             if(!(interaction instanceof Interaction))continue;
 
             if(interaction.getCustomName().equals("skillCheck")) {
