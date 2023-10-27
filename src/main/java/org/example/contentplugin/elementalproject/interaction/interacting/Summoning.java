@@ -56,6 +56,7 @@ public class Summoning {
             public void run() {
                 if(!player.isOnline()){
                     interaction.remove();
+                    cancel();
                 }
                 else{
                     Location location = player.getLocation();
