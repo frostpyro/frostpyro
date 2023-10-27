@@ -65,7 +65,7 @@ public class Summoning {
                     interaction.teleport(finalLoc);
                 }
             }
-        }.runTaskTimer(ElementalProject.getPlugin(), 0, 1L);
+        }.runTaskTimer(ElementalProject.getPlugin(), 1L, 1L);
     }
 
     private void removeInteraction(Player player){
