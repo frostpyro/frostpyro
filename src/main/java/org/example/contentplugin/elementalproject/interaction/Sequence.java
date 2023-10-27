@@ -11,7 +11,7 @@ import java.util.UUID;
 
 
 public class Sequence {
-    private Map<UUID, int[]> sequent = new HashMap<UUID, int[]>();
+    private Map<UUID, int[]> sequent = new HashMap<>();
 
 
 
