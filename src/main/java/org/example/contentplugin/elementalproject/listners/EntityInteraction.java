@@ -82,6 +82,7 @@ public class EntityInteraction implements Listener {
     private void playerChangeDimension(PlayerChangedWorldEvent event){
         Player p = event.getPlayer();
         summoning.removeOnDimensionChange(p);
+        summoning.spawn(p);
     }
 
     @EventHandler

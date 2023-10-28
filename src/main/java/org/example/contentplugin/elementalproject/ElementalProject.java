@@ -72,7 +72,7 @@ public class ElementalProject extends JavaPlugin {
             }
             ItemStack item = p.getInventory().getItemInMainHand();
             if(item.getType()== Material.NETHERITE_SWORD){
-                summoning.spawnOnReload(p);
+                summoning.spawn(p);
             }
         }
     }

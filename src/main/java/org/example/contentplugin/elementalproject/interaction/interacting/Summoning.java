@@ -1,5 +1,6 @@
 package org.example.contentplugin.elementalproject.interaction.interacting;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -13,8 +14,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.example.contentplugin.elementalproject.ElementalProject;
 
-public class Summoning {
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
+public class Summoning {
+    private Map<UUID, UUID> interactionOwn = new HashMap<>();
 
     public void playerItemChange(PlayerItemHeldEvent event){
         Player p = event.getPlayer();
@@ -37,24 +42,26 @@ public class Summoning {
         if(item != null && item.getType()==Material.NETHERITE_SWORD)
             spawnInteraction(player);
     }
-    public void spawnOnReload(Player p){
+    public void spawn(Player p){
+        ItemStack item = p.getInventory().getItemInMainHand();
+        if(item.getType()!=Material.NETHERITE_SWORD) return;
         spawnInteraction(p);
     }
     public void removeOnDead(Player p){
         removeInteraction(p);
     }
-    public void removeOnDimensionChange(Player p){
-        removeInteraction(p);
-    }
+
     private void spawnInteraction(Player player){
         Interaction interaction = (Interaction) player.getWorld().spawnEntity(player.getLocation(), EntityType.INTERACTION);
         interaction.setInteractionHeight(2F);
         interaction.setInteractionWidth(1F);
         interaction.setCustomName("skillCheck");
+        interactionOwn.put(player.getUniqueId(), interaction.getUniqueId());
         new BukkitRunnable(){
             @Override
             public void run() {
                 if(!player.isOnline()){
+                    interactionOwn.remove(player.getUniqueId());
                     interaction.remove();
                     cancel();
                 }
@@ -66,9 +73,14 @@ public class Summoning {
                     interaction.teleport(finalLoc);
                 }
             }
-        }.runTaskTimer(ElementalProject.getPlugin(), 1L, 1L);
+        }.runTaskTimer(ElementalProject.getPlugin(), 0L, 0L);
     }
 
+    public void removeOnDimensionChange(Player player){
+        Interaction interaction = (Interaction) Bukkit.getServer().getEntity(interactionOwn.get(player.getUniqueId()));
+        if(interaction == null) return;
+        interaction.remove();
+    }
     private void removeInteraction(Player player){
         for(Entity interaction : player.getWorld().getEntities()){
             if(!(interaction instanceof Interaction))continue;
