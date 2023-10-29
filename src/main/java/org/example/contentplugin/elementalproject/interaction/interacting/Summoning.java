@@ -54,7 +54,7 @@ public class Summoning {
     private void spawnInteraction(Player player){
         Interaction interaction = (Interaction) player.getWorld().spawnEntity(player.getLocation(), EntityType.INTERACTION);
         interaction.setInteractionHeight(2F);
-        interaction.setInteractionWidth(1F);
+        interaction.setInteractionWidth(1.5F);
         interaction.setCustomName("skillCheck");
         interactionOwn.put(player.getUniqueId(), interaction.getUniqueId());
         new BukkitRunnable(){
