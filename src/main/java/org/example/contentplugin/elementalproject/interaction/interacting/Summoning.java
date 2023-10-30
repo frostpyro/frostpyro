@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.example.contentplugin.elementalproject.ElementalProject;
@@ -21,13 +22,25 @@ import java.util.UUID;
 public class Summoning {
     private Map<UUID, UUID> interactionOwn = new HashMap<>();
 
+    private boolean itemBool(ItemStack itemStack){
+        Material material = itemStack.getType();
+        if(material==Material.NETHERITE_SWORD || material==Material.WOODEN_HOE || material==Material.BOW || material==Material.DIAMOND_SWORD){
+            ItemMeta itemMeta = itemStack.getItemMeta();
+
+            if(itemMeta==null) return false;
+
+            return itemMeta.getCustomModelData() == 1;
+        }
+
+        return false;
+    }
+
     public void playerItemChange(PlayerItemHeldEvent event){
         Player p = event.getPlayer();
         int slot = event.getNewSlot();
         ItemStack item = p.getInventory().getItem(slot);
-
-        if(item != null && item.getType()==Material.NETHERITE_SWORD && item.getItemMeta()!=null&& item.getItemMeta().getCustomModelData() == 1)
-
+        if(item == null) return;
+        if(itemBool(item))
             spawnInteraction(p);
         else
             removeInteraction(p);
@@ -42,13 +55,13 @@ public class Summoning {
         }
         ItemStack item = player.getInventory().getItemInMainHand();
 
-        if(item.getType()==Material.NETHERITE_SWORD && item.getItemMeta()!=null && item.getItemMeta().getCustomModelData() == 1)
+        if(itemBool(item))
             spawnInteraction(player);
     }
     public void spawn(Player p){
         ItemStack item = p.getInventory().getItemInMainHand();
         if(item.getItemMeta()==null) return;
-        if(item.getType()!=Material.NETHERITE_SWORD && item.getItemMeta()==null&& item.getItemMeta().getCustomModelData() != 1) return;
+        if(!itemBool(item)) return;
         spawnInteraction(p);
     }
     public void removeOnDead(Player p){
