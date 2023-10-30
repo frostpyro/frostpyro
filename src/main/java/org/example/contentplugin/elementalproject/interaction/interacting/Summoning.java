@@ -25,7 +25,9 @@ public class Summoning {
         Player p = event.getPlayer();
         int slot = event.getNewSlot();
         ItemStack item = p.getInventory().getItem(slot);
-        if(item != null && item.getType()==Material.NETHERITE_SWORD)
+
+        if(item != null && item.getType()==Material.NETHERITE_SWORD && item.getItemMeta()!=null&& item.getItemMeta().getCustomModelData() == 1)
+
             spawnInteraction(p);
         else
             removeInteraction(p);
@@ -39,12 +41,14 @@ public class Summoning {
             }
         }
         ItemStack item = player.getInventory().getItemInMainHand();
-        if(item != null && item.getType()==Material.NETHERITE_SWORD)
+
+        if(item.getType()==Material.NETHERITE_SWORD && item.getItemMeta()!=null && item.getItemMeta().getCustomModelData() == 1)
             spawnInteraction(player);
     }
     public void spawn(Player p){
         ItemStack item = p.getInventory().getItemInMainHand();
-        if(item.getType()!=Material.NETHERITE_SWORD) return;
+        if(item.getItemMeta()==null) return;
+        if(item.getType()!=Material.NETHERITE_SWORD && item.getItemMeta()==null&& item.getItemMeta().getCustomModelData() != 1) return;
         spawnInteraction(p);
     }
     public void removeOnDead(Player p){
