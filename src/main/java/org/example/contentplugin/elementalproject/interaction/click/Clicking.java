@@ -8,6 +8,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.example.contentplugin.elementalproject.contents.playerSkill.Damaging;
 import org.example.contentplugin.elementalproject.interaction.Sequence;
 
 import java.util.HashSet;
@@ -16,6 +17,8 @@ import java.util.UUID;
 
 public class Clicking extends Sequence {
     private Set<UUID> damagedEntity = new HashSet<>();
+
+    Damaging damaging = new Damaging();
     public void leftClick(EntityDamageByEntityEvent event){
         Entity entity = event.getEntity();
         if(!(entity instanceof Interaction)) return;
@@ -42,19 +45,26 @@ public class Clicking extends Sequence {
         resetArray(checkOut(array[0]), p);
     }
 
-    public void clickEntityLeft(EntityDamageByEntityEvent event){
+    public void clickEntityLeft(EntityDamageByEntityEvent event) {
         Entity entity = event.getEntity();
-        if(!(event.getDamager() instanceof Player)) return;
 
+        if (!(event.getDamager() instanceof Player)) return;
 
-        if(!damagedEntity.contains(entity.getUniqueId())){
-            //TODO:write something
-            damagedEntity.add(entity.getUniqueId());
-        }
-        else{
+        Player p = (Player) event.getDamager();
+
+        if (!damagedEntity.contains(entity.getUniqueId())) {
+            for (Entity entity1 : p.getNearbyEntities(5, 5, 5)) {
+                if (!(entity1 instanceof LivingEntity)) continue;
+
+                if (entity1.getUniqueId().equals(entity.getUniqueId())||damagedEntity.contains(entity1.getUniqueId())) {
+                    return;
+                }
+                ((LivingEntity)entity1).damage(5,p);
+            }
+            // TODO: write something
+        } else {
             event.setCancelled(true);
             damagedEntity.remove(entity.getUniqueId());
-            return;
         }
     }
 

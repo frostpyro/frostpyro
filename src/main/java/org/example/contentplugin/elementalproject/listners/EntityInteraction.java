@@ -67,6 +67,11 @@ public class EntityInteraction implements Listener {
     }
 
     @EventHandler
+    private void entityDamageE(EntityDamageByEntityEvent event){
+        clicking.clickEntityLeft(event);
+    }
+
+    @EventHandler
     private void entityDamage(EntityDamageByEntityEvent event){
         Entity entity = event.getEntity();
         if(!(event.getDamager() instanceof Player)) return;
