@@ -55,10 +55,7 @@ public class Clicking extends Sequence {
         if (!damagedEntity.contains(entity.getUniqueId())) {
             for (Entity entity1 : p.getNearbyEntities(5, 5, 5)) {
                 if (!(entity1 instanceof LivingEntity)) continue;
-
-                if (entity1.getUniqueId().equals(entity.getUniqueId())||damagedEntity.contains(entity1.getUniqueId())) {
-                    return;
-                }
+                damagedEntity.add(entity1.getUniqueId());
                 ((LivingEntity)entity1).damage(5,p);
             }
             // TODO: write something
