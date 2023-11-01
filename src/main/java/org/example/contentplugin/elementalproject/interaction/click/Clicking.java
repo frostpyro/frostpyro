@@ -19,6 +19,8 @@ public class Clicking extends Sequence {
     private Set<UUID> damagedEntity = new HashSet<>();
 
     Damaging damaging = new Damaging();
+
+    @Deprecated
     public void leftClick(EntityDamageByEntityEvent event){
         Entity entity = event.getEntity();
         if(!(entity instanceof Interaction)) return;
@@ -33,7 +35,7 @@ public class Clicking extends Sequence {
         setArray(p, 1);
         resetArray(checkOut(array[0]), p);
     }
-
+    @Deprecated
     public void rightClick(PlayerInteractAtEntityEvent event){
         Player p = event.getPlayer();
         Entity entity = event.getRightClicked();
@@ -51,7 +53,6 @@ public class Clicking extends Sequence {
         if (!(event.getDamager() instanceof Player)) return;
 
         Player p = (Player) event.getDamager();
-
         if (!damagedEntity.contains(entity.getUniqueId())) {
             for (Entity entity1 : p.getNearbyEntities(5, 5, 5)) {
                 if (!(entity1 instanceof LivingEntity)) continue;
@@ -60,7 +61,6 @@ public class Clicking extends Sequence {
             }
             // TODO: write something
         } else {
-            event.setCancelled(true);
             damagedEntity.remove(entity.getUniqueId());
         }
     }

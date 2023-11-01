@@ -48,47 +48,20 @@ public class EntityInteraction implements Listener {
     }
 
 
-    @EventHandler
-    private void interactionRemover(EntityDeathEvent event){
 
-        if(!(event.getEntity() instanceof Player)) return;
-        Player p = (Player) event.getEntity();
-        summoning.removeOnDead(p);
-    }
 
-    @EventHandler
-    private void swapping(PlayerItemHeldEvent event){
-        summoning.playerItemChange(event);
-    }
 
-    @EventHandler
-    private void entityInteract(PlayerInteractAtEntityEvent event){
-        clicking.rightClick(event);
-    }
+
+
 
     @EventHandler
     private void entityDamageE(EntityDamageByEntityEvent event){
         clicking.clickEntityLeft(event);
     }
 
-    @EventHandler
-    private void entityDamage(EntityDamageByEntityEvent event){
-        Entity entity = event.getEntity();
-        if(!(event.getDamager() instanceof Player)) return;
-        if(!(entity instanceof Interaction)) return;
-        clicking.leftClick(event);
-    }
 
-    @EventHandler
-    private void playerInteractionJoin(PlayerJoinEvent event){
-        summoning.joinInteraction(event);
-    }
-    @EventHandler
-    private void playerChangeDimension(PlayerChangedWorldEvent event){
-        Player p = event.getPlayer();
-        summoning.removeOnDimensionChange(p);
-        summoning.spawn(p);
-    }
+
+
 
     @EventHandler
     private void entityKill(EntityDeathEvent event){
