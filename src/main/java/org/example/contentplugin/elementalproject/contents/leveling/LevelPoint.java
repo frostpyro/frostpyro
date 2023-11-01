@@ -61,7 +61,6 @@ public class LevelPoint {
         if(configRoot != null){
             ConfigurationSection config = configRoot.getConfigurationSection(world);
             if(config != null){
-                Bukkit.getConsoleSender().sendMessage("checked");
                 double distance = 0;
                 switch(world){
                     case "over" -> distance = entity.getLocation().distance(overLoc);
