@@ -6,6 +6,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.example.contentplugin.elementalproject.contents.playerSkill.Damaging;
@@ -16,7 +17,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public class Clicking extends Sequence {
-    private Set<UUID> damagedEntity = new HashSet<>();
+    private final Set<UUID> damagedEntity = new HashSet<>();
 
     Damaging damaging = new Damaging();
 
