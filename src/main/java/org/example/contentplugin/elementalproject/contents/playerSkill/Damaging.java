@@ -2,16 +2,13 @@ package org.example.contentplugin.elementalproject.contents.playerSkill;
 
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import org.example.contentplugin.elementalproject.ElementalProject;
-import org.example.contentplugin.elementalproject.contents.Elements;
 
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
 
 public class Damaging {
 
@@ -19,25 +16,14 @@ public class Damaging {
 
     }
 
-
-    public void damageEntity(Player p, Location location,double range, double damageAmount, boolean knockBack){
-        List<Entity> entityList = p.getNearbyEntities(range, range, range);
-
-        for(Entity entity : entityList){
-
+    public void damageMethod(Entity p, Set<UUID> entitySet){
+        for(Entity entity : p.getNearbyEntities(5,5,5)){
             if(!(entity instanceof LivingEntity)) continue;
-
-            Location entityLoc = entity.getLocation();
-            double distance = entityLoc.distance(location);
-
-            if(distance > range) continue;
-
-            ((LivingEntity)entity).damage(damageAmount, p);
-            if(knockBack){
-                entity.setVelocity(p.getLocation().getDirection().multiply(-0.2).add(new Vector(0, 0.2,0)));
-            }
+            entitySet.add(entity.getUniqueId());
+            ((LivingEntity)entity).damage(5,p);
         }
     }
+
     public Location skillLocation(Player p, double multiply1, double multiplyCross){
         Location loc = p.getLocation();
         Vector crossVec = new Vector(0,1,0);

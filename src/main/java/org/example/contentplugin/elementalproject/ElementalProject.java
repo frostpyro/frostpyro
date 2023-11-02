@@ -12,6 +12,7 @@ import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuestGet;
 import org.example.contentplugin.elementalproject.contents.leveling.LevelPoint;
 import org.example.contentplugin.elementalproject.interaction.interacting.Summoning;
+import org.example.contentplugin.elementalproject.listners.ClickEvent;
 import org.example.contentplugin.elementalproject.listners.DBSet;
 import org.example.contentplugin.elementalproject.listners.EntityInteraction;
 
@@ -57,6 +58,7 @@ public class ElementalProject extends JavaPlugin {
         }
         new DBSet(this);
         new EntityInteraction(this);
+        new ClickEvent(this);
         console.sendMessage(ChatColor.GREEN + "PLUGIN ENABLED");
         getServer().getScheduler().scheduleSyncRepeatingTask(this, () ->{
             for(Player p : getServer().getOnlinePlayers()){

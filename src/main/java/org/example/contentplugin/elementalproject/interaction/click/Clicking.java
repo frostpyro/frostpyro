@@ -52,14 +52,9 @@ public class Clicking extends Sequence {
         Entity entity = event.getEntity();
 
         if (!(event.getDamager() instanceof Player)) return;
-
         Player p = (Player) event.getDamager();
-        if (!damagedEntity.contains(entity.getUniqueId())) {
-            for (Entity entity1 : p.getNearbyEntities(5, 5, 5)) {
-                if (!(entity1 instanceof LivingEntity)) continue;
-                damagedEntity.add(entity1.getUniqueId());
-                ((LivingEntity)entity1).damage(5,p);
-            }
+        if(!damagedEntity.contains(entity.getUniqueId())) {
+            damaging.damageMethod(p, damagedEntity);
             // TODO: write something
         } else {
             damagedEntity.remove(entity.getUniqueId());
@@ -77,8 +72,7 @@ public class Clicking extends Sequence {
         Action a = event.getAction();
         if(a != Action.LEFT_CLICK_AIR && a != Action.LEFT_CLICK_BLOCK) return;
 
-
-        event.setCancelled(true);
+        damaging.damageMethod(p, damagedEntity);
     }
 
     public void clickAirRight(final PlayerInteractEvent event){
@@ -87,11 +81,19 @@ public class Clicking extends Sequence {
         if(a != Action.RIGHT_CLICK_AIR && a != Action.RIGHT_CLICK_BLOCK) return;
 
 
-        event.setCancelled(true);
+
     }
 
     private boolean checkOut(int data){
         return data != 0;
+    }
+
+    private void damaging(Player p, Set<UUID> entitySet){
+        for (Entity entity1 : p.getNearbyEntities(5, 5, 5)) {
+            if (!(entity1 instanceof LivingEntity)) continue;
+            entitySet.add(entity1.getUniqueId());
+            ((LivingEntity)entity1).damage(5,p);
+        }
     }
 
 }
