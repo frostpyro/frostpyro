@@ -2,25 +2,19 @@ package org.example.contentplugin.elementalproject.listners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Interaction;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.player.*;
 import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuestGet;
 import org.example.contentplugin.elementalproject.contents.leveling.LevelPoint;
-import org.example.contentplugin.elementalproject.interaction.click.Clicking;
-import org.example.contentplugin.elementalproject.interaction.interacting.Summoning;
 
 
-import java.net.http.WebSocket;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -29,10 +23,6 @@ public class EntityInteraction implements Listener {
     DailyQuestGet dailyQuest = new DailyQuestGet();
 
     DataBase dataBase = new DataBase();
-
-    Clicking clicking = new Clicking();
-
-    Summoning summoning = new Summoning();
 
     private PlayerStat getPlayerStat(Player p) throws SQLException {
         PlayerStat playerStat = dataBase.findUUID(p.getUniqueId().toString());
@@ -46,21 +36,6 @@ public class EntityInteraction implements Listener {
     public EntityInteraction(ElementalProject plugin){
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
-
-
-
-
-
-
-
-
-    @EventHandler
-    private void entityDamageE(EntityDamageByEntityEvent event){
-        clicking.clickEntityLeft(event);
-    }
-
-
-
 
 
     @EventHandler

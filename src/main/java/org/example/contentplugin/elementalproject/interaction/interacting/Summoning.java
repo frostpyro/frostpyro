@@ -35,6 +35,7 @@ public class Summoning {
         return false;
     }
 
+    @Deprecated
     public void playerItemChange(PlayerItemHeldEvent event){
         Player p = event.getPlayer();
         int slot = event.getNewSlot();
@@ -45,7 +46,7 @@ public class Summoning {
         else
             removeInteraction(p);
     }
-
+    @Deprecated
     public void joinInteraction(PlayerJoinEvent event){
         Player player = event.getPlayer();
         for(Entity entity : player.getNearbyEntities(5,5,5)){
@@ -64,6 +65,7 @@ public class Summoning {
         if(!itemBool(item)) return;
         spawnInteraction(p);
     }
+    @Deprecated
     public void removeOnDead(Player p){
         removeInteraction(p);
     }
