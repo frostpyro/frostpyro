@@ -88,12 +88,4 @@ public class Clicking extends Sequence {
         return data != 0;
     }
 
-    private void damaging(Player p, Set<UUID> entitySet){
-        for (Entity entity1 : p.getNearbyEntities(5, 5, 5)) {
-            if (!(entity1 instanceof LivingEntity)) continue;
-            entitySet.add(entity1.getUniqueId());
-            ((LivingEntity)entity1).damage(5,p);
-        }
-    }
-
 }
