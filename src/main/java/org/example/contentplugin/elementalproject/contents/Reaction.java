@@ -5,6 +5,8 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.contents.playerSkill.Damaging;
 
 
@@ -16,9 +18,48 @@ public class Reaction {
     Damaging damaging = new Damaging();
 
     protected void hit(Entity entity, Elements elements){
-        if((entity instanceof LivingEntity)) return;
+        if(!(entity instanceof LivingEntity)) return;
         if(!react.isEmpty()) return;
         react.put(entity.getUniqueId(), elements);
+        switch(elements){
+            case FIRE ->{
+                entity.setFireTicks(100);
+                new BukkitRunnable(){
+                    @Override
+                    public void run() {
+                        if(react.isEmpty()){
+                            cancel();
+                        }
+                        react.remove(entity.getUniqueId());
+                    }
+                }.runTaskLater(ElementalProject.getPlugin(), 100L);
+            }
+            case AIR -> {
+
+                new BukkitRunnable(){
+                    @Override
+                    public void run() {
+                        if(react.isEmpty()){
+                            cancel();
+                        }
+                        react.remove(entity.getUniqueId());
+                    }
+                }.runTaskLater(ElementalProject.getPlugin(), 100L);
+            }
+            case ICE -> {
+
+            }
+            case EARTH -> {
+
+            }
+            case LIGHT -> {
+
+            }
+            case ELECTRONIC -> {
+
+            }
+        }
+
     }
 
     protected void reaction(Player p, Entity entity, Elements baseElement, Set<UUID> entitySet){
@@ -69,7 +110,7 @@ public class Reaction {
                     case EARTH -> {
                         damaging.reactDamage2(p, (LivingEntity) entity, entitySet, ((LivingEntity)entity).getLastDamage()*0.5, 3);
                         entity.getWorld().spawnParticle(Particle.DRIP_LAVA, entity.getLocation(), 8, 2);
-                        entity.getWorld().playSound(entity.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 2, 1);
+                        entity.getWorld().playSound(entity.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 2, -1);
                         react.remove(entity.getUniqueId());
                     }
                     case LIGHT -> {
