@@ -60,7 +60,6 @@ public class Clicking extends Sequence {
         if(!itemCheck(p)) return;
         if(!damagedEntity.contains(entity.getUniqueId())) {
             damaging.damageMethod(p, damagedEntity);
-            // TODO: write something
         } else {
             damagedEntity.remove(entity.getUniqueId());
         }
