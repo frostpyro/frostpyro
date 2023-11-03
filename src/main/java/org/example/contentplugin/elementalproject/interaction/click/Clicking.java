@@ -103,8 +103,15 @@ public class Clicking extends Sequence {
         if(!item.getItemMeta().hasCustomModelData()) return false;
         Material material = item.getType();
         switch(material){
-            case NETHERITE_SWORD, DIAMOND_SWORD, WOODEN_HOE, BOW -> {
+            case NETHERITE_SWORD, WOODEN_HOE, BOW -> {
                 return item.getItemMeta().getCustomModelData() == 1;
+            }
+            case DIAMOND_SWORD -> {
+                if(item.getItemMeta().getCustomModelData() != 1) return false;
+                ItemStack item2 = p.getInventory().getItemInOffHand();
+                if(!item2.hasItemMeta()) return false;
+                if(!item2.getItemMeta().hasCustomModelData()) return false;
+                return item2.getItemMeta().getCustomModelData() == 1;
             }
         }
         return false;
