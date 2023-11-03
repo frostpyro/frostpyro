@@ -57,9 +57,17 @@ public class Clicking extends Sequence {
 
         if (!(event.getDamager() instanceof Player)) return;
         Player p = (Player) event.getDamager();
+        int[] array = getArray(p);
         if(!itemCheck(p)) return;
         if(!damagedEntity.contains(entity.getUniqueId())) {
-            damaging.damageMethod(p, damagedEntity);
+            if(array[0] == 0){
+                damaging.damageMethod(p, damagedEntity);
+            }
+            else{
+                setArray(p, 1);
+                resetArray(checkOut(array[0]), p);
+                event.setCancelled(true);
+            }
         } else {
             damagedEntity.remove(entity.getUniqueId());
         }
@@ -70,6 +78,9 @@ public class Clicking extends Sequence {
         Player p = event.getPlayer();
         if(!(entity instanceof LivingEntity)) return;
         if(!itemCheck(p)) return;
+        int[] array = getArray(p);
+        setArray(p, -1);
+        resetArray(checkOut(array[0]), p);
     }
 
     public void clickAirLeft(final PlayerInteractEvent event){
@@ -77,8 +88,12 @@ public class Clicking extends Sequence {
         Action a = event.getAction();
         if(!itemCheck(p)) return;
         if(a != Action.LEFT_CLICK_AIR && a != Action.LEFT_CLICK_BLOCK) return;
-
-        damaging.damageMethod(p, damagedEntity);
+        int[] array = getArray(p);
+        if(array[0] == 0){
+            damaging.damageMethod(p, damagedEntity);
+        }
+        setArray(p, 1);
+        resetArray(checkOut(array[0]), p);
         event.setCancelled(true);
     }
 
@@ -87,8 +102,9 @@ public class Clicking extends Sequence {
         Action a = event.getAction();
         if(!itemCheck(p)) return;
         if(a != Action.RIGHT_CLICK_AIR && a != Action.RIGHT_CLICK_BLOCK) return;
-
-
+        int[] array = getArray(p);
+        setArray(p, -1);
+        resetArray(checkOut(array[0]), p);
         event.setCancelled(true);
     }
 
