@@ -4,6 +4,9 @@ import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.example.contentplugin.elementalproject.ElementalProject;
 
@@ -21,6 +24,28 @@ public class Damaging {
             if(!(entity instanceof LivingEntity)) continue;
             entitySet.add(entity.getUniqueId());
             ((LivingEntity)entity).damage(5,p);
+        }
+    }
+
+    public void reactDamage1(Entity p, LivingEntity entity, Set<UUID> entitySet, double damage){
+        entity.damage(damage, p);
+        entitySet.add(entity.getUniqueId());
+    }
+
+    public void reactSlow(LivingEntity entity, int duration, int amplifier){
+        PotionEffect effect = new PotionEffect(PotionEffectType.SLOW, duration, amplifier);
+        effect.apply(entity);
+    }
+
+    public void reactDamage2(Entity p, LivingEntity entity, Set<UUID> entitySet, double damage, int second){
+        for(int i = 0; i <= second; i++){
+            new BukkitRunnable(){
+                @Override
+                public void run() {
+                    entity.damage(damage, p);
+                    entitySet.add(entity.getUniqueId());
+                }
+            }.runTaskLater(ElementalProject.getPlugin(), 20L*i);
         }
     }
 

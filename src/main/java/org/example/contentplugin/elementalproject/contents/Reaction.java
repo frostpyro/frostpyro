@@ -1,17 +1,19 @@
 package org.example.contentplugin.elementalproject.contents;
 
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.example.contentplugin.elementalproject.contents.playerSkill.Damaging;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class Reaction {
     private Map<UUID, Elements> react = new HashMap<>();
+
+    Damaging damaging = new Damaging();
 
     protected void hit(Entity entity, Elements elements){
         if((entity instanceof LivingEntity)) return;
@@ -19,7 +21,8 @@ public class Reaction {
         react.put(entity.getUniqueId(), elements);
     }
 
-    protected void reaction(Player p, Entity entity, Elements baseElement){
+    protected void reaction(Player p, Entity entity, Elements baseElement, Set<UUID> entitySet){
+        if(!(entity instanceof LivingEntity)) return;
         if(react.get(entity.getUniqueId())==null) return;
 
         Elements elements = react.get(entity.getUniqueId());
@@ -28,15 +31,20 @@ public class Reaction {
             case FIRE -> {
                 switch(baseElement){
                     case AIR -> {
-                        reaction(p, entity, Elements.AIR);
+                        reaction(p, entity, Elements.AIR, entitySet);
                         react.remove(entity.getUniqueId());
                     }
                     case ICE -> {
-
+                        damaging.reactDamage1(p, (LivingEntity) entity, entitySet, ((LivingEntity) entity).getLastDamage()*2);
+                        entity.getWorld().spawnParticle(Particle.CLOUD, entity.getLocation(), 8, 2);
+                        entity.getWorld().playSound(entity.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 2, 1);
                         react.remove(entity.getUniqueId());
                     }
                     case EARTH -> {
-
+                        damaging.reactSlow((LivingEntity)entity, 3, 3);
+                        entity.getWorld().spawnParticle(Particle.LAVA, entity.getLocation(), 8, 2);
+                        entity.getWorld().playSound(entity.getLocation(), Sound.BLOCK_LAVA_AMBIENT, 2, 1);
+                        react.remove(entity.getUniqueId());
                     }
                     case LIGHT -> {
 
@@ -49,14 +57,20 @@ public class Reaction {
             case ICE -> {
                 switch(baseElement){
                     case AIR -> {
-                        reaction(p, entity, Elements.AIR);
+                        reaction(p, entity, Elements.AIR, entitySet);
                         react.remove(entity.getUniqueId());
                     }
                     case FIRE -> {
-
+                        damaging.reactDamage1(p, (LivingEntity) entity, entitySet, ((LivingEntity) entity).getLastDamage()*2);
+                        entity.getWorld().spawnParticle(Particle.CLOUD, entity.getLocation(), 8, 2);
+                        entity.getWorld().playSound(entity.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 2, 1);
+                        react.remove(entity.getUniqueId());
                     }
                     case EARTH -> {
-
+                        damaging.reactDamage2(p, (LivingEntity) entity, entitySet, ((LivingEntity)entity).getLastDamage()*0.5, 3);
+                        entity.getWorld().spawnParticle(Particle.DRIP_LAVA, entity.getLocation(), 8, 2);
+                        entity.getWorld().playSound(entity.getLocation(), Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 2, 1);
+                        react.remove(entity.getUniqueId());
                     }
                     case LIGHT -> {
 
@@ -76,23 +90,23 @@ public class Reaction {
 
                         switch(newElement){
                             case ICE->{
-                                reaction(p, entity1, Elements.ICE);
+                                reaction(p, entity1, Elements.ICE, entitySet);
                                 react.remove(entity1.getUniqueId());
                             }
                             case EARTH -> {
-                                reaction(p, entity, Elements.EARTH);
+                                reaction(p, entity, Elements.EARTH, entitySet);
                                 react.remove(entity1.getUniqueId());
                             }
                             case ELECTRONIC -> {
-                                reaction(p, entity1, Elements.ELECTRONIC);
+                                reaction(p, entity1, Elements.ELECTRONIC, entitySet);
                                 react.remove(entity1.getUniqueId());
                             }
                             case FIRE -> {
-                                reaction(p, entity1, Elements.FIRE);
+                                reaction(p, entity1, Elements.FIRE, entitySet);
                                 react.remove(entity1.getUniqueId());
                             }
                             case LIGHT -> {
-                                reaction(p, entity1, Elements.LIGHT);
+                                reaction(p, entity1, Elements.LIGHT, entitySet);
                                 react.remove(entity1.getUniqueId());
                             }
                         }
@@ -107,14 +121,18 @@ public class Reaction {
             case EARTH -> {
                 switch(baseElement){
                     case AIR -> {
-                        reaction(p, entity, Elements.AIR);
+                        reaction(p, entity, Elements.AIR,entitySet);
                         react.remove(entity.getUniqueId());
                     }
                     case FIRE -> {
-
+                        damaging.reactSlow((LivingEntity)entity, 3, 3);
+                        entity.getWorld().spawnParticle(Particle.LAVA, entity.getLocation(), 8, 2);
+                        entity.getWorld().playSound(entity.getLocation(), Sound.BLOCK_LAVA_AMBIENT, 2, 1);
+                        react.remove(entity.getUniqueId());
                     }
                     case ICE -> {
-
+                        damaging.reactDamage2(p, (LivingEntity) entity, entitySet, ((LivingEntity)entity).getLastDamage()*0.5, 3);
+                        react.remove(entity.getUniqueId());
                     }
                     case LIGHT -> {
 
@@ -127,7 +145,7 @@ public class Reaction {
             case LIGHT -> {
                 switch(baseElement){
                     case AIR -> {
-                        reaction(p, entity, Elements.AIR);
+                        reaction(p, entity, Elements.AIR, entitySet);
                         react.remove(entity.getUniqueId());
                     }
                     case FIRE -> {
@@ -147,7 +165,7 @@ public class Reaction {
             case ELECTRONIC -> {
                 switch(baseElement){
                     case AIR -> {
-                        reaction(p, entity, Elements.AIR);
+                        reaction(p, entity, Elements.AIR, entitySet);
                         react.remove(entity.getUniqueId());
                     }
                     case FIRE -> {

@@ -108,6 +108,11 @@ public class Clicking extends Sequence {
         event.setCancelled(true);
     }
 
+    public void skillActiveAtEvent(final PlayerInteractEvent event){
+        Player p = event.getPlayer();
+        if(getArray(p)[3] == 0) return;
+    }
+
     private boolean checkOut(int data){
         return data != 0;
     }
