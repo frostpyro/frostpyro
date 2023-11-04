@@ -26,6 +26,7 @@ public class Clicking extends Sequence {
     Damaging damaging = new Damaging();
 
     @Deprecated
+    @SuppressWarnings("all")
     public void leftClick(EntityDamageByEntityEvent event){
         Entity entity = event.getEntity();
         if(!(entity instanceof Interaction)) return;
@@ -41,6 +42,7 @@ public class Clicking extends Sequence {
         resetArray(checkOut(array[0]), p);
     }
     @Deprecated
+    @SuppressWarnings("all")
     public void rightClick(PlayerInteractAtEntityEvent event){
         Player p = event.getPlayer();
         Entity entity = event.getRightClicked();

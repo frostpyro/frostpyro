@@ -28,8 +28,8 @@ public class Damaging {
     }
 
     public void reactDamage1(Entity p, LivingEntity entity, Set<UUID> entitySet, double damage){
-        entity.damage(damage, p);
         entitySet.add(entity.getUniqueId());
+        entity.damage(damage, p);
     }
 
     public void reactSlow(LivingEntity entity, int duration, int amplifier){
@@ -42,8 +42,8 @@ public class Damaging {
             new BukkitRunnable(){
                 @Override
                 public void run() {
-                    entity.damage(damage, p);
                     entitySet.add(entity.getUniqueId());
+                    entity.damage(damage, p);
                 }
             }.runTaskLater(ElementalProject.getPlugin(), 20L*i);
         }
@@ -59,7 +59,20 @@ public class Damaging {
 
         return loc.add(vector.multiply(multiply1)).add(finalVec.multiply(multiplyCross));
     }
-    public void spawnParticle(Particle particle , Location location, World w, int delayTask, int particleNum){
-        Bukkit.getScheduler().runTaskLater(ElementalProject.getPlugin(), ()-> w.spawnParticle(particle, location, particleNum),delayTask);
+    public void windParticle(Entity entity, long tick){
+        Location location = entity.getLocation();
+
+        for(int i = 0, j = (int)tick; i <= tick; i++, j--){
+            int k = i,l = j;
+            new BukkitRunnable(){
+                @Override
+                public void run() {
+                    Vector entityVec1 = new Vector(Math.sin(k/20.0*2*Math.PI), k /20.0, Math.cos(k/20.0*2*Math.PI));
+                    Vector entityVec2 = new Vector(Math.sin(l/20.0*2*Math.PI), k /20.0, Math.cos(l/20.0*2*Math.PI));
+                    entity.getWorld().spawnParticle(Particle.CLOUD, location.add(entityVec1),1,0);
+                    entity.getWorld().spawnParticle(Particle.CLOUD, location.add(entityVec2),1,0);
+                }
+            }.runTaskLater(ElementalProject.getPlugin(), i);
+        }
     }
 }

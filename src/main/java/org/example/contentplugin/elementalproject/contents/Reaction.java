@@ -1,5 +1,6 @@
 package org.example.contentplugin.elementalproject.contents;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
@@ -23,26 +24,41 @@ public class Reaction {
         react.put(entity.getUniqueId(), elements);
         switch(elements){
             case FIRE ->{
-                entity.setFireTicks(100);
+                new BukkitRunnable(){
+                    @Override
+                    public void run() {
+                        if(!react.isEmpty()){
+                            entity.setFireTicks(1);
+                        }
+                        else{
+                            cancel();
+                        }
+                    }
+                }.runTaskTimer(ElementalProject.getPlugin(), 0, 1);
                 new BukkitRunnable(){
                     @Override
                     public void run() {
                         if(react.isEmpty()){
                             cancel();
                         }
-                        react.remove(entity.getUniqueId());
+                        Bukkit.getServer().getScheduler().runTask(ElementalProject.getPlugin(), () -> react.remove(entity.getUniqueId()));
                     }
                 }.runTaskLater(ElementalProject.getPlugin(), 100L);
             }
             case AIR -> {
-
+                new BukkitRunnable(){
+                    @Override
+                    public void run() {
+                        damaging.windParticle(entity, 20L);
+                    }
+                }.runTaskTimer(ElementalProject.getPlugin(), 0L, 20L);
                 new BukkitRunnable(){
                     @Override
                     public void run() {
                         if(react.isEmpty()){
                             cancel();
                         }
-                        react.remove(entity.getUniqueId());
+                        Bukkit.getServer().getScheduler().runTask(ElementalProject.getPlugin(), () -> react.remove(entity.getUniqueId()));
                     }
                 }.runTaskLater(ElementalProject.getPlugin(), 100L);
             }
