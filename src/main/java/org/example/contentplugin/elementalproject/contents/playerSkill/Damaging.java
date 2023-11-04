@@ -19,11 +19,11 @@ public class Damaging {
 
     }
 
-    public void damageMethod(Entity p, Set<UUID> entitySet){
+    public void damageMethod(Entity p, Set<UUID> entitySet, double damage){
         for(Entity entity : p.getNearbyEntities(5,5,5)){
             if(!(entity instanceof LivingEntity)) continue;
             entitySet.add(entity.getUniqueId());
-            ((LivingEntity)entity).damage(5,p);
+            ((LivingEntity)entity).damage(damage,p);
         }
     }
 
