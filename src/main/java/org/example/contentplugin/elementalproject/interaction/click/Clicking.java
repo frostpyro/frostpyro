@@ -9,18 +9,19 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.example.contentplugin.elementalproject.contents.playerSkill.Damaging;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.Skills;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class Clicking {
     private final Set<UUID> damagedEntity = new HashSet<>();
-
+    private Map<UUID, Long> shiftPressTime = new HashMap<>();
     Damaging damaging = new Damaging();
 
+    Skills skills = new Skills();
     @Deprecated
     @SuppressWarnings("all")
     public void leftClick(EntityDamageByEntityEvent event){
@@ -67,7 +68,7 @@ public class Clicking {
         Action a = event.getAction();
         if(!itemCheck(p)) return;
         if(a != Action.LEFT_CLICK_AIR && a != Action.LEFT_CLICK_BLOCK) return;
-        damaging.damageMethod(p, damagedEntity, 10);
+        skills.baseAttackSkill(p, damagedEntity);
         event.setCancelled(true);
     }
 
@@ -79,6 +80,19 @@ public class Clicking {
         event.setCancelled(true);
     }
 
+    public void shiftToggle(PlayerToggleSneakEvent event){
+        Player p = event.getPlayer();
+        if(event.isSneaking()){
+            if(shiftPressTime.containsKey(p.getUniqueId())){
+                long lastShift = shiftPressTime.get(p.getUniqueId());
+                long currentTime = System.currentTimeMillis();
+                if(currentTime - lastShift < 1000){
+                    skills.ultimateSkill(p, damagedEntity);
+                }
+            }
+            shiftPressTime.put(p.getUniqueId(), System.currentTimeMillis());
+        }
+    }
     public void skillActiveAtEvent(final PlayerInteractEvent event){
         Player p = event.getPlayer();
     }
