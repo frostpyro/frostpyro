@@ -11,10 +11,10 @@ public class PlayerStat {
     private Date lastLogout;
     private double exp;
     private double balance;
-    private int mana;
+    private int skillClass;
     private int point;
     private int dailyQuest;
-    public PlayerStat(String playerUUID, int level, int killCount, double exp, double balance, int mana, int point, int dailyQuest, Date lastLogin, Date lastLogout){
+    public PlayerStat(String playerUUID, int level, int killCount, double exp, double balance, int skillClass, int point, int dailyQuest, Date lastLogin, Date lastLogout){
         this.playerUUID = playerUUID;
         this.level = level;
         this.killCount = killCount;
@@ -22,7 +22,7 @@ public class PlayerStat {
         this.lastLogout = lastLogout;
         this.exp = exp;
         this.balance = balance;
-        this.mana = mana;
+        this.skillClass = skillClass;
         this.dailyQuest = dailyQuest;
         this.point = point;
     }
@@ -82,12 +82,12 @@ public class PlayerStat {
         this.balance = balance;
     }
 
-    public int getMana() {
-        return mana;
+    public int getSkillClass() {
+        return skillClass;
     }
 
-    public void setMana(int mana) {
-        this.mana = mana;
+    public void setSkillClass(int skillClass) {
+        this.skillClass = skillClass;
     }
 
     public int getPoint() {

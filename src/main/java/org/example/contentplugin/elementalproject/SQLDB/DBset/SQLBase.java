@@ -31,7 +31,7 @@ public class SQLBase {
     public void initialize() throws SQLException{
         Statement statement = getConnection().createStatement();
 
-        String sql = "CREATE TABLE IF NOT EXISTS player_data (uuid varchar(36) primary key, level int, killCount int, exp double, balance double, mana int, point int, dailyQuest int, lastLogin DATE, lastLogout DATE)";
+        String sql = "CREATE TABLE IF NOT EXISTS player_data (uuid varchar(36) primary key, level int, killCount int, exp double, balance double, skillClass int, point int, dailyQuest int, lastLogin DATE, lastLogout DATE)";
 
         statement.execute(sql);
 
@@ -47,7 +47,7 @@ public class SQLBase {
         PlayerStat playerStat;
 
         if(resultSet.next()){
-            playerStat = new PlayerStat(resultSet.getString("uuid"), resultSet.getInt("level"), resultSet.getInt("killCount"), resultSet.getDouble("exp"), resultSet.getDouble("balance"), resultSet.getInt("mana"), resultSet.getInt("point"), resultSet.getInt("dailyQuest"), resultSet.getDate("lastLogin"), resultSet.getDate("lastLogout"));
+            playerStat = new PlayerStat(resultSet.getString("uuid"), resultSet.getInt("level"), resultSet.getInt("killCount"), resultSet.getDouble("exp"), resultSet.getDouble("balance"), resultSet.getInt("skillClass"), resultSet.getInt("point"), resultSet.getInt("dailyQuest"), resultSet.getDate("lastLogin"), resultSet.getDate("lastLogout"));
             statement.close();
 
             return playerStat;
@@ -58,14 +58,14 @@ public class SQLBase {
     }
 
     public void createData(PlayerStat playerStat) throws SQLException{
-        PreparedStatement statement = getConnection().prepareStatement("INSERT INTO player_data(uuid, level, killCount, exp, balance, mana, point, dailyQuest, lastLogin, lastLogout) VALUES(?,?,?,?,?,?,?,?,?,?)");
+        PreparedStatement statement = getConnection().prepareStatement("INSERT INTO player_data(uuid, level, killCount, exp, balance, skillClass, point, dailyQuest, lastLogin, lastLogout) VALUES(?,?,?,?,?,?,?,?,?,?)");
 
         statement.setString(1, playerStat.getPlayerUUID());
         statement.setInt(2, playerStat.getLevel());
         statement.setInt(3, playerStat.getKillCount());
         statement.setDouble(4, playerStat.getExp());
         statement.setDouble(5, playerStat.getBalance());
-        statement.setInt(6,playerStat.getMana());
+        statement.setInt(6,playerStat.getSkillClass());
         statement.setInt(7, playerStat.getPoint());
         statement.setInt(8, playerStat.getDailyQuest());
         statement.setDate(9, new Date(playerStat.getLastLogin().getTime()));
@@ -78,13 +78,13 @@ public class SQLBase {
 
     public void updateData(PlayerStat playerStat) throws SQLException{
 
-        PreparedStatement statement = getConnection().prepareStatement("UPDATE player_data SET level = ?, killCount = ?, exp = ?, balance = ?, mana = ?, point = ?, dailyQuest = ?, lastLogin = ?, lastLogout = ? WHERE uuid = ?");
+        PreparedStatement statement = getConnection().prepareStatement("UPDATE player_data SET level = ?, killCount = ?, exp = ?, balance = ?, skillClass = ?, point = ?, dailyQuest = ?, lastLogin = ?, lastLogout = ? WHERE uuid = ?");
 
         statement.setInt(1, playerStat.getLevel());
         statement.setInt(2, playerStat.getKillCount());
         statement.setDouble(3, playerStat.getExp());
         statement.setDouble(4, playerStat.getBalance());
-        statement.setInt(5,playerStat.getMana());
+        statement.setInt(5,playerStat.getSkillClass());
         statement.setInt(6, playerStat.getPoint());
         statement.setInt(7, playerStat.getDailyQuest());
         statement.setDate(8, new Date(playerStat.getLastLogin().getTime()));

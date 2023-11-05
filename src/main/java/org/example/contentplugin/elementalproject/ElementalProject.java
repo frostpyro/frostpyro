@@ -101,4 +101,8 @@ public class ElementalProject extends JavaPlugin {
     public static NamespacedKey level(){
         return new NamespacedKey(plugin, "level");
     }
+
+    public static NamespacedKey skill(){
+        return new NamespacedKey(plugin, "skill");
+    }
 }

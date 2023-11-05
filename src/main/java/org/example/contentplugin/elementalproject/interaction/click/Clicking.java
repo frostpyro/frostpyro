@@ -51,7 +51,8 @@ public class Clicking {
         Player p = (Player) event.getDamager();
         if(!itemCheck(p)) return;
         if(!damagedEntity.contains(entity.getUniqueId())) {
-            damaging.damageMethod(p, damagedEntity, 10);
+            skills.baseAttackSkill(p, damagedEntity);
+            skills.skill3(p, damagedEntity);
         } else {
             damagedEntity.remove(entity.getUniqueId());
         }
@@ -61,6 +62,8 @@ public class Clicking {
         Entity entity = event.getRightClicked();
         Player p = event.getPlayer();
         if(!(entity instanceof LivingEntity)) return;
+        skills.skill1(p, damagedEntity);
+        skills.skill2(p, damagedEntity);
     }
 
     public void clickAirLeft(final PlayerInteractEvent event){
@@ -69,6 +72,7 @@ public class Clicking {
         if(!itemCheck(p)) return;
         if(a != Action.LEFT_CLICK_AIR && a != Action.LEFT_CLICK_BLOCK) return;
         skills.baseAttackSkill(p, damagedEntity);
+        skills.skill3(p, damagedEntity);
         event.setCancelled(true);
     }
 
@@ -77,6 +81,8 @@ public class Clicking {
         Action a = event.getAction();
         if(!itemCheck(p)) return;
         if(a != Action.RIGHT_CLICK_AIR && a != Action.RIGHT_CLICK_BLOCK) return;
+        skills.skill1(p, damagedEntity);
+        skills.skill2(p, damagedEntity);
         event.setCancelled(true);
     }
 
