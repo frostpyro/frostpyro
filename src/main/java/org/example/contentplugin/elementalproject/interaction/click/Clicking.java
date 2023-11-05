@@ -1,5 +1,6 @@
 package org.example.contentplugin.elementalproject.interaction.click;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Interaction;
@@ -68,8 +69,8 @@ public class Clicking {
 
     public void clickAirLeft(final PlayerInteractEvent event){
         Player p = event.getPlayer();
-        Action a = event.getAction();
         if(!itemCheck(p)) return;
+        Action a = event.getAction();
         if(a != Action.LEFT_CLICK_AIR && a != Action.LEFT_CLICK_BLOCK) return;
         skills.baseAttackSkill(p, damagedEntity);
         skills.skill3(p, damagedEntity);
@@ -78,8 +79,8 @@ public class Clicking {
 
     public void clickAirRight(final PlayerInteractEvent event){
         Player p = event.getPlayer();
-        Action a = event.getAction();
         if(!itemCheck(p)) return;
+        Action a = event.getAction();
         if(a != Action.RIGHT_CLICK_AIR && a != Action.RIGHT_CLICK_BLOCK) return;
         skills.skill1(p, damagedEntity);
         skills.skill2(p, damagedEntity);

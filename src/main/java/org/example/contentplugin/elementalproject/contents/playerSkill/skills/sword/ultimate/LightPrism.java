@@ -6,7 +6,7 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.attackMet
 import java.util.Set;
 import java.util.UUID;
 
-public class LightGravity implements SNS {
+public class LightPrism implements SNS {
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
 
