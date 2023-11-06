@@ -8,6 +8,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
@@ -50,6 +51,7 @@ public class Clicking {
 
         if (!(event.getDamager() instanceof Player)) return;
         Player p = (Player) event.getDamager();
+        if(event.getCause()== EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) return;
         if(!itemCheck(p)) return;
         if(!damagedEntity.contains(entity.getUniqueId())) {
             skills.baseAttackSkill(p, damagedEntity);
