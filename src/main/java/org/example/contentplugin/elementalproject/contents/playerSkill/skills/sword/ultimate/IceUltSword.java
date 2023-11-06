@@ -6,7 +6,7 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.attackMet
 import java.util.Set;
 import java.util.UUID;
 
-public class EarthQuake implements SNS {
+public class IceUltSword implements SNS {
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
 

@@ -14,12 +14,12 @@ import java.util.UUID;
 public class Skills {
     private final DataBase dataBase = new DataBase();
 
-    private final BaseAttack airWhip = new AirWhip();
-    private final BaseAttack electronicWipe = new ElectronicWipe();
-    private final BaseAttack flameFlow = new FlameFlow();
-    private final BaseAttack frostSlashes = new FrostSlash();
-    private final BaseAttack lightSlashes = new LightSlashes();
-    private final BaseAttack vibrationSword = new VibrationSword();
+    private final BaseAttack airBaseSword = new AirBaseSword();
+    private final BaseAttack electronicBaseSword = new ElectronicBaseSword();
+    private final BaseAttack fireBaseSword = new FireBaseSword();
+    private final BaseAttack iceBaseSword = new IceBaseSword();
+    private final BaseAttack lightBaseSword = new LightBaseSword();
+    private final BaseAttack earthBaseSword = new EarthBaseSword();
 
     private PlayerStat getPlayerStat(Player p) throws SQLException {
         PlayerStat playerStat = dataBase.findUUID(p.getUniqueId().toString());
@@ -35,12 +35,12 @@ public class Skills {
             int skillClass = playerStat.getSkillClass();
             switch(skillClass){
                 case 1 ->{
-                    airWhip.attacking(p, entitySet);
-                    electronicWipe.attacking(p, entitySet);
-                    flameFlow.attacking(p, entitySet);
-                    frostSlashes.attacking(p, entitySet);
-                    lightSlashes.attacking(p, entitySet);
-                    vibrationSword.attacking(p, entitySet);
+                    airBaseSword.attacking(p, entitySet);
+                    earthBaseSword.attacking(p, entitySet);
+                    fireBaseSword.attacking(p, entitySet);
+                    iceBaseSword.attacking(p, entitySet);
+                    lightBaseSword.attacking(p, entitySet);
+                    electronicBaseSword.attacking(p, entitySet);
                 }
                 case 2 ->{
 

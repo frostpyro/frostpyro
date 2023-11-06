@@ -6,7 +6,7 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.attackMet
 import java.util.Set;
 import java.util.UUID;
 
-public class LightDash implements Right {
+public class FireSkill1Sword implements Right {
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
         if(player.isSneaking()) return;
