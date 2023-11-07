@@ -51,8 +51,9 @@ public class Clicking {
 
         if (!(event.getDamager() instanceof Player)) return;
         Player p = (Player) event.getDamager();
-        if(event.getCause()== EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) event.setCancelled(true);
+
         if(!itemCheck(p)) return;
+        if(event.getCause()== EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) event.setCancelled(true);
         if(!damagedEntity.contains(entity.getUniqueId())) {
             skills.baseAttackSkill(p, damagedEntity);
             skills.skill3(p, damagedEntity);
