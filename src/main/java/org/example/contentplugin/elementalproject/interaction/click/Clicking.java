@@ -21,8 +21,6 @@ import java.util.*;
 public class Clicking {
     private final Set<UUID> damagedEntity = new HashSet<>();
     private Map<UUID, Long> shiftPressTime = new HashMap<>();
-    Damaging damaging = new Damaging();
-
     Skills skills = new Skills();
     @Deprecated
     @SuppressWarnings("all")
@@ -103,10 +101,12 @@ public class Clicking {
             shiftPressTime.put(p.getUniqueId(), System.currentTimeMillis());
         }
     }
+
+    @Deprecated
     public void skillActiveAtEvent(final PlayerInteractEvent event){
         Player p = event.getPlayer();
     }
-
+    @Deprecated
     private boolean checkOut(int data){
         return data != 0;
     }
