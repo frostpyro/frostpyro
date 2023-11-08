@@ -6,7 +6,7 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.attackMet
 import java.util.Set;
 import java.util.UUID;
 
-public class EarthSkill3Sword implements LNS {
+public class AirSkill3Sword implements LNS {
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
         if(!player.isSneaking()) return;

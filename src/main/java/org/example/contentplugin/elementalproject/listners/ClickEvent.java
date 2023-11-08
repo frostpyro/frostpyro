@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
@@ -49,6 +50,11 @@ public class ClickEvent implements Listener {
     @EventHandler
     private void rightClick(PlayerInteractEvent event){
         clicking.clickAirRight(event);
+    }
+
+    @EventHandler
+    private void shiftClick(PlayerToggleSneakEvent event){
+        clicking.shiftToggle(event);
     }
 
 }
