@@ -117,7 +117,7 @@ public class Clicking {
         if(!item.getItemMeta().hasCustomModelData()) return false;
         Material material = item.getType();
         switch(material){
-            case NETHERITE_SWORD, WOODEN_HOE, BOW -> {
+            case NETHERITE_SWORD, WOODEN_HOE, WOODEN_SWORD -> {
                 return item.getItemMeta().getCustomModelData() == 1;
             }
             case DIAMOND_SWORD -> {
