@@ -22,6 +22,7 @@ public class Clicking {
     private final Set<UUID> damagedEntity = new HashSet<>();
     private Map<UUID, Long> shiftPressTime = new HashMap<>();
     Skills skills = new Skills();
+    Damaging damaging = new Damaging();
     @Deprecated
     @SuppressWarnings("all")
     public void leftClick(EntityDamageByEntityEvent event){
@@ -53,8 +54,9 @@ public class Clicking {
         if(!itemCheck(p)) return;
         if(event.getCause()== EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) event.setCancelled(true);
         if(!damagedEntity.contains(entity.getUniqueId())) {
-            skills.baseAttackSkill(p, damagedEntity);
-            skills.skill3(p, damagedEntity);
+            event.setDamage(0);
+            damagedEntity.add(entity.getUniqueId());
+            damaging.damageMethod(p, damagedEntity, 10);
         } else {
             damagedEntity.remove(entity.getUniqueId());
         }
