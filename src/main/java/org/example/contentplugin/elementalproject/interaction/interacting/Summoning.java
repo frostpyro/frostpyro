@@ -94,7 +94,7 @@ public class Summoning {
             }
         }.runTaskTimer(ElementalProject.getPlugin(), 0L, 0L);
     }
-
+    @Deprecated
     public void removeOnDimensionChange(Player player){
         Interaction interaction = (Interaction) Bukkit.getServer().getEntity(interactionOwn.get(player.getUniqueId()));
         if(interaction == null) return;
