@@ -24,6 +24,6 @@ public class FireEnhanceSword implements BaseAttack {
             public void run() {
                 enhancer.setEnhance(player, 0);
             }
-        }.runTaskLater(ElementalProject.getPlugin(), (long)sec);
+        }.runTaskLater(ElementalProject.getPlugin(), (long)sec*20);
     }
 }

@@ -9,21 +9,20 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.skills.Ba
 import java.util.Set;
 import java.util.UUID;
 
-public class LightEnhanceSword implements BaseAttack {
+public class IceEnhanceSword implements BaseAttack {
     BaseAttackEnhancer enhancer = new BaseAttackEnhancer();
     private int sec;
-    LightEnhanceSword(int sec){
+    IceEnhanceSword(int sec){
         this.sec = sec;
     }
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
         if(player.isSneaking()) return;
-
         new BukkitRunnable(){
             @Override
             public void run() {
                 enhancer.setEnhance(player, 0);
             }
-        }.runTaskLater(ElementalProject.getPlugin(), (long) sec*20);
+        }.runTaskLater(ElementalProject.getPlugin(), (long) sec);
     }
 }
