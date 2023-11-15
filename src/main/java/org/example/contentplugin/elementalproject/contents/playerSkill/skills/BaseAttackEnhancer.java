@@ -9,11 +9,20 @@ import java.util.UUID;
 public class BaseAttackEnhancer {
     private Map<UUID, Integer> enhance = new HashMap<>();
 
-    public int getCheck(Player p){
+    private int getInt(Player p){
         return enhance.get(p.getUniqueId());
     }
 
     public void setEnhance(Player p, int val){
-        enhance.put(p.getUniqueId(), val);
+        if(val == 0){
+            enhance.put(p.getUniqueId(), val);
+        }
+        else{
+            enhance.put(p.getUniqueId(), 1);
+        }
+    }
+
+    public boolean enhancer(Player p){
+        return enhance.get(p.getUniqueId())==0;
     }
 }

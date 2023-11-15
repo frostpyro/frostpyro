@@ -43,6 +43,8 @@ public class Skills {
     private final LNS airSkill3Sword = new AirSkill3Sword();
     private final LNS earthSkill3Sword = new EarthSkill3Sword();
     private final LNS fireSkill3Sword = new FireSkill3Sword();
+
+    BaseAttackEnhancer enhance = new BaseAttackEnhancer();
     private PlayerStat getPlayerStat(Player p) throws SQLException {
         PlayerStat playerStat = dataBase.findUUID(p.getUniqueId().toString());
         if(playerStat == null){
@@ -55,23 +57,35 @@ public class Skills {
         try{
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
-            switch(skillClass){
-                case 1 ->{
-                    airBaseSword.attacking(p, entitySet);
-                    earthBaseSword.attacking(p, entitySet);
-                    fireBaseSword.attacking(p, entitySet);
-                    iceBaseSword.attacking(p, entitySet);
-                    lightBaseSword.attacking(p, entitySet);
-                    electronicBaseSword.attacking(p, entitySet);
-                }
-                case 2 ->{
+            if(enhance.enhancer(p)){
+                switch(skillClass){
+                    case 1 ->{
+                        airBaseSword.attacking(p, entitySet);
+                        earthBaseSword.attacking(p, entitySet);
+                        fireBaseSword.attacking(p, entitySet);
+                        iceBaseSword.attacking(p, entitySet);
+                        lightBaseSword.attacking(p, entitySet);
+                        electronicBaseSword.attacking(p, entitySet);
+                    }
+                    case 2 ->{
 
-                }
-                case 3 ->{
+                    }
+                    case 3 ->{
 
-                }
-                case 4 ->{
+                    }
+                    case 4 ->{
 
+                    }
+                }
+            }
+            else{
+                switch (skillClass){
+                    case 1 ->{
+
+                    }
+                    case 2 ->{
+
+                    }
                 }
             }
         }
