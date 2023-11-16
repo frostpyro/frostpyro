@@ -66,7 +66,7 @@ public class Clicking {
         Entity entity = event.getRightClicked();
         Player p = event.getPlayer();
         if(!(entity instanceof LivingEntity)) return;
-        skills.skill1(p, damagedEntity);
+        skills.skill1(p, damagedEntity, 5L);
         skills.skill2(p, damagedEntity);
     }
 
@@ -75,7 +75,7 @@ public class Clicking {
         if(!itemCheck(p)) return;
         Action a = event.getAction();
         if(a != Action.LEFT_CLICK_AIR && a != Action.LEFT_CLICK_BLOCK) return;
-        skills.baseAttackSkill(p, damagedEntity);
+        skills.baseAttackSkill(p, damagedEntity, 0.5);
         skills.skill3(p, damagedEntity);
         event.setCancelled(true);
     }
@@ -85,7 +85,7 @@ public class Clicking {
         if(!itemCheck(p)) return;
         Action a = event.getAction();
         if(a != Action.RIGHT_CLICK_AIR && a != Action.RIGHT_CLICK_BLOCK) return;
-        skills.skill1(p, damagedEntity);
+        skills.skill1(p, damagedEntity, 5L);
         skills.skill2(p, damagedEntity);
         event.setCancelled(true);
     }
@@ -97,7 +97,7 @@ public class Clicking {
                 long lastShift = shiftPressTime.get(p.getUniqueId());
                 long currentTime = System.currentTimeMillis();
                 if(currentTime - lastShift < 1000){
-                    skills.ultimateSkill(p, damagedEntity);
+                    skills.ultimateSkill(p, damagedEntity, 120L);
                 }
             }
             shiftPressTime.put(p.getUniqueId(), System.currentTimeMillis());

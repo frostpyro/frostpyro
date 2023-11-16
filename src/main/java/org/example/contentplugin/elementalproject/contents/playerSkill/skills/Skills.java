@@ -15,11 +15,11 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sw
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill3.FireSkill3Sword;
 
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class Skills {
+    private Map<UUID, long[]> cooldowns = new HashMap<>();
+
     private final DataBase dataBase = new DataBase();
 
     private final BaseAttack airBaseSword = new AirBaseSword();
@@ -53,10 +53,19 @@ public class Skills {
         }
         return playerStat;
     }
-    public void baseAttackSkill(Player p, Set<UUID> entitySet){
+
+    private void nullCheck(Player player){
+        cooldowns.computeIfAbsent(player.getUniqueId(), k -> new long[5]);
+    }
+    public void baseAttackSkill(Player p, Set<UUID> entitySet, double sec){
+        nullCheck(p);
         try{
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
+            if(cooldowns.get(p.getUniqueId())[0] != 0){
+                if(cooldowns.get(p.getUniqueId())[0] >= System.currentTimeMillis()) return;
+                cooldowns.get(p.getUniqueId())[0] = 0L;
+            }
             if(enhance.enhancer(p)){
                 switch(skillClass){
                     case 1 ->{
@@ -88,16 +97,22 @@ public class Skills {
                     }
                 }
             }
+            cooldowns.get(p.getUniqueId())[0] = System.currentTimeMillis() + (long)(sec*1000L);
         }
         catch (SQLException e){
             e.printStackTrace();
         }
     }
 
-    public void skill1(Player p, Set<UUID> entitySet){
+    public void skill1(Player p, Set<UUID> entitySet, long sec){
+        nullCheck(p);
         try{
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
+            if(cooldowns.get(p.getUniqueId())[1] != 0){
+                if(cooldowns.get(p.getUniqueId())[1] >= System.currentTimeMillis()) return;
+                cooldowns.get(p.getUniqueId())[1] = 0L;
+            }
             switch(skillClass){
                 case 1 ->{
                     airSkill1Sword.attacking(p, entitySet);
@@ -117,6 +132,7 @@ public class Skills {
 
                 }
             }
+            cooldowns.get(p.getUniqueId())[1] = System.currentTimeMillis() + (sec * 1000);
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -124,6 +140,7 @@ public class Skills {
     }
 
     public void skill2(Player p, Set<UUID> entitySet){
+        nullCheck(p);
         try{
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
@@ -153,6 +170,7 @@ public class Skills {
     }
 
     public void skill3(Player p, Set<UUID> entitySet){
+        nullCheck(p);
         try{
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
@@ -176,10 +194,15 @@ public class Skills {
         }
     }
 
-    public void ultimateSkill(Player p, Set<UUID> entitySet){
+    public void ultimateSkill(Player p, Set<UUID> entitySet, long sec){
+        nullCheck(p);
         try{
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
+            if(cooldowns.get(p.getUniqueId())[4] != 0){
+                if(cooldowns.get(p.getUniqueId())[4] >= System.currentTimeMillis()) return;
+                cooldowns.get(p.getUniqueId())[4] = 0L;
+            }
             switch(skillClass){
                 case 1 ->{
 
@@ -194,6 +217,7 @@ public class Skills {
 
                 }
             }
+            cooldowns.get(p.getUniqueId())[4] = System.currentTimeMillis() + (sec * 1000);
         }
         catch (SQLException e){
             e.printStackTrace();
