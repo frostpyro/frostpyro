@@ -18,7 +18,7 @@ import org.example.contentplugin.elementalproject.ElementalProject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
+@Deprecated
 public class Summoning {
     private Map<UUID, UUID> interactionOwn = new HashMap<>();
 
