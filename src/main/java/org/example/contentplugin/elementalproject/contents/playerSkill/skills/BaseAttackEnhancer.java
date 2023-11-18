@@ -23,6 +23,7 @@ public class BaseAttackEnhancer {
     }
 
     public boolean enhancer(Player p){
+        enhance.putIfAbsent(p.getUniqueId(), 0);
         return enhance.get(p.getUniqueId())==0;
     }
 }

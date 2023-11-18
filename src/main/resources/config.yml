@@ -145,3 +145,9 @@ levelUp:
    98: 70000
    99: 75000
 
+coolDowns:
+  baseAttack: 0.5
+  skill1: 5
+  skill2: 7
+  skill3: 10
+  ult: 120
