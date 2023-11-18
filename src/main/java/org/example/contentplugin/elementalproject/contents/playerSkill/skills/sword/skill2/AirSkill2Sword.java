@@ -10,5 +10,6 @@ public class AirSkill2Sword implements RNS {
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
         if(!player.isSneaking()) return;
+        player.sendMessage("skill2");
     }
 }

@@ -3,16 +3,15 @@ package org.example.contentplugin.elementalproject.contents.playerSkill.skills;
 import org.bukkit.entity.Player;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
-import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.BaseAttack;
-import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.LNS;
-import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.RNS;
-import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.Right;
+import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.baseAttack.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.enhance.AirEnhanceSword;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill1.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill2.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill3.AirSkill3Sword;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill3.EarthSkill3Sword;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill3.FireSkill3Sword;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.ultimate.AirUltSword;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -28,6 +27,8 @@ public class Skills {
     private final BaseAttack iceBaseSword = new IceBaseSword();
     private final BaseAttack lightBaseSword = new LightBaseSword();
     private final BaseAttack earthBaseSword = new EarthBaseSword();
+
+    private final BaseAttack airEnhanceSword = new AirEnhanceSword();
     private final Right airSkill1Sword = new AirSkill1Sword();
     private final Right electronicSkill1Sword = new ElectronicSkill1Sword();
     private final Right earthSkill1Sword = new EarthSkill1Sword();
@@ -43,6 +44,9 @@ public class Skills {
     private final LNS airSkill3Sword = new AirSkill3Sword();
     private final LNS earthSkill3Sword = new EarthSkill3Sword();
     private final LNS fireSkill3Sword = new FireSkill3Sword();
+
+
+    private final SNS airUltSword = new AirUltSword(3);
 
     BaseAttackEnhancer enhance = new BaseAttackEnhancer();
     private PlayerStat getPlayerStat(Player p) throws SQLException {
@@ -90,7 +94,7 @@ public class Skills {
             else{
                 switch (skillClass){
                     case 1 ->{
-
+                        airEnhanceSword.attacking(p, entitySet);
                     }
                     case 2 ->{
 
@@ -176,7 +180,7 @@ public class Skills {
             int skillClass = playerStat.getSkillClass();
             switch(skillClass){
                 case 1 ->{
-
+                    airSkill3Sword.attacking(p, entitySet);
                 }
                 case 2 ->{
 
@@ -205,7 +209,7 @@ public class Skills {
             }
             switch(skillClass){
                 case 1 ->{
-
+                    airUltSword.attacking(p, entitySet);
                 }
                 case 2 ->{
 

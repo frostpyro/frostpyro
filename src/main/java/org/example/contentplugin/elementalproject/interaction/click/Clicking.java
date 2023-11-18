@@ -55,8 +55,8 @@ public class Clicking {
         if(event.getCause()== EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) event.setCancelled(true);
         if(!damagedEntity.contains(entity.getUniqueId())) {
             event.setDamage(0);
-            damagedEntity.add(entity.getUniqueId());
-            damaging.damageMethod(p, damagedEntity, 10);
+            skills.baseAttackSkill(p, damagedEntity, 0.5);
+            skills.skill3(p, damagedEntity);
         } else {
             damagedEntity.remove(entity.getUniqueId());
         }
