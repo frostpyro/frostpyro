@@ -244,6 +244,7 @@ public class LevelPoint {
             if(config != null){
                 for(String key : config.getKeys(false)){
                     int lev = Integer.parseInt(key);
+                    if(level != lev) continue;
                     double expr = config.getDouble(key);
                     if(exp >= expr){
                         levelModBase(playerStat, level, point, exp, expr);

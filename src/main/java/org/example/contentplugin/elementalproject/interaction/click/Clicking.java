@@ -2,6 +2,7 @@ package org.example.contentplugin.elementalproject.interaction.click;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Interaction;
 import org.bukkit.entity.LivingEntity;
@@ -13,9 +14,13 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
+import org.example.contentplugin.elementalproject.ElementalProject;
+import org.example.contentplugin.elementalproject.contents.Elements;
 import org.example.contentplugin.elementalproject.contents.playerSkill.Damaging;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.Skills;
 
+import java.io.ObjectInputFilter;
 import java.util.*;
 
 public class Clicking {
@@ -46,6 +51,10 @@ public class Clicking {
     }
 
     public void clickEntityLeft(EntityDamageByEntityEvent event) {
+        ConfigurationSection config1 = ElementalProject.getPlugin().getConfig().getConfigurationSection("coolDowns");
+        if(config1 == null) return;
+
+
         Entity entity = event.getEntity();
 
         if (!(event.getDamager() instanceof Player)) return;
@@ -55,49 +64,59 @@ public class Clicking {
         if(event.getCause()== EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) event.setCancelled(true);
         if(!damagedEntity.contains(entity.getUniqueId())) {
             event.setDamage(0);
-            skills.baseAttackSkill(p, damagedEntity, 0.5);
-            skills.skill3(p, damagedEntity);
+            entity.setVelocity(entity.getVelocity());
+            skills.baseAttackSkill(p, damagedEntity, config1.getDouble("baseAttack"));
+            skills.skill3(p, damagedEntity, config1.getLong("skill3"));
         } else {
             damagedEntity.remove(entity.getUniqueId());
         }
     }
 
     public void clickEntityRight(PlayerInteractAtEntityEvent event){
+        ConfigurationSection config1 = ElementalProject.getPlugin().getConfig().getConfigurationSection("coolDowns");
+        if(config1 == null) return;
         Entity entity = event.getRightClicked();
         Player p = event.getPlayer();
+        if(!itemCheck(p)) return;
         if(!(entity instanceof LivingEntity)) return;
-        skills.skill1(p, damagedEntity, 5L);
-        skills.skill2(p, damagedEntity);
+        skills.skill1(p, damagedEntity, config1.getLong("skill1"));
+        skills.skill2(p, damagedEntity, config1.getLong("skill2"));
     }
 
     public void clickAirLeft(final PlayerInteractEvent event){
+        ConfigurationSection config1 = ElementalProject.getPlugin().getConfig().getConfigurationSection("coolDowns");
+        if(config1 == null) return;
         Player p = event.getPlayer();
         if(!itemCheck(p)) return;
         Action a = event.getAction();
         if(a != Action.LEFT_CLICK_AIR && a != Action.LEFT_CLICK_BLOCK) return;
-        skills.baseAttackSkill(p, damagedEntity, 0.5);
-        skills.skill3(p, damagedEntity);
+        skills.baseAttackSkill(p, damagedEntity, config1.getDouble("baseAttack"));
+        skills.skill3(p, damagedEntity, config1.getLong("skill3"));
         event.setCancelled(true);
     }
 
     public void clickAirRight(final PlayerInteractEvent event){
+        ConfigurationSection config1 = ElementalProject.getPlugin().getConfig().getConfigurationSection("coolDowns");
+        if(config1 == null) return;
         Player p = event.getPlayer();
         if(!itemCheck(p)) return;
         Action a = event.getAction();
         if(a != Action.RIGHT_CLICK_AIR && a != Action.RIGHT_CLICK_BLOCK) return;
-        skills.skill1(p, damagedEntity, 5L);
-        skills.skill2(p, damagedEntity);
+        skills.skill1(p, damagedEntity, config1.getLong("skill1"));
+        skills.skill2(p, damagedEntity, config1.getLong("skill2"));
         event.setCancelled(true);
     }
 
     public void shiftToggle(PlayerToggleSneakEvent event){
+        ConfigurationSection config1 = ElementalProject.getPlugin().getConfig().getConfigurationSection("coolDowns");
+        if(config1 == null) return;
         Player p = event.getPlayer();
         if(event.isSneaking()){
             if(shiftPressTime.containsKey(p.getUniqueId())){
                 long lastShift = shiftPressTime.get(p.getUniqueId());
                 long currentTime = System.currentTimeMillis();
                 if(currentTime - lastShift < 1000){
-                    skills.ultimateSkill(p, damagedEntity, 120L);
+                    skills.ultimateSkill(p, damagedEntity, config1.getLong("ult"));
                 }
             }
             shiftPressTime.put(p.getUniqueId(), System.currentTimeMillis());

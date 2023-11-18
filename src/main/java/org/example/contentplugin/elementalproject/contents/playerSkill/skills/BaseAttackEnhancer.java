@@ -7,23 +7,30 @@ import java.util.Map;
 import java.util.UUID;
 
 public class BaseAttackEnhancer {
-    private Map<UUID, Integer> enhance = new HashMap<>();
+    private static Map<UUID, Integer> enhance = new HashMap<>();
 
-    private int getInt(Player p){
+    public static int getInt(Player p){
+        if(enhance.get(p.getUniqueId())==null){
+            return 0;
+        }
         return enhance.get(p.getUniqueId());
     }
 
-    public void setEnhance(Player p, int val){
-        if(val == 0){
-            enhance.put(p.getUniqueId(), val);
-        }
-        else{
-            enhance.put(p.getUniqueId(), 1);
-        }
+    public static void activeEnhance(Player p){
+        p.sendMessage("activated check");
+        enhance.put(p.getUniqueId(), 1);
     }
 
-    public boolean enhancer(Player p){
-        enhance.putIfAbsent(p.getUniqueId(), 0);
-        return enhance.get(p.getUniqueId())==0;
+    public static void deactivateEnhance(Player p){
+        p.sendMessage("deactivated check");
+        enhance.put(p.getUniqueId(), 0);
+    }
+
+    public static boolean activated(Player p){
+        return enhance.getOrDefault(p.getUniqueId(), 0) != 0;
+    }
+
+    public static boolean deactivated(Player p){
+        return enhance.getOrDefault(p.getUniqueId(), 0) == 0;
     }
 }

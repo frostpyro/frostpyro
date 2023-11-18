@@ -10,22 +10,22 @@ import java.util.Set;
 import java.util.UUID;
 
 public class AirUltSword implements SNS {
-    private int sec;
+    private final int sec;
+
+
 
     public AirUltSword(int sec){
         this.sec = sec;
     }
-    BaseAttackEnhancer enhancer = new BaseAttackEnhancer();
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
-        if(!enhancer.enhancer(player)) return;
-        enhancer.setEnhance(player, 1);
-        player.sendMessage("ult");
+        if(BaseAttackEnhancer.getInt(player)!=0) return;
+        BaseAttackEnhancer.activeEnhance(player);
         new BukkitRunnable(){
             @Override
             public void run() {
-                enhancer.setEnhance(player, 0);
+                BaseAttackEnhancer.deactivateEnhance(player);
             }
-        }.runTaskLater(ElementalProject.getPlugin(), sec* 20L);
+        }.runTaskLater(ElementalProject.getPlugin(), sec * 20L);
     }
 }

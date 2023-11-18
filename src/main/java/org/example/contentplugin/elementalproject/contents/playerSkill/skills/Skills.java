@@ -63,6 +63,7 @@ public class Skills {
     }
     public void baseAttackSkill(Player p, Set<UUID> entitySet, double sec){
         nullCheck(p);
+        if(p.isSneaking()) return;
         try{
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
@@ -70,7 +71,7 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[0] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[0] = 0L;
             }
-            if(enhance.enhancer(p)){
+            if(BaseAttackEnhancer.deactivated(p)){
                 switch(skillClass){
                     case 1 ->{
                         airBaseSword.attacking(p, entitySet);
@@ -91,7 +92,7 @@ public class Skills {
                     }
                 }
             }
-            else{
+            else if(BaseAttackEnhancer.activated(p)){
                 switch (skillClass){
                     case 1 ->{
                         airEnhanceSword.attacking(p, entitySet);
@@ -110,6 +111,7 @@ public class Skills {
 
     public void skill1(Player p, Set<UUID> entitySet, long sec){
         nullCheck(p);
+        if(p.isSneaking()) return;
         try{
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
@@ -143,11 +145,16 @@ public class Skills {
         }
     }
 
-    public void skill2(Player p, Set<UUID> entitySet){
+    public void skill2(Player p, Set<UUID> entitySet, long sec){
+        if(!p.isSneaking()) return;
         nullCheck(p);
         try{
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
+            if(cooldowns.get(p.getUniqueId())[2] != 0){
+                if(cooldowns.get(p.getUniqueId())[2] >= System.currentTimeMillis()) return;
+                cooldowns.get(p.getUniqueId())[2] = 0L;
+            }
             switch(skillClass){
                 case 1 ->{
                     airSkill2Sword.attacking(p, entitySet);
@@ -167,16 +174,22 @@ public class Skills {
 
                 }
             }
+            cooldowns.get(p.getUniqueId())[2] = System.currentTimeMillis() + (sec * 1000);
         }
         catch (SQLException e){
             e.printStackTrace();
         }
     }
 
-    public void skill3(Player p, Set<UUID> entitySet){
+    public void skill3(Player p, Set<UUID> entitySet, long sec){
+        if(!p.isSneaking()) return;
         nullCheck(p);
         try{
             PlayerStat playerStat = getPlayerStat(p);
+            if(cooldowns.get(p.getUniqueId())[3] != 0){
+                if(cooldowns.get(p.getUniqueId())[3] >= System.currentTimeMillis()) return;
+                cooldowns.get(p.getUniqueId())[3] = 0L;
+            }
             int skillClass = playerStat.getSkillClass();
             switch(skillClass){
                 case 1 ->{
@@ -196,6 +209,7 @@ public class Skills {
         catch (SQLException e){
             e.printStackTrace();
         }
+        cooldowns.get(p.getUniqueId())[3] = System.currentTimeMillis() + (sec * 1000);
     }
 
     public void ultimateSkill(Player p, Set<UUID> entitySet, long sec){
