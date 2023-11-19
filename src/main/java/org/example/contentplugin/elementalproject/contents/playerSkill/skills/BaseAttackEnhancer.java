@@ -15,10 +15,9 @@ public class BaseAttackEnhancer {
         }
         return enhance.get(p.getUniqueId());
     }
-
-    public static void activeEnhance(Player p){
+    public static void activeEnhance(Player p, int type){
         p.sendMessage("activated check");
-        enhance.put(p.getUniqueId(), 1);
+        enhance.put(p.getUniqueId(), type);
     }
 
     public static void deactivateEnhance(Player p){

@@ -19,8 +19,7 @@ public class AirUltSword implements SNS {
     }
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
-        if(BaseAttackEnhancer.getInt(player)!=0) return;
-        BaseAttackEnhancer.activeEnhance(player);
+        BaseAttackEnhancer.activeEnhance(player, 1);
         new BukkitRunnable(){
             @Override
             public void run() {

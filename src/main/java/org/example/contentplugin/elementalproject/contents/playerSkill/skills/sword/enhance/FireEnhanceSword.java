@@ -10,13 +10,11 @@ import java.util.Set;
 import java.util.UUID;
 
 public class FireEnhanceSword implements BaseAttack {
-    BaseAttackEnhancer enhancer = new BaseAttackEnhancer();
-    private int sec;
-    FireEnhanceSword(int sec){
-        this.sec = sec;
-    }
+
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
         if(player.isSneaking()) return;
+        if(BaseAttackEnhancer.getInt(player) != 4) return;
+
     }
 }

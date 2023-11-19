@@ -10,11 +10,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public class EarthEnhanceSword implements BaseAttack {
-    BaseAttackEnhancer enhancer = new BaseAttackEnhancer();
-    private int sec;
-    EarthEnhanceSword(int sec){
-        this.sec = sec;
-    }
+
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
         if(player.isSneaking()) return;
