@@ -1,17 +1,17 @@
 package org.example.contentplugin.elementalproject.listners;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.entity.*;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuestGet;
+import org.example.contentplugin.elementalproject.contents.entitySkill.EntitySkill;
 import org.example.contentplugin.elementalproject.contents.leveling.LevelPoint;
 
 
@@ -22,6 +22,7 @@ public class EntityInteraction implements Listener {
     LevelPoint levelPoint = new LevelPoint();
     DailyQuestGet dailyQuest = new DailyQuestGet();
 
+    EntitySkill entitySkill = new EntitySkill();
     DataBase dataBase = new DataBase();
 
     private PlayerStat getPlayerStat(Player p) throws SQLException {
@@ -54,5 +55,22 @@ public class EntityInteraction implements Listener {
         Entity entity = event.getEntity();
         levelPoint.levelSetting(entity);
         levelPoint.maxHealthMod(entity);
+
+        if(entity instanceof PigZombie){
+            PersistentDataContainer data = entity.getPersistentDataContainer();
+            if(!data.has(ElementalProject.level(), PersistentDataType.INTEGER)) return;
+
+            if(data.get(ElementalProject.level(), PersistentDataType.INTEGER) < 40) return;
+            ((PigZombie)entity).setAngry(true);
+            ((PigZombie)entity).setAnger(10);
+        }
+    }
+
+    @EventHandler
+    private void entityTarget(EntityTargetEvent event){
+        Entity entity = event.getEntity();
+        if(event.getTarget() instanceof Player) return;
+        Entity target = event.getTarget();
+        entitySkill.entitySkill(entity, target);
     }
 }
