@@ -29,7 +29,10 @@ public class ElementalProject extends JavaPlugin {
     private DataBase dataBase;
 
 
-
+    /**
+     *the main function.
+     *
+     */
     @Override
     public void onEnable() {
 
@@ -73,7 +76,11 @@ public class ElementalProject extends JavaPlugin {
     }
 
 
-
+    /**
+     * function that points main plugin.
+     * this does not disappear from memory.
+     * @return ElementalProject
+     */
     public static ElementalProject getPlugin() {
         return plugin;
     }
