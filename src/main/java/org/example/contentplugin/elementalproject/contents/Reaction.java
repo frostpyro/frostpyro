@@ -16,10 +16,9 @@ import java.util.*;
 public class Reaction {
     private static Map<UUID, Elements> react = new HashMap<>();
 
-    Damaging damaging = new Damaging();
 
     public static void hit(Entity entity, Elements elements){
-        Damaging damaging1 = new Damaging();
+        Damaging damaging = new Damaging();
         if(!(entity instanceof LivingEntity)) return;
         if(!react.isEmpty()) return;
         react.put(entity.getUniqueId(), elements);
@@ -80,6 +79,7 @@ public class Reaction {
     }
 
     public void reaction(Player p, Entity entity, Elements baseElement, Set<UUID> entitySet){
+        Damaging damaging = new Damaging();
         if(!(entity instanceof LivingEntity)) return;
         if(react.get(entity.getUniqueId())==null) return;
 
