@@ -17,7 +17,7 @@ public class Reaction {
     private static Map<UUID, Elements> react = new HashMap<>();
 
 
-    public static void hit(Entity entity, Elements elements){
+    public void hit(Entity entity, Elements elements){
         Damaging damaging = new Damaging();
         if(!(entity instanceof LivingEntity)) return;
         if(!react.isEmpty()) return;
