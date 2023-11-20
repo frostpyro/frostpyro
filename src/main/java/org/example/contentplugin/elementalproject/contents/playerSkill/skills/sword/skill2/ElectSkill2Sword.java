@@ -6,7 +6,7 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.attackMet
 import java.util.Set;
 import java.util.UUID;
 
-public class ElectronicSkill2Sword implements RNS {
+public class ElectSkill2Sword implements RNS {
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
         if(!player.isSneaking()) return;

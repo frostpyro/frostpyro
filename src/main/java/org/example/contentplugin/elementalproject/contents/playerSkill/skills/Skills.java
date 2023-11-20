@@ -22,7 +22,7 @@ public class Skills {
     private final DataBase dataBase = new DataBase();
 
     private final BaseAttack airBaseSword = new AirBaseSword();
-    private final BaseAttack electronicBaseSword = new ElectronicBaseSword();
+    private final BaseAttack electronicBaseSword = new ElectBaseSword();
     private final BaseAttack fireBaseSword = new FireBaseSword();
     private final BaseAttack iceBaseSword = new IceBaseSword();
     private final BaseAttack lightBaseSword = new LightBaseSword();
@@ -30,7 +30,7 @@ public class Skills {
 
     private final BaseAttack airEnhanceSword = new AirEnhanceSword();
     private final Right airSkill1Sword = new AirSkill1Sword();
-    private final Right electronicSkill1Sword = new ElectronicSkill1Sword();
+    private final Right electronicSkill1Sword = new ElectSkill1Sword();
     private final Right earthSkill1Sword = new EarthSkill1Sword();
     private final Right iceSkill1Sword = new IceSkill1Sword();
     private final Right fireSkill1Sword = new FireSkill1Sword();
@@ -38,7 +38,7 @@ public class Skills {
     private final RNS iceSkill2Sword = new IceSkill2Sword();
     private final RNS fireSKill2Sword = new FireSkill2Sword();
     private final RNS earthSkill2Sword = new EarthSkill2Sword();
-    private final RNS electronicSkill2Sword = new ElectronicSkill2Sword();
+    private final RNS electronicSkill2Sword = new ElectSkill2Sword();
     private final RNS lightSkill2Sword = new LightSkill2Sword();
     private final RNS airSkill2Sword = new AirSkill2Sword();
     private final LNS airSkill3Sword = new AirSkill3Sword();

@@ -14,11 +14,12 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.Damaging;
 import java.util.*;
 
 public class Reaction {
-    private Map<UUID, Elements> react = new HashMap<>();
+    private static Map<UUID, Elements> react = new HashMap<>();
 
     Damaging damaging = new Damaging();
 
-    protected void hit(Entity entity, Elements elements){
+    public static void hit(Entity entity, Elements elements){
+        Damaging damaging1 = new Damaging();
         if(!(entity instanceof LivingEntity)) return;
         if(!react.isEmpty()) return;
         react.put(entity.getUniqueId(), elements);
@@ -49,7 +50,7 @@ public class Reaction {
                 new BukkitRunnable(){
                     @Override
                     public void run() {
-                        damaging.windParticle(entity, 20L);
+
                     }
                 }.runTaskTimer(ElementalProject.getPlugin(), 0L, 20L);
                 new BukkitRunnable(){
@@ -78,7 +79,7 @@ public class Reaction {
 
     }
 
-    protected void reaction(Player p, Entity entity, Elements baseElement, Set<UUID> entitySet){
+    public void reaction(Player p, Entity entity, Elements baseElement, Set<UUID> entitySet){
         if(!(entity instanceof LivingEntity)) return;
         if(react.get(entity.getUniqueId())==null) return;
 
