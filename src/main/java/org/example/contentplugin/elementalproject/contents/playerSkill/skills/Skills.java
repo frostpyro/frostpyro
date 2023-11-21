@@ -1,6 +1,10 @@
 package org.example.contentplugin.elementalproject.contents.playerSkill.skills;
 
+import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.*;
@@ -48,7 +52,6 @@ public class Skills {
 
     private final SNS airUltSword = new AirUltSword(3);
 
-    BaseAttackEnhancer enhance = new BaseAttackEnhancer();
     private PlayerStat getPlayerStat(Player p) throws SQLException {
         PlayerStat playerStat = dataBase.findUUID(p.getUniqueId().toString());
         if(playerStat == null){
@@ -74,6 +77,7 @@ public class Skills {
             if(BaseAttackEnhancer.deactivated(p)){
                 switch(skillClass){
                     case 1 ->{
+                        if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
                         airBaseSword.attacking(p, entitySet);
                         earthBaseSword.attacking(p, entitySet);
                         fireBaseSword.attacking(p, entitySet);
@@ -82,23 +86,30 @@ public class Skills {
                         electronicBaseSword.attacking(p, entitySet);
                     }
                     case 2 ->{
-
+                        if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
                     }
                     case 3 ->{
-
+                        if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
                     }
                     case 4 ->{
-
+                        if(!getItem(p, Material.WOODEN_HOE, 1)) return;
                     }
                 }
             }
             else if(BaseAttackEnhancer.activated(p)){
                 switch (skillClass){
                     case 1 ->{
+                        if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
                         airEnhanceSword.attacking(p, entitySet);
                     }
                     case 2 ->{
-
+                        if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
+                    }
+                    case 3 ->{
+                        if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
+                    }
+                    case 4 ->{
+                        if(!getItem(p, Material.WOODEN_HOE, 1)) return;
                     }
                 }
             }
@@ -121,6 +132,7 @@ public class Skills {
             }
             switch(skillClass){
                 case 1 ->{
+                    if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
                     airSkill1Sword.attacking(p, entitySet);
                     fireSkill1Sword.attacking(p, entitySet);
                     iceSkill1Sword.attacking(p, entitySet);
@@ -129,13 +141,13 @@ public class Skills {
                     electronicSkill1Sword.attacking(p, entitySet);
                 }
                 case 2 ->{
-
+                    if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
                 }
                 case 3 ->{
-
+                    if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
                 }
                 case 4 ->{
-
+                    if(!getItem(p, Material.WOODEN_HOE, 1)) return;
                 }
             }
             cooldowns.get(p.getUniqueId())[1] = System.currentTimeMillis() + (sec * 1000);
@@ -157,6 +169,7 @@ public class Skills {
             }
             switch(skillClass){
                 case 1 ->{
+                    if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
                     airSkill2Sword.attacking(p, entitySet);
                     electronicSkill2Sword.attacking(p, entitySet);
                     iceSkill2Sword.attacking(p, entitySet);
@@ -165,13 +178,13 @@ public class Skills {
                     lightSkill2Sword.attacking(p, entitySet);
                 }
                 case 2 ->{
-
+                    if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
                 }
                 case 3 ->{
-
+                    if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
                 }
                 case 4 ->{
-
+                    if(!getItem(p, Material.WOODEN_HOE, 1)) return;
                 }
             }
             cooldowns.get(p.getUniqueId())[2] = System.currentTimeMillis() + (sec * 1000);
@@ -193,16 +206,17 @@ public class Skills {
             int skillClass = playerStat.getSkillClass();
             switch(skillClass){
                 case 1 ->{
+                    if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
                     airSkill3Sword.attacking(p, entitySet);
                 }
                 case 2 ->{
-
+                    if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
                 }
                 case 3 ->{
-
+                    if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
                 }
                 case 4 ->{
-
+                    if(!getItem(p, Material.WOODEN_HOE, 1)) return;
                 }
             }
         }
@@ -223,16 +237,17 @@ public class Skills {
             }
             switch(skillClass){
                 case 1 ->{
+                    if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
                     airUltSword.attacking(p, entitySet);
                 }
                 case 2 ->{
-
+                    if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
                 }
                 case 3 ->{
-
+                    if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
                 }
                 case 4 ->{
-
+                    if(!getItem(p, Material.WOODEN_HOE, 1)) return;
                 }
             }
             cooldowns.get(p.getUniqueId())[4] = System.currentTimeMillis() + (sec * 1000);
@@ -240,5 +255,15 @@ public class Skills {
         catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    @SuppressWarnings("all")
+    private boolean getItem(Player p, Material material, int model){
+        ItemStack itemStack = p.getInventory().getItemInMainHand();
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        if(!itemStack.hasItemMeta()) return false;
+        if(!itemStack.getItemMeta().hasCustomModelData()) return false;
+
+        return itemStack.getType().equals(material) && itemMeta.getCustomModelData() == model;
     }
 }
