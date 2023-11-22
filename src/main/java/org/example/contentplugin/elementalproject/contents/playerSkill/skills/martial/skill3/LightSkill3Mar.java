@@ -1,4 +1,14 @@
 package org.example.contentplugin.elementalproject.contents.playerSkill.skills.martial.skill3;
 
-public class LightSkill3Mar {
+import org.bukkit.entity.Player;
+import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.LNS;
+
+import java.util.Set;
+import java.util.UUID;
+
+public class LightSkill3Mar implements LNS {
+    @Override
+    public void attacking(Player player, Set<UUID> entitySet) {
+
+    }
 }

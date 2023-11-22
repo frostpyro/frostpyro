@@ -1,4 +1,14 @@
 package org.example.contentplugin.elementalproject.contents.playerSkill.skills.martial.skill2;
 
-public class EarthSkill2Mar {
+import org.bukkit.entity.Player;
+import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.RNS;
+
+import java.util.Set;
+import java.util.UUID;
+
+public class EarthSkill2Mar implements RNS {
+    @Override
+    public void attacking(Player player, Set<UUID> entitySet) {
+
+    }
 }

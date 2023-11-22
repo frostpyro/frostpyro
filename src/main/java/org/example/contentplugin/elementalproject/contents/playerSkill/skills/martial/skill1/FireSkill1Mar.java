@@ -1,4 +1,14 @@
 package org.example.contentplugin.elementalproject.contents.playerSkill.skills.martial.skill1;
 
-public class FireSkill1Mar {
+import org.bukkit.entity.Player;
+import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.Right;
+
+import java.util.Set;
+import java.util.UUID;
+
+public class FireSkill1Mar implements Right {
+    @Override
+    public void attacking(Player player, Set<UUID> entitySet) {
+
+    }
 }
