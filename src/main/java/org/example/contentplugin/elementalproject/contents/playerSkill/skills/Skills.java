@@ -1,7 +1,6 @@
 package org.example.contentplugin.elementalproject.contents.playerSkill.skills;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -12,9 +11,7 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sw
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.enhance.AirEnhanceSword;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill1.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill2.*;
-import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill3.AirSkill3Sword;
-import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill3.EarthSkill3Sword;
-import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill3.FireSkill3Sword;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill3.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.ultimate.AirUltSword;
 
 import java.sql.SQLException;
@@ -26,7 +23,7 @@ public class Skills {
     private final DataBase dataBase = new DataBase();
 
     private final BaseAttack airBaseSword = new AirBaseSword();
-    private final BaseAttack electronicBaseSword = new ElectBaseSword();
+    private final BaseAttack electBaseSword = new ElectBaseSword();
     private final BaseAttack fireBaseSword = new FireBaseSword();
     private final BaseAttack iceBaseSword = new IceBaseSword();
     private final BaseAttack lightBaseSword = new LightBaseSword();
@@ -34,7 +31,7 @@ public class Skills {
 
     private final BaseAttack airEnhanceSword = new AirEnhanceSword();
     private final Right airSkill1Sword = new AirSkill1Sword();
-    private final Right electronicSkill1Sword = new ElectSkill1Sword();
+    private final Right electSkill1Sword = new ElectSkill1Sword();
     private final Right earthSkill1Sword = new EarthSkill1Sword();
     private final Right iceSkill1Sword = new IceSkill1Sword();
     private final Right fireSkill1Sword = new FireSkill1Sword();
@@ -42,13 +39,15 @@ public class Skills {
     private final RNS iceSkill2Sword = new IceSkill2Sword();
     private final RNS fireSKill2Sword = new FireSkill2Sword();
     private final RNS earthSkill2Sword = new EarthSkill2Sword();
-    private final RNS electronicSkill2Sword = new ElectSkill2Sword();
+    private final RNS electSkill2Sword = new ElectSkill2Sword();
     private final RNS lightSkill2Sword = new LightSkill2Sword();
     private final RNS airSkill2Sword = new AirSkill2Sword();
     private final LNS airSkill3Sword = new AirSkill3Sword();
     private final LNS earthSkill3Sword = new EarthSkill3Sword();
     private final LNS fireSkill3Sword = new FireSkill3Sword();
-
+    private final LNS electSkill3Sword = new ElectSkill3Sword();
+    private final LNS iceSkill3Sword = new IceSkill3Sword();
+    private final LNS lightSkill3Sword = new LightSkill3Sword();
 
     private final SNS airUltSword = new AirUltSword(3);
 
@@ -83,7 +82,7 @@ public class Skills {
                         fireBaseSword.attacking(p, entitySet);
                         iceBaseSword.attacking(p, entitySet);
                         lightBaseSword.attacking(p, entitySet);
-                        electronicBaseSword.attacking(p, entitySet);
+                        electBaseSword.attacking(p, entitySet);
                     }
                     case 2 ->{
                         if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
@@ -138,7 +137,7 @@ public class Skills {
                     iceSkill1Sword.attacking(p, entitySet);
                     earthSkill1Sword.attacking(p, entitySet);
                     lightSkill1Sword.attacking(p, entitySet);
-                    electronicSkill1Sword.attacking(p, entitySet);
+                    electSkill1Sword.attacking(p, entitySet);
                 }
                 case 2 ->{
                     if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
@@ -171,7 +170,7 @@ public class Skills {
                 case 1 ->{
                     if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
                     airSkill2Sword.attacking(p, entitySet);
-                    electronicSkill2Sword.attacking(p, entitySet);
+                    electSkill2Sword.attacking(p, entitySet);
                     iceSkill2Sword.attacking(p, entitySet);
                     fireSKill2Sword.attacking(p, entitySet);
                     earthSkill2Sword.attacking(p, entitySet);
