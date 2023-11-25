@@ -12,9 +12,18 @@ import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.baseAttack.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.enhance.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.skill1.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.skill2.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.skill3.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.mage.enhance.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.mage.skill1.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.mage.skill2.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.mage.skill3.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.martial.baseAttack.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.martial.enhance.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.martial.skill1.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.martial.skill2.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.martial.skill3.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.baseAttack.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.enhance.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill1.*;
@@ -151,6 +160,7 @@ public class Skills {
                     }
                 }
             }
+            if(baseAttack == null) return;
             baseAttack.attacking(p, entitySet);
             cooldowns.get(p.getUniqueId())[0] = System.currentTimeMillis() + (long)(sec*1000L);
         }
@@ -177,18 +187,50 @@ public class Skills {
             switch(skillClass){
                 case 1 ->{
                     if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
-                    right = new AirSkill1Sword();
+                    switch(getSkill){
+                        case 1 -> right = new AirSkill1Sword();
+                        case 2 -> right = new EarthSkill1Sword();
+                        case 3 -> right = new ElectSkill1Sword();
+                        case 4 -> right = new FireSkill1Sword();
+                        case 5 -> right = new IceSkill1Sword();
+                        case 6 -> right = new LightSkill1Sword();
+                    }
                 }
                 case 2 ->{
                     if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
+                    switch(getSkill){
+                        case 1 -> right = new AirSkill1Archer();
+                        case 2 -> right = new EarthSkill1Archer();
+                        case 3 -> right = new ElectSkill1Archer();
+                        case 4 -> right = new FireSkill1Archer();
+                        case 5 -> right = new IceSkill1Archer();
+                        case 6 -> right = new LightSkill1Archer();
+                    }
                 }
                 case 3 ->{
                     if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
+                    switch(getSkill){
+                        case 1 -> right = new AirSkill1Mar();
+                        case 2 -> right = new EarthSkill1Mar();
+                        case 3 -> right = new ElectSkill1Mar();
+                        case 4 -> right = new FireSkill1Mar();
+                        case 5 -> right = new IceSkill1Mar();
+                        case 6 -> right = new LightSkill1Mar();
+                    }
                 }
                 case 4 ->{
                     if(!getItem(p, Material.WOODEN_HOE, 1)) return;
+                    switch(getSkill){
+                        case 1 -> right = new AirSkill1Mage();
+                        case 2 -> right = new EarthSkill1Mage();
+                        case 3 -> right = new ElectSkill1Mage();
+                        case 4 -> right = new FireSkill1Mage();
+                        case 5 -> right = new IceSkill1Mage();
+                        case 6 -> right = new LightSkill1Mage();
+                    }
                 }
             }
+            if(right == null) return;
             right.attacking(p, entitySet);
             cooldowns.get(p.getUniqueId())[1] = System.currentTimeMillis() + (sec * 1000);
         }
@@ -215,18 +257,50 @@ public class Skills {
             switch(skillClass){
                 case 1 ->{
                     if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
-                    rns = new AirSkill2Sword();
+                    switch (getSkill){
+                        case 1 -> rns = new AirSkill2Sword();
+                        case 2 -> rns = new EarthSkill2Sword();
+                        case 3 -> rns = new ElectSkill2Sword();
+                        case 4 -> rns = new FireSkill2Sword();
+                        case 5 -> rns = new IceSkill2Sword();
+                        case 6 -> rns = new LightSkill2Sword();
+                    }
                 }
                 case 2 ->{
                     if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
+                    switch (getSkill){
+                        case 1 -> rns = new AirSkill2Archer();
+                        case 2 -> rns = new EarthSkill2Archer();
+                        case 3 -> rns = new ElectSkill2Archer();
+                        case 4 -> rns = new FireSkill2Archer();
+                        case 5 -> rns = new IceSkill2Archer();
+                        case 6 -> rns = new LightSkill2Archer();
+                    }
                 }
                 case 3 ->{
                     if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
+                    switch (getSkill){
+                        case 1 -> rns = new AirSkill2Mar();
+                        case 2 -> rns = new EarthSkill2Mar();
+                        case 3 -> rns = new ElectSkill2Mar();
+                        case 4 -> rns = new FireSkill2Mar();
+                        case 5 -> rns = new IceSkill2Mar();
+                        case 6 -> rns = new LightSkill2Mar();
+                    }
                 }
                 case 4 ->{
                     if(!getItem(p, Material.WOODEN_HOE, 1)) return;
+                    switch (getSkill){
+                        case 1 -> rns = new AirSkill2Mage();
+                        case 2 -> rns = new EarthSkill2Mage();
+                        case 3 -> rns = new ElectSkill2Mage();
+                        case 4 -> rns = new FireSkill2Mage();
+                        case 5 -> rns = new IceSkill2Mage();
+                        case 6 -> rns = new LightSkill2Mage();
+                    }
                 }
             }
+            if(rns == null)return;
             rns.attacking(p, entitySet);
             cooldowns.get(p.getUniqueId())[2] = System.currentTimeMillis() + (sec * 1000);
         }
@@ -253,18 +327,50 @@ public class Skills {
             switch(skillClass){
                 case 1 ->{
                     if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
-                    lns = new AirSkill3Sword();
+                    switch(getSkill) {
+                        case 1 -> lns = new AirSkill3Sword();
+                        case 2 -> lns = new EarthSkill3Sword();
+                        case 3 -> lns = new ElectSkill3Sword();
+                        case 4 -> lns = new FireSkill3Sword();
+                        case 5 -> lns = new IceSkill3Sword();
+                        case 6 -> lns = new LightSkill3Sword();
+                    }
                 }
                 case 2 ->{
                     if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
+                    switch(getSkill) {
+                        case 1 -> lns = new AirSkill3Archer();
+                        case 2 -> lns = new EarthSkill3Archer();
+                        case 3 -> lns = new ElectSkill3Archer();
+                        case 4 -> lns = new FireSkill3Archer();
+                        case 5 -> lns = new IceSkill3Archer();
+                        case 6 -> lns = new LightSkill3Archer();
+                    }
                 }
                 case 3 ->{
                     if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
+                    switch(getSkill) {
+                        case 1 -> lns = new AirSkill3Mar();
+                        case 2 -> lns = new EarthSkill3Mar();
+                        case 3 -> lns = new ElectSkill3Mar();
+                        case 4 -> lns = new FireSkill3Mar();
+                        case 5 -> lns = new IceSkill3Mar();
+                        case 6 -> lns = new LightSkill3Mar();
+                    }
                 }
                 case 4 ->{
                     if(!getItem(p, Material.WOODEN_HOE, 1)) return;
+                    switch(getSkill) {
+                        case 1 -> lns = new AirSkill3Mage();
+                        case 2 -> lns = new EarthSkill3Mage();
+                        case 3 -> lns = new ElectSkill3Mage();
+                        case 4 -> lns = new FireSkill3Mage();
+                        case 5 -> lns = new IceSkill3Mage();
+                        case 6 -> lns = new LightSkill3Mage();
+                    }
                 }
             }
+            if(lns == null) return;
             lns.attacking(p, entitySet);
             cooldowns.get(p.getUniqueId())[3] = System.currentTimeMillis() + (sec * 1000);
         }
@@ -301,6 +407,7 @@ public class Skills {
                     if(!getItem(p, Material.WOODEN_HOE, 1)) return;
                 }
             }
+            if(sns == null) return;
             sns.attacking(p, entitySet);
             cooldowns.get(p.getUniqueId())[4] = System.currentTimeMillis() + (sec * 1000);
         }
