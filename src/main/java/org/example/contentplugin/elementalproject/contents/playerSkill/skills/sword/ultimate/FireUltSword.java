@@ -43,7 +43,7 @@ public class FireUltSword implements SNS {
                 display.setDisplayWidth(5f);
                 display.setDisplayHeight(5f);
                 display.setRotation(0, 180);
-                StatusModifier.moveAble(player);
+                StatusModifier.activeMove(player);
                 StatusModifier.deactivateEnhance(player);
             }
         }.runTaskLater(ElementalProject.getPlugin(), sec * 20L);
