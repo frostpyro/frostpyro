@@ -26,8 +26,8 @@ public class StatusModifier {
     }
 
     public static boolean activated(Player p){
-        statMod.computeIfAbsent(p.getUniqueId(), k -> new int[3]);
-        return statMod.get(p.getUniqueId())[0] != 0;
+        int[] stats = statMod.getOrDefault(p.getUniqueId(), new int[3]);
+        return stats[0] != 0;
     }
 
     public static boolean deactivated(Player p){
