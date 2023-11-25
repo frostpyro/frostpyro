@@ -24,30 +24,22 @@ public class EntitySkill {
         PersistentDataContainer data = entity.getPersistentDataContainer();
         if(!data.has(ElementalProject.level(), PersistentDataType.INTEGER)) return;
         if(data.get(ElementalProject.level(), PersistentDataType.INTEGER) < 40) return;
-
+        if(coolDown.contains(entity.getUniqueId())) return;
         EntityType entityType = entity.getType();
+        if(entity.isDead()){
+            coolDown.remove(entity.getUniqueId());
+            return;
+        }
         if(!(targetEntity instanceof Player)) return;
         switch(entityType){
             case ZOMBIE -> {
-                if(coolDown.contains(entity.getUniqueId())) return;
-                if(entity.isDead()){
-                    coolDown.remove(entity.getUniqueId());
-                    return;
-                }
                 ((LivingEntity)entity).addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 3, 3));
-                //TODO:add zombie skill
                 coolDown.add(entity.getUniqueId());
                 Bukkit.getScheduler().runTaskLater(ElementalProject.getPlugin(), ()->{
                     coolDown.remove(entity.getUniqueId());
                 }, 20 * 13);
             }
             case SKELETON -> {
-                if(coolDown.contains(entity.getUniqueId())) return;
-                if(entity.isDead()){
-                    coolDown.remove(entity.getUniqueId());
-                    return;
-                }
-                //TODO:add skeleton skill
                 for(int i = 0; i <= 40; i++){
                     Bukkit.getScheduler().runTaskLater(ElementalProject.getPlugin(), ()->{
                         Projectile projectile = (Projectile) entity.getWorld().spawnEntity(entity.getLocation().add(new Location(entity.getWorld(),0,1.5,0)), EntityType.ARROW);
@@ -62,11 +54,6 @@ public class EntitySkill {
                 }, 20 * 20);
             }
             case CREEPER -> {
-                if(coolDown.contains(entity.getUniqueId())) return;
-                if(entity.isDead()){
-                    coolDown.remove(entity.getUniqueId());
-                    return;
-                }
                 ((Creeper)entity).setExplosionRadius(7);
                 new BukkitRunnable(){
                     @Override
@@ -78,6 +65,12 @@ public class EntitySkill {
                         }
                     }
                 }.runTaskLater(ElementalProject.getPlugin(), 120);
+            }case ZOMBIFIED_PIGLIN -> {
+
+
+                Bukkit.getScheduler().runTaskLater(ElementalProject.getPlugin(), ()->{
+                    coolDown.remove(entity.getUniqueId());
+                }, 20 * 20);
             }
         }
     }

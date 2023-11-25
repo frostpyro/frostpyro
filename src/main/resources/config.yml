@@ -151,3 +151,36 @@ coolDowns:
   skill2: 7
   skill3: 10
   ult: 120
+
+damageSet:
+  baseAttack: 5
+  skill1: 8
+  skill2: 10
+  skill3: 13
+  ult: 20
+
+damageAmplify:
+  melee:
+    baseAttack: 1
+    skill1: 1
+    skill2: 1
+    skill3: 1
+    ult: 1
+  archer:
+    baseAttack: 1
+    skill1: 1
+    skill3: 1
+    skill4: 1
+    ult: 1
+  martial:
+    baseAttack: 1
+    skill1: 1
+    skill3: 1
+    skill4: 1
+    ult: 1
+  mage:
+    baseAttack: 1
+    skill1: 1
+    skill3: 1
+    skill4: 1
+    ult: 1
