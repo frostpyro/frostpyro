@@ -58,6 +58,7 @@ public class Skills {
         cooldowns.computeIfAbsent(player.getUniqueId(), k -> new long[5]);
     }
     public void baseAttackSkill(Player p, Set<UUID> entitySet, double sec){
+        int init = 1;
         nullCheck(p);
         if(p.isSneaking()) return;
         PersistentDataContainer container = p.getPersistentDataContainer();
@@ -73,6 +74,7 @@ public class Skills {
                 cooldowns.get(p.getUniqueId())[0] = 0L;
             }
             if(BaseAttackEnhancer.deactivated(p)){
+                init = 1;
                 switch(skillClass){
                     case 1 ->{
                         if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
@@ -113,6 +115,7 @@ public class Skills {
                 }
             }
             else if(BaseAttackEnhancer.activated(p)){
+                init = 4;
                 switch (skillClass){
                     case 1 ->{
                         if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
@@ -162,7 +165,7 @@ public class Skills {
             }
             if(baseAttack == null) return;
             baseAttack.attacking(p, entitySet);
-            cooldowns.get(p.getUniqueId())[0] = System.currentTimeMillis() + (long)(sec*1000L);
+            cooldowns.get(p.getUniqueId())[0] = System.currentTimeMillis() + (long)((sec/init)*1000L);
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -395,7 +398,7 @@ public class Skills {
             switch(skillClass){
                 case 1 ->{
                     if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
-                    sns = new AirUltSword(3);
+
                 }
                 case 2 ->{
                     if(!getItem(p, Material.WOODEN_SWORD, 1)) return;

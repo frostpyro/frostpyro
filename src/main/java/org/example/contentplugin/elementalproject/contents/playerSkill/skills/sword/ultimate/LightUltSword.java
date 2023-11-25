@@ -7,6 +7,11 @@ import java.util.Set;
 import java.util.UUID;
 
 public class LightUltSword implements SNS {
+    private final int sec;
+
+    public LightUltSword(int sec){
+        this.sec = sec;
+    }
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
 

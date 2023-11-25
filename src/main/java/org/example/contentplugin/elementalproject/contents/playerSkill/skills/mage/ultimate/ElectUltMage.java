@@ -6,7 +6,11 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.attackMet
 import java.util.Set;
 import java.util.UUID;
 
-public class FireUltSkill implements SNS {
+public class ElectUltMage implements SNS {
+    private final int sec;
+    public ElectUltMage(int sec){
+        this.sec = sec;
+    }
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
 

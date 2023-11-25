@@ -7,6 +7,10 @@ import java.util.Set;
 import java.util.UUID;
 
 public class AirUltArcher implements SNS {
+    private final int sec;
+    public AirUltArcher(int sec){
+        this.sec = sec;
+    }
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
 
