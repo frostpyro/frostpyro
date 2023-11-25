@@ -29,7 +29,6 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sw
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill1.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill2.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill3.*;
-import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.ultimate.AirUltSword;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.ultimate.FireUltSword;
 
 import java.sql.SQLException;
@@ -74,7 +73,7 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[0] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[0] = 0L;
             }
-            if(BaseAttackEnhancer.deactivated(p)){
+            if(StatusModifier.deactivated(p)){
                 init = 1;
                 switch(skillClass){
                     case 1 ->{
@@ -115,7 +114,7 @@ public class Skills {
                     }
                 }
             }
-            else if(BaseAttackEnhancer.activated(p)){
+            else if(StatusModifier.activated(p)){
                 init = 4;
                 switch (skillClass){
                     case 1 ->{
@@ -181,7 +180,7 @@ public class Skills {
 
         int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[1];
         try{
-            if(BaseAttackEnhancer.activated(p)) return;
+            if(StatusModifier.activated(p)) return;
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
             if(cooldowns.get(p.getUniqueId())[1] != 0){
@@ -251,7 +250,7 @@ public class Skills {
 
         int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[2];
         try{
-            if(BaseAttackEnhancer.activated(p)) return;
+            if(StatusModifier.activated(p)) return;
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
             if(cooldowns.get(p.getUniqueId())[2] != 0){
@@ -321,7 +320,7 @@ public class Skills {
 
         int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[3];
         try{
-            if(BaseAttackEnhancer.activated(p)) return;
+            if(StatusModifier.activated(p)) return;
             PlayerStat playerStat = getPlayerStat(p);
             if(cooldowns.get(p.getUniqueId())[3] != 0){
                 if(cooldowns.get(p.getUniqueId())[3] >= System.currentTimeMillis()) return;

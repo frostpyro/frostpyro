@@ -7,10 +7,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.StatusModifier;
 import org.example.contentplugin.elementalproject.interaction.click.Clicking;
 
 import java.sql.SQLException;
@@ -55,6 +57,12 @@ public class ClickEvent implements Listener {
     @EventHandler
     private void shiftClick(PlayerToggleSneakEvent event){
         clicking.shiftToggle(event);
+    }
+
+    @EventHandler
+    private void moveCancel(PlayerMoveEvent event){
+        if(StatusModifier.moveAble(event.getPlayer())) return;
+        event.setCancelled(true);
     }
 
 }

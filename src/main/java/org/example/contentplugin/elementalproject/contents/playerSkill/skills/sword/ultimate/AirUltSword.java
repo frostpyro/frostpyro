@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.SNS;
-import org.example.contentplugin.elementalproject.contents.playerSkill.skills.BaseAttackEnhancer;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.StatusModifier;
 
 import java.util.Set;
 import java.util.UUID;
@@ -19,11 +19,11 @@ public class AirUltSword implements SNS {
     }
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
-        BaseAttackEnhancer.activeEnhance(player, 1);
+        StatusModifier.activeEnhance(player);
         new BukkitRunnable(){
             @Override
             public void run() {
-                BaseAttackEnhancer.deactivateEnhance(player);
+                StatusModifier.deactivateEnhance(player);
             }
         }.runTaskLater(ElementalProject.getPlugin(), sec * 20L);
     }

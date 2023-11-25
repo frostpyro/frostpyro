@@ -10,7 +10,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.SNS;
-import org.example.contentplugin.elementalproject.contents.playerSkill.skills.BaseAttackEnhancer;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.StatusModifier;
 
 import java.util.Set;
 import java.util.UUID;
@@ -25,7 +25,7 @@ public class FireUltSword implements SNS {
     }
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
-
+        StatusModifier.cancelMove(player);
 
         new BukkitRunnable(){
             @Override
@@ -43,8 +43,8 @@ public class FireUltSword implements SNS {
                 display.setDisplayWidth(5f);
                 display.setDisplayHeight(5f);
                 display.setRotation(0, 180);
-
-                BaseAttackEnhancer.deactivateEnhance(player);
+                StatusModifier.moveAble(player);
+                StatusModifier.deactivateEnhance(player);
             }
         }.runTaskLater(ElementalProject.getPlugin(), sec * 20L);
     }
