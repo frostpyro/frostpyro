@@ -10,7 +10,13 @@ import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.baseAttack.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.enhance.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.mage.enhance.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.martial.baseAttack.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.martial.enhance.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.baseAttack.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.enhance.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill1.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill2.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill3.*;
@@ -49,6 +55,7 @@ public class Skills {
         if(!container.has(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)) container.set(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY, new int[5]);
 
         int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[0];
+        int enhanceIndex = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[4];
         try{
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
@@ -71,9 +78,25 @@ public class Skills {
                     }
                     case 2 ->{
                         if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
+                        switch(getSkill){
+                            case 1 -> baseAttack = new AirBaseArcher();
+                            case 2 -> baseAttack = new EarthBaseArcher();
+                            case 3 -> baseAttack = new ElectBaseArcher();
+                            case 4 -> baseAttack = new FireBaseArcher();
+                            case 5 -> baseAttack = new IceBaseArcher();
+                            case 6 -> baseAttack = new LightBaseArcher();
+                        }
                     }
                     case 3 ->{
                         if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
+                        switch(getSkill){
+                            case 1 -> baseAttack = new AirBaseMar();
+                            case 2 -> baseAttack = new EarthBaseMar();
+                            case 3 -> baseAttack = new ElectBaseMar();
+                            case 4 -> baseAttack = new FireBaseMar();
+                            case 5 -> baseAttack = new IceBaseMar();
+                            case 6 -> baseAttack = new LightBaseMar();
+                        }
                     }
                     case 4 ->{
                         if(!getItem(p, Material.WOODEN_HOE, 1)) return;
@@ -84,16 +107,47 @@ public class Skills {
                 switch (skillClass){
                     case 1 ->{
                         if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
-
+                        switch(enhanceIndex){
+                            case 1 -> baseAttack = new AirEnhanceSword();
+                            case 2 -> baseAttack = new EarthEnhanceSword();
+                            case 3 -> baseAttack = new ElectEnhanceSword();
+                            case 4 -> baseAttack = new FireEnhanceSword();
+                            case 5 -> baseAttack = new IceEnhanceSword();
+                            case 6 -> baseAttack = new LightEnhanceSword();
+                        }
                     }
                     case 2 ->{
                         if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
+                        switch(enhanceIndex){
+                            case 1 -> baseAttack = new AirEnhanceArcher();
+                            case 2 -> baseAttack = new EarthEnhanceArcher();
+                            case 3 -> baseAttack = new ElectEnhanceArcher();
+                            case 4 -> baseAttack = new FireEnhanceArcher();
+                            case 5 -> baseAttack = new IceEnhanceArcher();
+                            case 6 -> baseAttack = new LightEnhanceArcher();
+                        }
                     }
                     case 3 ->{
                         if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
+                        switch (enhanceIndex){
+                            case 1 -> baseAttack = new AirEnhanceMar();
+                            case 2 -> baseAttack = new EarthEnhanceMar();
+                            case 3 -> baseAttack = new ElectEnhanceMar();
+                            case 4 -> baseAttack = new FireEnhanceMar();
+                            case 5 -> baseAttack = new IceEnhanceMar();
+                            case 6 -> baseAttack = new LightEnhanceMar();
+                        }
                     }
                     case 4 ->{
                         if(!getItem(p, Material.WOODEN_HOE, 1)) return;
+                        switch (enhanceIndex){
+                            case 1 -> baseAttack = new AirEnhanceMage();
+                            case 2 -> baseAttack = new EarthEnhanceMage();
+                            case 3 -> baseAttack = new ElectEnhanceMage();
+                            case 4 -> baseAttack = new FireEnhanceMage();
+                            case 5 -> baseAttack = new IceEnhanceMage();
+                            case 6 -> baseAttack = new LightEnhanceMage();
+                        }
                     }
                 }
             }
@@ -113,6 +167,7 @@ public class Skills {
 
         int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[1];
         try{
+            if(BaseAttackEnhancer.activated(p)) return;
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
             if(cooldowns.get(p.getUniqueId())[1] != 0){
@@ -150,6 +205,7 @@ public class Skills {
 
         int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[2];
         try{
+            if(BaseAttackEnhancer.activated(p)) return;
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
             if(cooldowns.get(p.getUniqueId())[2] != 0){
@@ -187,6 +243,7 @@ public class Skills {
 
         int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[3];
         try{
+            if(BaseAttackEnhancer.activated(p)) return;
             PlayerStat playerStat = getPlayerStat(p);
             if(cooldowns.get(p.getUniqueId())[3] != 0){
                 if(cooldowns.get(p.getUniqueId())[3] >= System.currentTimeMillis()) return;
