@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.SNS;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.BaseAttackEnhancer;
@@ -30,7 +31,7 @@ public class FireUltSword implements SNS {
             @Override
             public void run() {
 
-                ItemDisplay display = (ItemDisplay)player.getWorld().spawnEntity(player.getLocation(), EntityType.ITEM_DISPLAY);
+                ItemDisplay display = (ItemDisplay)player.getWorld().spawnEntity(player.getLocation().add(new Vector(0, 4, 0)), EntityType.ITEM_DISPLAY);
 
                 display.setCustomName("fireUlt");
 
@@ -39,7 +40,9 @@ public class FireUltSword implements SNS {
                 meta.setCustomModelData(1);
                 itemStack.setItemMeta(meta);
                 display.setItemStack(itemStack);
-
+                display.setDisplayWidth(5f);
+                display.setDisplayHeight(5f);
+                display.setRotation(0, 180);
 
                 BaseAttackEnhancer.deactivateEnhance(player);
             }

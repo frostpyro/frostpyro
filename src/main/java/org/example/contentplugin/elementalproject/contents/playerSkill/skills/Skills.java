@@ -30,6 +30,7 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sw
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill2.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill3.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.ultimate.AirUltSword;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.ultimate.FireUltSword;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -398,7 +399,7 @@ public class Skills {
             switch(skillClass){
                 case 1 ->{
                     if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
-
+                    sns = new FireUltSword(1);
                 }
                 case 2 ->{
                     if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
