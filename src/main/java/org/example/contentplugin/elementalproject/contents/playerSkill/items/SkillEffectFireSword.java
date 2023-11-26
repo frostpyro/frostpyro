@@ -129,7 +129,6 @@ public class SkillEffectFireSword {
 
         World w = p.getWorld();
 
-        //TODO:평타 시간 줄이기
         Location location = p.getLocation();
         w.playSound(p.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 1, 0);
         StatusModifier.attackFast(p, speedSec.getDouble("melee"));
