@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.SNS;
-import org.example.contentplugin.elementalproject.contents.playerSkill.items.SkillEffect;
+import org.example.contentplugin.elementalproject.contents.playerSkill.items.SkillEffectFireSword;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.StatusModifier;
 
 import java.util.Set;
@@ -13,7 +13,7 @@ import java.util.UUID;
 public class FireUltSword implements SNS {
     private final int sec;
 
-    SkillEffect effect = new SkillEffect();
+    SkillEffectFireSword effect = new SkillEffectFireSword();
 
     public FireUltSword(int sec){
         this.sec = sec;

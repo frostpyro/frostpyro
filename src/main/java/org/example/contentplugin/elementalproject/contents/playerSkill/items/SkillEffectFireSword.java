@@ -15,7 +15,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
-public class SkillEffect {
+public class SkillEffectFireSword {
     ConfigurationSection speedSec = ElementalProject.getPlugin().getConfig().getConfigurationSection("baseSpeed");
     public void fireUltSword(Player player, Set<UUID> entitySet){
         if(speedSec == null) return;
@@ -123,7 +123,7 @@ public class SkillEffect {
         }.runTaskLater(ElementalProject.getPlugin(), 10);
     }
 
-    public void fireSkill1(Player p, Set<UUID> entitySet){
+    public void fireSkill1Sword(Player p, Set<UUID> entitySet){
         if(speedSec == null) return;
 
 
@@ -159,5 +159,87 @@ public class SkillEffect {
                 StatusModifier.attackFast(p, -speedSec.getDouble("melee"));
             }
         }.runTaskLater(ElementalProject.getPlugin(), 50);
+    }
+
+    public void fireSkill2Sword(Player p, Set<UUID> entitySet){
+        ItemDisplay display = (ItemDisplay) p.getWorld().spawnEntity(p.getLocation(), EntityType.ITEM_DISPLAY);
+
+        ItemStack itemStack = new ItemStack(Material.COAL);
+        ItemMeta meta = itemStack.getItemMeta();
+        meta.setCustomModelData(2);
+        itemStack.setItemMeta(meta);
+        display.setItemStack(itemStack);
+        Transformation transformation = display.getTransformation();
+        transformation.getScale().set(14f);
+
+        World w = p.getWorld();
+        display.setTransformation(transformation);
+        display.setBrightness(new Display.Brightness(15, 15));
+
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                if(display.isDead()) cancel();
+
+                display.teleport(p.getLocation());
+
+                for(Entity entity : p.getNearbyEntities(4, 4, 4)){
+                    if(entity == p) continue;
+
+                    if(!(entity instanceof LivingEntity)) continue;
+
+                    entitySet.add(entity.getUniqueId());
+
+                    ((LivingEntity)entity).damage(5, p);
+                }
+                w.playSound(p.getLocation(), Sound.ENTITY_BLAZE_SHOOT,1, 3);
+            }
+        }.runTaskTimer(ElementalProject.getPlugin(), 0L, 1L);
+
+        new BukkitRunnable(){
+            @Override
+            public void run() {
+                display.remove();
+            }
+        }.runTaskLater(ElementalProject.getPlugin(), 20 * 3);
+    }
+
+    public void fireSkill3Sword(Player p, Set<UUID> entitySet){
+        World world = p.getWorld();
+        world.spawnParticle(Particle.EXPLOSION_LARGE, p.getLocation(), 0);
+        world.playSound(p.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 1, 1);
+
+        for(long i = 0; i <= 5L; i++){
+            new BukkitRunnable(){
+                @Override
+                public void run() {
+                    Location location = p.getLocation();
+                    World w = p.getWorld();
+                    Random rand1 = new Random();
+                    w.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_BLAST,1,1);
+                    int xRan = rand1.nextInt(3) - 1;
+                    int zRan = rand1.nextInt(3) - 1;
+                    int yRan = rand1.nextInt(3);
+
+                    double y = location.getY() + yRan;
+                    double x = location.getX() + xRan;
+                    double z = location.getZ() + zRan;
+
+                    w.spawnParticle(Particle.FLAME, x,y,z, 0);
+
+                    for(Entity entity : p.getNearbyEntities(2,2,2)){
+                        if(entity == p) continue;
+
+                        if(!(entity instanceof LivingEntity)) continue;
+
+                        entitySet.add(entity.getUniqueId());
+
+                        ((LivingEntity)entity).damage(5, p);
+                    }
+                    p.setVelocity(p.getLocation().getDirection().multiply(1.5));
+                }
+            }.runTaskLater(ElementalProject.getPlugin(), i);
+        }
+        p.setVelocity(new Vector(0,0,0));
     }
 }
