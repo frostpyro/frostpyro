@@ -36,15 +36,15 @@ public class StatusModifier {
     }
 
     public static void cancelMove(Player p){
-        statMod.get(p.getUniqueId())[1] = 0;
+        statMod.get(p.getUniqueId())[1] = 1;
     }
 
     public static void activeMove(Player p){
-        statMod.get(p.getUniqueId())[1] = 1;
+        statMod.get(p.getUniqueId())[1] = 0;
     }
 
     public static boolean moveAble(Player p){
         statMod.computeIfAbsent(p.getUniqueId(), k -> new int[3]);
-        return statMod.get(p.getUniqueId())[1] == 1;
+        return statMod.get(p.getUniqueId())[1] == 0;
     }
 }

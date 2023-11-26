@@ -69,7 +69,7 @@ public class EntityInteraction implements Listener {
     @EventHandler
     private void entityTarget(EntityTargetEvent event){
         Entity entity = event.getEntity();
-        if(event.getTarget() instanceof Player) return;
+        if(!(event.getTarget() instanceof Player)) return;
         Entity target = event.getTarget();
         entitySkill.entitySkill(entity, target);
     }

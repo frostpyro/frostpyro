@@ -10,6 +10,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.SNS;
+import org.example.contentplugin.elementalproject.contents.playerSkill.items.SkillEffect;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.StatusModifier;
 
 import java.util.Set;
@@ -18,7 +19,7 @@ import java.util.UUID;
 public class FireUltSword implements SNS {
     private final int sec;
 
-
+    SkillEffect effect = new SkillEffect();
 
     public FireUltSword(int sec){
         this.sec = sec;
@@ -31,18 +32,7 @@ public class FireUltSword implements SNS {
             @Override
             public void run() {
 
-                ItemDisplay display = (ItemDisplay)player.getWorld().spawnEntity(player.getLocation().add(new Vector(0, 4, 0)), EntityType.ITEM_DISPLAY);
-
-                display.setCustomName("fireUlt");
-
-                ItemStack itemStack = new ItemStack(Material.IRON_SWORD);
-                ItemMeta meta = itemStack.getItemMeta();
-                meta.setCustomModelData(1);
-                itemStack.setItemMeta(meta);
-                display.setItemStack(itemStack);
-                display.setDisplayWidth(5f);
-                display.setDisplayHeight(5f);
-                display.setRotation(0, 180);
+                effect.fireUltSkill(player, entitySet);
                 StatusModifier.activeMove(player);
                 StatusModifier.deactivateEnhance(player);
             }

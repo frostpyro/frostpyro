@@ -1,14 +1,18 @@
 package org.example.contentplugin.elementalproject.listners;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.SQLDB.DataBase;
 import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
@@ -65,4 +69,13 @@ public class ClickEvent implements Listener {
         event.setCancelled(true);
     }
 
+    @EventHandler
+    private void skillSummon(EntitySpawnEvent event){
+        Entity entity = event.getEntity();
+        if(!(entity instanceof ItemDisplay)) return;
+        String str = entity.getCustomName();
+        Bukkit.getConsoleSender().sendMessage("skill summoned");
+        if(str == null) return;
+
+    }
 }
