@@ -184,3 +184,10 @@ damageAmplify:
     skill3: 1
     skill4: 1
     ult: 1
+
+baseSpeed:
+  default: 2.5
+  melee: 3
+  archer: 2.5
+  martial: 3.5
+  mage: 1.5

@@ -68,14 +68,4 @@ public class ClickEvent implements Listener {
         if(StatusModifier.moveAble(event.getPlayer())) return;
         event.setCancelled(true);
     }
-
-    @EventHandler
-    private void skillSummon(EntitySpawnEvent event){
-        Entity entity = event.getEntity();
-        if(!(entity instanceof ItemDisplay)) return;
-        String str = entity.getCustomName();
-        Bukkit.getConsoleSender().sendMessage("skill summoned");
-        if(str == null) return;
-
-    }
 }

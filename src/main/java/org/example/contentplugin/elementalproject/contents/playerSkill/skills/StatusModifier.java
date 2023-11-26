@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.UUID;
 
 public class StatusModifier {
-    private static Map<UUID, int[]> statMod = new HashMap<>();
+    private static Map<UUID, double[]> statMod = new HashMap<>();
 
-    public static int getInt(Player p){
+    public static double getInt(Player p){
         if(statMod.get(p.getUniqueId())==null){
             return 0;
         }
@@ -26,12 +26,12 @@ public class StatusModifier {
     }
 
     public static boolean activated(Player p){
-        int[] stats = statMod.getOrDefault(p.getUniqueId(), new int[3]);
+        double[] stats = statMod.getOrDefault(p.getUniqueId(), new double[3]);
         return stats[0] != 0;
     }
 
     public static boolean deactivated(Player p){
-        statMod.computeIfAbsent(p.getUniqueId(), k -> new int[3]);
+        statMod.computeIfAbsent(p.getUniqueId(), k -> new double[3]);
         return statMod.get(p.getUniqueId())[0] == 0;
     }
 
@@ -44,7 +44,21 @@ public class StatusModifier {
     }
 
     public static boolean moveAble(Player p){
-        statMod.computeIfAbsent(p.getUniqueId(), k -> new int[3]);
+        statMod.computeIfAbsent(p.getUniqueId(), k -> new double[3]);
         return statMod.get(p.getUniqueId())[1] == 0;
+    }
+
+    public static void attackFast(Player p, double speed){
+        statMod.computeIfAbsent(p.getUniqueId(), k -> new double[3]);
+        if(speed + statMod.get(p.getUniqueId())[2] < 1) statMod.get(p.getUniqueId())[2] = 1;
+        statMod.get(p.getUniqueId())[2] = speed + statMod.get(p.getUniqueId())[2];
+    }
+
+    public static double attackSpeed(Player p){
+        if(statMod.get(p.getUniqueId())[2] == 0||statMod.get(p.getUniqueId())[2] < 1) {
+            statMod.get(p.getUniqueId())[2] = 1;
+            return 1;
+        }
+        return statMod.get(p.getUniqueId())[2];
     }
 }

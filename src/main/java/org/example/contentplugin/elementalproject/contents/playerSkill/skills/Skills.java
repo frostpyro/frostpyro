@@ -74,10 +74,10 @@ public class Skills {
                 cooldowns.get(p.getUniqueId())[0] = 0L;
             }
             if(StatusModifier.deactivated(p)){
-                init = 1;
                 switch(skillClass){
                     case 1 ->{
                         if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
+                        baseAttack = new FireBaseSword();
                         switch(getSkill){
                             case 1 -> baseAttack = new AirBaseSword();
                             case 2 -> baseAttack = new EarthBaseSword();
@@ -115,7 +115,6 @@ public class Skills {
                 }
             }
             else if(StatusModifier.activated(p)){
-                init = 4;
                 switch (skillClass){
                     case 1 ->{
                         if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
@@ -165,7 +164,7 @@ public class Skills {
             }
             if(baseAttack == null) return;
             baseAttack.attacking(p, entitySet);
-            cooldowns.get(p.getUniqueId())[0] = System.currentTimeMillis() + (long)((sec/init)*1000L);
+            cooldowns.get(p.getUniqueId())[0] = System.currentTimeMillis() + (long)((sec/StatusModifier.attackSpeed(p))*1000L);
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -190,6 +189,7 @@ public class Skills {
             switch(skillClass){
                 case 1 ->{
                     if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
+                    right = new FireSkill1Sword();
                     switch(getSkill){
                         case 1 -> right = new AirSkill1Sword();
                         case 2 -> right = new EarthSkill1Sword();

@@ -1,13 +1,7 @@
 package org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.ultimate;
 
-import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.SNS;
 import org.example.contentplugin.elementalproject.contents.playerSkill.items.SkillEffect;
@@ -32,7 +26,7 @@ public class FireUltSword implements SNS {
             @Override
             public void run() {
 
-                effect.fireUltSkill(player, entitySet);
+                effect.fireUltSword(player, entitySet);
                 StatusModifier.activeMove(player);
                 StatusModifier.deactivateEnhance(player);
             }
