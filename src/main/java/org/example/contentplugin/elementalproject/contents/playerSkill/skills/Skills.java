@@ -77,7 +77,7 @@ public class Skills {
                 switch(skillClass){
                     case 1 ->{
                         if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
-                        baseAttack = new LightBaseSword();
+                        baseAttack = new FireBaseSword();
                         switch(getSkill){
                             case 1 -> baseAttack = new AirBaseSword();
                             case 2 -> baseAttack = new EarthBaseSword();
