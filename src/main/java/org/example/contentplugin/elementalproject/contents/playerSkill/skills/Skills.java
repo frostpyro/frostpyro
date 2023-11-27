@@ -77,6 +77,7 @@ public class Skills {
                 switch(skillClass){
                     case 1 ->{
                         if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
+                        baseAttack = new LightBaseSword();
                         switch(getSkill){
                             case 1 -> baseAttack = new AirBaseSword();
                             case 2 -> baseAttack = new EarthBaseSword();
@@ -188,6 +189,7 @@ public class Skills {
             switch(skillClass){
                 case 1 ->{
                     if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
+                    right = new FireSkill1Sword();
                     switch(getSkill){
                         case 1 -> right = new AirSkill1Sword();
                         case 2 -> right = new EarthSkill1Sword();
@@ -258,6 +260,7 @@ public class Skills {
             switch(skillClass){
                 case 1 ->{
                     if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
+                    rns = new FireSkill2Sword();
                     switch (getSkill){
                         case 1 -> rns = new AirSkill2Sword();
                         case 2 -> rns = new EarthSkill2Sword();
@@ -328,6 +331,7 @@ public class Skills {
             switch(skillClass){
                 case 1 ->{
                     if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
+                    lns = new FireSkill3Sword();
                     switch(getSkill) {
                         case 1 -> lns = new AirSkill3Sword();
                         case 2 -> lns = new EarthSkill3Sword();
@@ -396,6 +400,7 @@ public class Skills {
             switch(skillClass){
                 case 1 ->{
                     if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
+                    sns = new FireUltSword(1);
                 }
                 case 2 ->{
                     if(!getItem(p, Material.WOODEN_SWORD, 1)) return;

@@ -91,12 +91,12 @@ public class SkillEffectFireSword {
     }
 
     public void fireBaseSword(Player p, Set<UUID> entitySet){
-
+        Random random = new Random();
         ItemDisplay display = (ItemDisplay) p.getWorld().spawnEntity(p.getLocation().add(p.getLocation().getDirection().multiply(2)).add(0, 1.2,0), EntityType.ITEM_DISPLAY);
 
         ItemStack itemStack = new ItemStack(Material.COAL);
         ItemMeta meta = itemStack.getItemMeta();
-        meta.setCustomModelData(1);
+        meta.setCustomModelData(random.nextInt(3)+1);
         itemStack.setItemMeta(meta);
         display.setItemStack(itemStack);
         Transformation transformation = display.getTransformation();
@@ -115,12 +115,13 @@ public class SkillEffectFireSword {
             entitySet.add(entity.getUniqueId());
             ((LivingEntity)entity).damage(5, p);
         }
+
         new BukkitRunnable(){
             @Override
             public void run() {
                 display.remove();
             }
-        }.runTaskLater(ElementalProject.getPlugin(), 10);
+        }.runTaskLater(ElementalProject.getPlugin(), 9);
     }
 
     public void fireSkill1Sword(Player p, Set<UUID> entitySet){
@@ -165,7 +166,7 @@ public class SkillEffectFireSword {
 
         ItemStack itemStack = new ItemStack(Material.COAL);
         ItemMeta meta = itemStack.getItemMeta();
-        meta.setCustomModelData(2);
+        meta.setCustomModelData(31);
         itemStack.setItemMeta(meta);
         display.setItemStack(itemStack);
         Transformation transformation = display.getTransformation();
