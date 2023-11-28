@@ -171,7 +171,7 @@ public class SkillEffectFireSword {
 
                 w.spawnParticle(Particle.FLAME, x,y,z, 0);
             }
-        }.runTaskTimer(ElementalProject.getPlugin(), 0L, 2L);
+        }.runTaskTimer(ElementalProject.getPlugin(), 0L, 1L);
 
         new BukkitRunnable(){
             @Override
