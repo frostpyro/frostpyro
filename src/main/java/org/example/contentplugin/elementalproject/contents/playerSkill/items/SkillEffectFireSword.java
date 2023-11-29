@@ -259,6 +259,6 @@ public class SkillEffectFireSword {
                 }
             }.runTaskLater(ElementalProject.getPlugin(), i);
         }
-        p.setVelocity(new Vector(0,0,0));
+        p.setVelocity(p.getLocation().getDirection().multiply(0));
     }
 }
