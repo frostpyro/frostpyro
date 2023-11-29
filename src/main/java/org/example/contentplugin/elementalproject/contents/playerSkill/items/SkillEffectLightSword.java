@@ -5,6 +5,7 @@ import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
 import org.example.contentplugin.elementalproject.ElementalProject;
@@ -17,11 +18,21 @@ public class SkillEffectLightSword {
     public void lightBaseSword(Player p, Set<UUID> entitySet){
         Random random = new Random();
         ItemDisplay display = (ItemDisplay) p.getWorld().spawnEntity(p.getLocation().add(p.getLocation().getDirection().multiply(2)).add(0, 1.2,0), EntityType.ITEM_DISPLAY);
+        int randomInt = random.nextInt(2) * 10;
         ItemStack itemStack = new ItemStack(Material.GLOWSTONE_DUST);
-        ItemMeta meta = itemStack.getItemMeta();
-        meta.setCustomModelData(random.nextInt(2)+1);
-        itemStack.setItemMeta(meta);
-        display.setItemStack(itemStack);
+        for(int i = 1; i <= 10 ; i++){
+
+            int temp = i + randomInt;
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    ItemMeta meta = itemStack.getItemMeta();
+                    meta.setCustomModelData(temp);
+                    itemStack.setItemMeta(meta);
+                    display.setItemStack(itemStack);
+                }
+            }.runTaskLater(ElementalProject.getPlugin(), i);
+        }
         Transformation transformation = display.getTransformation();
         transformation.getScale().set(12f);
         Location location = p.getLocation();

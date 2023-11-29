@@ -95,7 +95,7 @@ public class SkillEffectFireSword {
         ItemDisplay display = (ItemDisplay) p.getWorld().spawnEntity(p.getLocation().add(p.getLocation().getDirection().multiply(2)).add(0, 1.2,0), EntityType.ITEM_DISPLAY);
 
         int c = random.nextInt(3);
-
+        ItemStack itemStack = new ItemStack(Material.COAL);
         Transformation transformation = display.getTransformation();
         transformation.getScale().set(12f);
         Location location = p.getLocation();
@@ -125,7 +125,6 @@ public class SkillEffectFireSword {
             new BukkitRunnable(){
                 @Override
                 public void run() {
-                    ItemStack itemStack = new ItemStack(Material.COAL);
                     ItemMeta meta = itemStack.getItemMeta();
                     meta.setCustomModelData(temp);
                     itemStack.setItemMeta(meta);
