@@ -149,12 +149,12 @@ public class SkillEffectFireSword {
 
         World w = p.getWorld();
 
-        Location location = p.getLocation();
         w.playSound(p.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 1, 0);
         StatusModifier.attackFast(p, speedSec.getDouble("melee"));
         new BukkitRunnable(){
             @Override
             public void run() {
+                Location location = p.getLocation();
                 if(StatusModifier.attackSpeed(p) == 1){
                     cancel();
                 }

@@ -115,7 +115,7 @@ public class Clicking {
             if(shiftPressTime.containsKey(p.getUniqueId())){
                 long lastShift = shiftPressTime.get(p.getUniqueId());
                 long currentTime = System.currentTimeMillis();
-                if(currentTime - lastShift < 1000){
+                if(currentTime - lastShift < 200){
                     skills.ultimateSkill(p, damagedEntity, config1.getLong("ult"));
                 }
             }

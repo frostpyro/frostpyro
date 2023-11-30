@@ -2,7 +2,6 @@ package org.example.contentplugin.elementalproject.contents.playerSkill.skills.a
 
 import org.bukkit.entity.Player;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.SNS;
-import org.example.contentplugin.elementalproject.contents.playerSkill.skills.mage.ultimate.ElectUltMage;
 
 import java.util.Set;
 import java.util.UUID;
