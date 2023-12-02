@@ -2,7 +2,7 @@ package org.example.contentplugin.elementalproject.contents.playerSkill.skills.s
 
 import org.bukkit.entity.Player;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.BaseAttack;
-import org.example.contentplugin.elementalproject.contents.playerSkill.items.SkillEffectLightSword;
+import org.example.contentplugin.elementalproject.contents.playerSkill.items.sword.SkillEffectLightSword;
 
 import java.util.Set;
 import java.util.UUID;

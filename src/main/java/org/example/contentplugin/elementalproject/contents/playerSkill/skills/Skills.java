@@ -24,6 +24,7 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.skills.ma
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.martial.skill1.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.martial.skill2.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.martial.skill3.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.martial.ultimate.EarthUltMar;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.baseAttack.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.enhance.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill1.*;
@@ -100,6 +101,7 @@ public class Skills {
                     }
                     case 3 ->{
                         if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
+                        baseAttack = new EarthBaseMar();
                         switch(getSkill){
                             case 1 -> baseAttack = new AirBaseMar();
                             case 2 -> baseAttack = new EarthBaseMar();
@@ -407,6 +409,7 @@ public class Skills {
                 }
                 case 3 ->{
                     if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
+                    sns = new EarthUltMar(1);
                 }
                 case 4 ->{
                     if(!getItem(p, Material.WOODEN_HOE, 1)) return;

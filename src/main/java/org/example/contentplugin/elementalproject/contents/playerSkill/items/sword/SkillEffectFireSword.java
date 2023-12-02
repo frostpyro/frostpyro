@@ -1,4 +1,4 @@
-package org.example.contentplugin.elementalproject.contents.playerSkill.items;
+package org.example.contentplugin.elementalproject.contents.playerSkill.items.sword;
 
 import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
