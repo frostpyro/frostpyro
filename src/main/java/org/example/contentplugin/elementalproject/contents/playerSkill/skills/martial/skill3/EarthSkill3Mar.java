@@ -9,6 +9,6 @@ import java.util.UUID;
 public class EarthSkill3Mar implements LNS {
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
-
+        if(!player.isSneaking()) return;
     }
 }

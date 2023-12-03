@@ -81,6 +81,7 @@ public class Clicking {
         if(!(entity instanceof LivingEntity)) return;
         skills.skill1(p, damagedEntity, config1.getLong("skill1"));
         skills.skill2(p, damagedEntity, config1.getLong("skill2"));
+        event.setCancelled(true);
     }
 
     public void clickAirLeft(final PlayerInteractEvent event){

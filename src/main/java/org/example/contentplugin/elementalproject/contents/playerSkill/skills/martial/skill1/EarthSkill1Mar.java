@@ -9,6 +9,6 @@ import java.util.UUID;
 public class EarthSkill1Mar implements Right {
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
-
+        if(player.isSneaking()) return;
     }
 }
