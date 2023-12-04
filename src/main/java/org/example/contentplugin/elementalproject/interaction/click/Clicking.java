@@ -23,7 +23,19 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.skills.Sk
 import java.io.ObjectInputFilter;
 import java.util.*;
 
+/**
+ * class about clicking event by PlayerInteract and InteractAtEntity
+ */
 public class Clicking {
+    /**
+     * this Set suppresses overflow caused by hitting entity while damager is not null.
+     * the reason of overflow is this(when entity was hit by player, this causes event, and
+     * event causes damage event caused by this player, and this repeat.)
+     * when entityDamagedByEntity event is called and damger is not null, this cause overflow.
+     * the solution is before causing damaged by damager, add entity's UUID to set.
+     * when damager hits entity, the event causes again, and this time, does not provoke event.
+     * instead of provoking event, this just removes entity's UUID in Set and finishes its event.
+     */
     private final Set<UUID> damagedEntity = new HashSet<>();
     private Map<UUID, Long> shiftPressTime = new HashMap<>();
     Skills skills = new Skills();
@@ -62,12 +74,14 @@ public class Clicking {
 
         if(!itemCheck(p)) return;
         if(event.getCause()== EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) event.setCancelled(true);
+        //checks entity is not contained in Set
         if(!damagedEntity.contains(entity.getUniqueId())) {
             event.setDamage(0);
             entity.setVelocity(entity.getVelocity());
             skills.baseAttackSkill(p, damagedEntity, config1.getDouble("baseAttack"));
             skills.skill3(p, damagedEntity, config1.getLong("skill3"));
         } else {
+            //this suppresses overflow.
             damagedEntity.remove(entity.getUniqueId());
         }
     }

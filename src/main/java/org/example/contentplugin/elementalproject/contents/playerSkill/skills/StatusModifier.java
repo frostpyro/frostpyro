@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * class about sharing values
+ */
 public class StatusModifier {
     private static Map<UUID, double[]> statMod = new HashMap<>();
 
