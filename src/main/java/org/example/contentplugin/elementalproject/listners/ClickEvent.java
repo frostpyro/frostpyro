@@ -24,7 +24,7 @@ import java.util.Date;
 
 public class ClickEvent implements Listener {
     DataBase dataBase = new DataBase();
-
+    StatusModifier modifier = new StatusModifier();
     Clicking clicking = new Clicking();
     private PlayerStat getPlayerStat(Player p) throws SQLException {
         PlayerStat playerStat = dataBase.findUUID(p.getUniqueId().toString());
@@ -65,7 +65,7 @@ public class ClickEvent implements Listener {
 
     @EventHandler
     private void moveCancel(PlayerMoveEvent event){
-        if(StatusModifier.moveAble(event.getPlayer())) return;
+        if(modifier.moveAble(event.getPlayer())) return;
         event.setCancelled(true);
     }
 }

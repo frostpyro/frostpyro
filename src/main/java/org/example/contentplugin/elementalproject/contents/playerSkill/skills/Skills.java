@@ -46,6 +46,8 @@ public class Skills {
     private LNS lns;
     private SNS sns;
 
+    StatusModifier modifier = new StatusModifier();
+
     private PlayerStat getPlayerStat(Player p) throws SQLException {
         PlayerStat playerStat = dataBase.findUUID(p.getUniqueId().toString());
         if(playerStat == null){
@@ -74,7 +76,7 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[0] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[0] = 0L;
             }
-            if(StatusModifier.deactivated(p)){
+            if(modifier.deactivated(p)){
                 switch(skillClass){
                     case 1 ->{
                         if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
@@ -116,7 +118,7 @@ public class Skills {
                     }
                 }
             }
-            else if(StatusModifier.activated(p)){
+            else if(modifier.activated(p)){
                 switch (skillClass){
                     case 1 ->{
                         if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
@@ -166,7 +168,7 @@ public class Skills {
             }
             if(baseAttack == null) return;
             baseAttack.attacking(p, entitySet);
-            cooldowns.get(p.getUniqueId())[0] = System.currentTimeMillis() + (long)((sec/StatusModifier.attackSpeed(p))*1000L);
+            cooldowns.get(p.getUniqueId())[0] = System.currentTimeMillis() + (long)((sec/modifier.attackSpeed(p))*1000L);
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -181,7 +183,7 @@ public class Skills {
 
         int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[1];
         try{
-            if(StatusModifier.activated(p)) return;
+            if(modifier.activated(p)) return;
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
             if(cooldowns.get(p.getUniqueId())[1] != 0){
@@ -252,7 +254,7 @@ public class Skills {
 
         int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[2];
         try{
-            if(StatusModifier.activated(p)) return;
+            if(modifier.activated(p)) return;
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
             if(cooldowns.get(p.getUniqueId())[2] != 0){
@@ -323,7 +325,7 @@ public class Skills {
 
         int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[3];
         try{
-            if(StatusModifier.activated(p)) return;
+            if(modifier.activated(p)) return;
             PlayerStat playerStat = getPlayerStat(p);
             if(cooldowns.get(p.getUniqueId())[3] != 0){
                 if(cooldowns.get(p.getUniqueId())[3] >= System.currentTimeMillis()) return;

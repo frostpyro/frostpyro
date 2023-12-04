@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public class SkillEffectFireSword {
+    StatusModifier modifier = new StatusModifier();
     ConfigurationSection speedSec = ElementalProject.getPlugin().getConfig().getConfigurationSection("baseSpeed");
     public void fireUltSword(Player player, Set<UUID> entitySet){
         if(speedSec == null) return;
@@ -52,7 +53,7 @@ public class SkillEffectFireSword {
             w.spawnParticle(Particle.FLAME, x,y,z, 1);
             w.spawnParticle(Particle.EXPLOSION_LARGE, x,y,z, 1);
         }
-        StatusModifier.attackFast(player, speedSec.getDouble("melee"));
+        modifier.attackFast(player, speedSec.getDouble("melee"));
         new BukkitRunnable(){
             @Override
             public void run() {
@@ -85,7 +86,7 @@ public class SkillEffectFireSword {
                     double z = location.getZ() + (10 * Math.cos(Math.PI * i));
                     w.spawnParticle(Particle.FLAME, x,y,z, 1);
                 }
-                StatusModifier.attackFast(player, -speedSec.getDouble("melee"));
+                modifier.attackFast(player, -speedSec.getDouble("melee"));
             }
         }.runTaskLater(ElementalProject.getPlugin(), 180);
     }
@@ -150,12 +151,12 @@ public class SkillEffectFireSword {
         World w = p.getWorld();
 
         w.playSound(p.getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 1, 0);
-        StatusModifier.attackFast(p, speedSec.getDouble("melee"));
+        modifier.attackFast(p, speedSec.getDouble("melee"));
         new BukkitRunnable(){
             @Override
             public void run() {
                 Location location = p.getLocation();
-                if(StatusModifier.attackSpeed(p) == 1){
+                if(modifier.attackSpeed(p) == 1){
                     cancel();
                 }
                 Random rand1 = new Random();
@@ -175,7 +176,7 @@ public class SkillEffectFireSword {
         new BukkitRunnable(){
             @Override
             public void run() {
-                StatusModifier.attackFast(p, -speedSec.getDouble("melee"));
+                modifier.attackFast(p, -speedSec.getDouble("melee"));
             }
         }.runTaskLater(ElementalProject.getPlugin(), 50);
     }

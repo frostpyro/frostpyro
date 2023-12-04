@@ -16,16 +16,17 @@ public class EarthUltMar implements SNS {
         this.sec = sec;
     }
     SkillEffectEarthMar effect = new SkillEffectEarthMar();
+    StatusModifier modifier = new StatusModifier();
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
-        StatusModifier.activeEnhance(player);
-        StatusModifier.cancelMove(player);
+        modifier.activeEnhance(player);
+        modifier.cancelMove(player);
         new BukkitRunnable(){
             @Override
             public void run() {
                 effect.earthMarUlt(player, entitySet);
-                StatusModifier.deactivateEnhance(player);
-                StatusModifier.activeMove(player);
+                modifier.deactivateEnhance(player);
+                modifier.activeMove(player);
             }
         }.runTaskLater(ElementalProject.getPlugin(), sec*20L);
     }

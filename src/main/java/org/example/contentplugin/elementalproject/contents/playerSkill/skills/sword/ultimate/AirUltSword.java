@@ -17,13 +17,14 @@ public class AirUltSword implements SNS {
     public AirUltSword(int sec){
         this.sec = sec;
     }
+    StatusModifier modifier = new StatusModifier();
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
-        StatusModifier.activeEnhance(player);
+        modifier.activeEnhance(player);
         new BukkitRunnable(){
             @Override
             public void run() {
-                StatusModifier.deactivateEnhance(player);
+                modifier.deactivateEnhance(player);
             }
         }.runTaskLater(ElementalProject.getPlugin(), sec * 20L);
     }

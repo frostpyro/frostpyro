@@ -14,21 +14,21 @@ public class FireUltSword implements SNS {
     private final int sec;
 
     SkillEffectFireSword effect = new SkillEffectFireSword();
-
+    StatusModifier modifier = new StatusModifier();
     public FireUltSword(int sec){
         this.sec = sec;
     }
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
-        StatusModifier.cancelMove(player);
-        StatusModifier.activeEnhance(player);
+        modifier.cancelMove(player);
+        modifier.activeEnhance(player);
         new BukkitRunnable(){
             @Override
             public void run() {
 
                 effect.fireUltSword(player, entitySet);
-                StatusModifier.activeMove(player);
-                StatusModifier.deactivateEnhance(player);
+                modifier.activeMove(player);
+                modifier.deactivateEnhance(player);
             }
         }.runTaskLater(ElementalProject.getPlugin(), sec * 20L);
     }

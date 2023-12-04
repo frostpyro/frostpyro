@@ -12,18 +12,18 @@ import java.util.UUID;
 public class EarthUltSword implements SNS {
     private final int sec;
 
-
+    StatusModifier modifier = new StatusModifier();
 
     public EarthUltSword(int sec){
         this.sec = sec;
     }
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
-        StatusModifier.activeEnhance(player);
+        modifier.activeEnhance(player);
         new BukkitRunnable(){
             @Override
             public void run() {
-                StatusModifier.deactivateEnhance(player);
+                modifier.deactivateEnhance(player);
             }
         }.runTaskLater(ElementalProject.getPlugin(), sec * 20L);
     }
