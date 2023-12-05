@@ -22,6 +22,7 @@ public class SkillEffectEarthMar {
         Transformation transformation = display.getTransformation();
         transformation.getScale().set(10f);
         display.setTransformation(transformation);
+        display.setBrightness(new Display.Brightness(15, 15));
         for(int i = 1; i <= 10; i++){
             int temp = i + 1000;
             new BukkitRunnable(){
@@ -75,6 +76,7 @@ public class SkillEffectEarthMar {
         transformation.getScale().set(34f);
         display.setRotation(0, 0);
         display.setTransformation(transformation);
+        display.setBrightness(new Display.Brightness(15, 15));
         for(int i = 1; i <= 5; i++){
             int temp1 = i + 1030;
             new BukkitRunnable(){
