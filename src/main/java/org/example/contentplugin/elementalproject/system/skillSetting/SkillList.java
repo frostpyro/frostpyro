@@ -15,12 +15,15 @@ public class SkillList {
     private final List<UltEnum> ultEnum = new ArrayList<>();
 
     public Class<? extends BaseAttack> baseAttack(boolean enhance, int cType, int element){
-        baseEnum.set(0, null);
+        for(int i = 0; i < 7; i++){
+            baseEnum.add(null);
+        }
+
         if(enhance){
             switch(cType){
                 case 1 ->{
-                    baseEnum.set(1, BaseAttackEnum.ABS);
-                    baseEnum.set(2, BaseAttackEnum.EBS);
+                    baseEnum.add(1, BaseAttackEnum.ABS);
+                    baseEnum.add(2, BaseAttackEnum.EBS);
                     baseEnum.set(3, BaseAttackEnum.ElBS);
                     baseEnum.set(4, BaseAttackEnum.FBS);
                     baseEnum.set(5, BaseAttackEnum.IBS);

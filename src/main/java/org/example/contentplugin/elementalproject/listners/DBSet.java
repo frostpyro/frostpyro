@@ -43,7 +43,7 @@ public class DBSet implements Listener {
             PlayerStat playerStat = getPlayerStat(p);
             playerStat.setLastLogin(new Date());
             dailyQuest.countReset(p);
-            playerStat.setSkillClass(3);
+            playerStat.setSkillClass(1);
             dataBase.updateData(playerStat);
 
         }catch (SQLException e){

@@ -81,21 +81,21 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[0] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[0] = 0L;
             }
-            Class<? extends BaseAttack> skill = list.baseAttack(modifier.deactivated(p), skillClass, getSkill);
-            Method skillMethod;
-            try{
-                skillMethod = skill.getMethod("attacking", Player.class, Set.class);
-            }catch(NoSuchMethodException e){
-                return;
-            }
+            if(modifier.deactivated(p)){
+                Class<? extends BaseAttack> skill = list.baseAttack(true, skillClass, 4);
+                if(skill == null){
+                    p.sendMessage("null");
+                    return;
+                }
+                try{
+                    baseAttack = skill.getDeclaredConstructor().newInstance();
+                }catch(NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e){
+                    e.printStackTrace();
+                    return;
+                }
 
-            try{
-                skillMethod.invoke(skill, p, entitySet);
             }
-            catch (InvocationTargetException | IllegalAccessException e) {
-                return;
-            }
-
+            baseAttack.attacking(p, entitySet);
             cooldowns.get(p.getUniqueId())[0] = System.currentTimeMillis() + (long)((sec/modifier.attackSpeed(p))*1000L);
         }
         catch (SQLException e){
