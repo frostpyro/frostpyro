@@ -13,5 +13,10 @@ public class SkillList {
     private final List<Skill3Enum> skill3Enum = new ArrayList<>();
     private final List<UltEnum> ultEnum = new ArrayList<>();
 
+    public Class<? extends BaseAttack> baseAttack(boolean enhance, int cType, int element){
+        baseEnum.set(0, null);
 
+
+        return BaseAttackEnum.t(baseEnum.get(element));
+    }
 }
