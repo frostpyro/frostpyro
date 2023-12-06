@@ -31,7 +31,10 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sw
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill2.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.skill3.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.ultimate.FireUltSword;
+import org.example.contentplugin.elementalproject.system.skillSetting.SkillList;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -45,6 +48,8 @@ public class Skills {
     private RNS rns;
     private LNS lns;
     private SNS sns;
+
+    SkillList list = new SkillList();
 
     StatusModifier modifier = new StatusModifier();
 
@@ -76,98 +81,21 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[0] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[0] = 0L;
             }
-            if(modifier.deactivated(p)){
-                switch(skillClass){
-                    case 1 ->{
-                        if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
-                        baseAttack = new FireBaseSword();
-                        switch(getSkill){
-                            case 1 -> baseAttack = new AirBaseSword();
-                            case 2 -> baseAttack = new EarthBaseSword();
-                            case 3 -> baseAttack = new ElectBaseSword();
-                            case 4 -> baseAttack = new FireBaseSword();
-                            case 5 -> baseAttack = new IceBaseSword();
-                            case 6 -> baseAttack = new LightBaseSword();
-                        }
-                    }
-                    case 2 ->{
-                        if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
-                        switch(getSkill){
-                            case 1 -> baseAttack = new AirBaseArcher();
-                            case 2 -> baseAttack = new EarthBaseArcher();
-                            case 3 -> baseAttack = new ElectBaseArcher();
-                            case 4 -> baseAttack = new FireBaseArcher();
-                            case 5 -> baseAttack = new IceBaseArcher();
-                            case 6 -> baseAttack = new LightBaseArcher();
-                        }
-                    }
-                    case 3 ->{
-                        if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
-                        baseAttack = new EarthBaseMar();
-                        switch(getSkill){
-                            case 1 -> baseAttack = new AirBaseMar();
-                            case 2 -> baseAttack = new EarthBaseMar();
-                            case 3 -> baseAttack = new ElectBaseMar();
-                            case 4 -> baseAttack = new FireBaseMar();
-                            case 5 -> baseAttack = new IceBaseMar();
-                            case 6 -> baseAttack = new LightBaseMar();
-                        }
-                    }
-                    case 4 ->{
-                        if(!getItem(p, Material.WOODEN_HOE, 1)) return;
-                    }
-                }
+            Class<? extends BaseAttack> skill = list.baseAttack(modifier.deactivated(p), skillClass, getSkill);
+            Method skillMethod;
+            try{
+                skillMethod = skill.getMethod("attacking", Player.class, Set.class);
+            }catch(NoSuchMethodException e){
+                return;
             }
-            else if(modifier.activated(p)){
-                switch (skillClass){
-                    case 1 ->{
-                        if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
-                        switch(enhanceIndex){
-                            case 1 -> baseAttack = new AirEnhanceSword();
-                            case 2 -> baseAttack = new EarthEnhanceSword();
-                            case 3 -> baseAttack = new ElectEnhanceSword();
-                            case 4 -> baseAttack = new FireEnhanceSword();
-                            case 5 -> baseAttack = new IceEnhanceSword();
-                            case 6 -> baseAttack = new LightEnhanceSword();
-                        }
-                    }
-                    case 2 ->{
-                        if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
-                        switch(enhanceIndex){
-                            case 1 -> baseAttack = new AirEnhanceArcher();
-                            case 2 -> baseAttack = new EarthEnhanceArcher();
-                            case 3 -> baseAttack = new ElectEnhanceArcher();
-                            case 4 -> baseAttack = new FireEnhanceArcher();
-                            case 5 -> baseAttack = new IceEnhanceArcher();
-                            case 6 -> baseAttack = new LightEnhanceArcher();
-                        }
-                    }
-                    case 3 ->{
-                        if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
-                        switch (enhanceIndex){
-                            case 1 -> baseAttack = new AirEnhanceMar();
-                            case 2 -> baseAttack = new EarthEnhanceMar();
-                            case 3 -> baseAttack = new ElectEnhanceMar();
-                            case 4 -> baseAttack = new FireEnhanceMar();
-                            case 5 -> baseAttack = new IceEnhanceMar();
-                            case 6 -> baseAttack = new LightEnhanceMar();
-                        }
-                    }
-                    case 4 ->{
-                        if(!getItem(p, Material.WOODEN_HOE, 1)) return;
-                        switch (enhanceIndex){
-                            case 1 -> baseAttack = new AirEnhanceMage();
-                            case 2 -> baseAttack = new EarthEnhanceMage();
-                            case 3 -> baseAttack = new ElectEnhanceMage();
-                            case 4 -> baseAttack = new FireEnhanceMage();
-                            case 5 -> baseAttack = new IceEnhanceMage();
-                            case 6 -> baseAttack = new LightEnhanceMage();
-                        }
-                    }
-                }
+
+            try{
+                skillMethod.invoke(skill, p, entitySet);
             }
-            if(baseAttack == null) return;
-            baseAttack.attacking(p, entitySet);
+            catch (InvocationTargetException | IllegalAccessException e) {
+                return;
+            }
+
             cooldowns.get(p.getUniqueId())[0] = System.currentTimeMillis() + (long)((sec/modifier.attackSpeed(p))*1000L);
         }
         catch (SQLException e){

@@ -1,5 +1,6 @@
 package org.example.contentplugin.elementalproject.system.skillSetting;
 
+import org.bukkit.entity.Player;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.BaseAttack;
 import org.example.contentplugin.elementalproject.system.skillSetting.enums.*;
 
@@ -15,8 +16,22 @@ public class SkillList {
 
     public Class<? extends BaseAttack> baseAttack(boolean enhance, int cType, int element){
         baseEnum.set(0, null);
+        if(enhance){
+            switch(cType){
+                case 1 ->{
+                    baseEnum.set(1, BaseAttackEnum.ABS);
+                    baseEnum.set(2, BaseAttackEnum.EBS);
+                    baseEnum.set(3, BaseAttackEnum.ElBS);
+                    baseEnum.set(4, BaseAttackEnum.FBS);
+                    baseEnum.set(5, BaseAttackEnum.IBS);
+                    baseEnum.set(6, BaseAttackEnum.LBS);
+                }
+            }
+
+            return BaseAttackEnum.get(baseEnum.get(element));
+        }
 
 
-        return BaseAttackEnum.t(baseEnum.get(element));
+        return BaseAttackEnum.get(baseEnum.get(element));
     }
 }

@@ -25,7 +25,7 @@ public enum BaseAttackEnum {
         this.list = list;
     }
 
-    public static Class<? extends BaseAttack> t(BaseAttackEnum td){
+    public static Class<? extends BaseAttack> get(BaseAttackEnum td){
         return td.list;
     }
 }
