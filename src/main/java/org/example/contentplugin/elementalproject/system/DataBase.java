@@ -1,10 +1,9 @@
-package org.example.contentplugin.elementalproject.SQLDB;
+package org.example.contentplugin.elementalproject.system;
 
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.example.contentplugin.elementalproject.ElementalProject;
-import org.example.contentplugin.elementalproject.SQLDB.DBset.SQLBase;
-import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
+import org.example.contentplugin.elementalproject.system.DBset.SQLBase;
+import org.example.contentplugin.elementalproject.system.playerData.PlayerStat;
 
 import java.io.File;
 import java.sql.*;

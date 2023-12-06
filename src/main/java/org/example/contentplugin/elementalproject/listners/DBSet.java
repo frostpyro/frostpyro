@@ -8,8 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.example.contentplugin.elementalproject.ElementalProject;
-import org.example.contentplugin.elementalproject.SQLDB.DataBase;
-import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
+import org.example.contentplugin.elementalproject.system.DataBase;
+import org.example.contentplugin.elementalproject.system.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuestGet;
 
 import java.sql.SQLException;

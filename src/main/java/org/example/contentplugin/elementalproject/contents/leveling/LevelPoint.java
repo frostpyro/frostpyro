@@ -3,10 +3,7 @@ package org.example.contentplugin.elementalproject.contents.leveling;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.block.Block;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -14,12 +11,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.example.contentplugin.elementalproject.ElementalProject;
-import org.example.contentplugin.elementalproject.SQLDB.DataBase;
-import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
-import org.example.contentplugin.elementalproject.contents.Elements;
+import org.example.contentplugin.elementalproject.system.DataBase;
+import org.example.contentplugin.elementalproject.system.playerData.PlayerStat;
 
 
-import java.io.ObjectInputFilter;
 import java.sql.SQLException;
 import java.util.*;
 

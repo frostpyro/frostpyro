@@ -1,14 +1,13 @@
 package org.example.contentplugin.elementalproject.contents.dailyQuest.object;
 
 import org.bukkit.ChatColor;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.example.contentplugin.elementalproject.ElementalProject;
-import org.example.contentplugin.elementalproject.SQLDB.DataBase;
-import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
+import org.example.contentplugin.elementalproject.system.DataBase;
+import org.example.contentplugin.elementalproject.system.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuest;
 
 import java.sql.SQLException;

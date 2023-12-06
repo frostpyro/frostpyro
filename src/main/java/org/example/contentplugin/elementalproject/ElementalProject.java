@@ -2,13 +2,9 @@ package org.example.contentplugin.elementalproject;
 
 import org.bukkit.*;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Interaction;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.example.contentplugin.elementalproject.SQLDB.DataBase;
+import org.example.contentplugin.elementalproject.system.DataBase;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuestGet;
 import org.example.contentplugin.elementalproject.contents.leveling.LevelPoint;
 import org.example.contentplugin.elementalproject.listners.ClickEvent;

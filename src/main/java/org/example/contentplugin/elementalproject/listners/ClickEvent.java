@@ -1,21 +1,17 @@
 package org.example.contentplugin.elementalproject.listners;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.example.contentplugin.elementalproject.ElementalProject;
-import org.example.contentplugin.elementalproject.SQLDB.DataBase;
-import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
+import org.example.contentplugin.elementalproject.system.DataBase;
+import org.example.contentplugin.elementalproject.system.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.StatusModifier;
 import org.example.contentplugin.elementalproject.interaction.click.Clicking;
 

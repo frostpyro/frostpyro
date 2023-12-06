@@ -7,8 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.example.contentplugin.elementalproject.ElementalProject;
-import org.example.contentplugin.elementalproject.SQLDB.DataBase;
-import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
+import org.example.contentplugin.elementalproject.system.DataBase;
+import org.example.contentplugin.elementalproject.system.playerData.PlayerStat;
 
 
 import java.sql.SQLException;

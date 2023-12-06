@@ -1,8 +1,8 @@
-package org.example.contentplugin.elementalproject.SQLDB.DBset;
+package org.example.contentplugin.elementalproject.system.DBset;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.example.contentplugin.elementalproject.SQLDB.playerData.PlayerStat;
+import org.example.contentplugin.elementalproject.system.playerData.PlayerStat;
 
 import java.sql.*;
 

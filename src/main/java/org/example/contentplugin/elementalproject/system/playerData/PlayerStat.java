@@ -1,4 +1,4 @@
-package org.example.contentplugin.elementalproject.SQLDB.playerData;
+package org.example.contentplugin.elementalproject.system.playerData;
 
 import java.util.Date;
 
