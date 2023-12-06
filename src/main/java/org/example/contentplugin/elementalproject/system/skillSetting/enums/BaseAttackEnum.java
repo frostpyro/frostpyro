@@ -1,6 +1,9 @@
 package org.example.contentplugin.elementalproject.system.skillSetting.enums;
 
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.BaseAttack;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.baseAttack.AirBaseArcher;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.baseAttack.EarthBaseArcher;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.enhance.AirEnhanceArcher;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.mage.enhance.LightEnhanceMage;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.baseAttack.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.enhance.*;
@@ -17,7 +20,10 @@ public enum BaseAttackEnum {
     IBS(IceBaseSword.class),
     IES(IceEnhanceSword.class),
     LBS(LightBaseSword.class),
-    LES(LightEnhanceSword.class);
+    LES(LightEnhanceSword.class),
+    ABA(AirBaseArcher.class),
+    AEA(AirEnhanceArcher.class),
+    EBA(EarthBaseArcher.class);
 
     private Class<? extends BaseAttack> list;
 

@@ -22,12 +22,16 @@ public class SkillList {
         if(enhance){
             switch(cType){
                 case 1 ->{
-                    baseEnum.add(1, BaseAttackEnum.ABS);
-                    baseEnum.add(2, BaseAttackEnum.EBS);
+                    baseEnum.set(1, BaseAttackEnum.ABS);
+                    baseEnum.set(2, BaseAttackEnum.EBS);
                     baseEnum.set(3, BaseAttackEnum.ElBS);
                     baseEnum.set(4, BaseAttackEnum.FBS);
                     baseEnum.set(5, BaseAttackEnum.IBS);
                     baseEnum.set(6, BaseAttackEnum.LBS);
+                }
+                case 2 ->{
+                    baseEnum.set(1, BaseAttackEnum.ABA);
+                    baseEnum.set(2, BaseAttackEnum.EBA);
                 }
             }
 

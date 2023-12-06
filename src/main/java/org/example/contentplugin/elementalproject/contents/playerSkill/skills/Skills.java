@@ -93,7 +93,6 @@ public class Skills {
                     e.printStackTrace();
                     return;
                 }
-
             }
             baseAttack.attacking(p, entitySet);
             cooldowns.get(p.getUniqueId())[0] = System.currentTimeMillis() + (long)((sec/modifier.attackSpeed(p))*1000L);
