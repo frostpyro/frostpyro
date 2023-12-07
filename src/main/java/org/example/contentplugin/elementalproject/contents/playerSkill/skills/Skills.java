@@ -84,7 +84,6 @@ public class Skills {
             if(modifier.deactivated(p)){
                 Class<? extends BaseAttack> skill = list.baseAttack(true, skillClass, 4);
                 if(skill == null){
-                    p.sendMessage("null");
                     return;
                 }
                 try{

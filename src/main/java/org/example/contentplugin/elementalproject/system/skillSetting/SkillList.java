@@ -16,6 +16,7 @@ public class SkillList {
 
     public Class<? extends BaseAttack> baseAttack(boolean enhance, int cType, int element){
         for(int i = 0; i < 7; i++){
+            if(!baseEnum.isEmpty()) return null;
             baseEnum.add(null);
         }
 
@@ -32,6 +33,10 @@ public class SkillList {
                 case 2 ->{
                     baseEnum.set(1, BaseAttackEnum.ABA);
                     baseEnum.set(2, BaseAttackEnum.EBA);
+                    baseEnum.set(3, BaseAttackEnum.ElBA);
+                    baseEnum.set(4, BaseAttackEnum.FBA);
+                    baseEnum.set(5, BaseAttackEnum.IBA);
+                    baseEnum.set(6, BaseAttackEnum.LBA);
                 }
             }
 

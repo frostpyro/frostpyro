@@ -1,9 +1,8 @@
 package org.example.contentplugin.elementalproject.system.skillSetting.enums;
 
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.BaseAttack;
-import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.baseAttack.AirBaseArcher;
-import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.baseAttack.EarthBaseArcher;
-import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.enhance.AirEnhanceArcher;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.baseAttack.*;
+import org.example.contentplugin.elementalproject.contents.playerSkill.skills.archer.enhance.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.mage.enhance.LightEnhanceMage;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.baseAttack.*;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.sword.enhance.*;
@@ -23,7 +22,16 @@ public enum BaseAttackEnum {
     LES(LightEnhanceSword.class),
     ABA(AirBaseArcher.class),
     AEA(AirEnhanceArcher.class),
-    EBA(EarthBaseArcher.class);
+    EBA(EarthBaseArcher.class),
+    EEA(EarthEnhanceArcher.class),
+    ElBA(ElectBaseArcher.class),
+    ElEA(ElectEnhanceArcher.class),
+    FBA(FireBaseArcher.class),
+    FEA(FireEnhanceArcher.class),
+    IBA(IceBaseArcher.class),
+    IEA(IceEnhanceArcher.class),
+    LBA(LightBaseArcher.class),
+    LEA(LightEnhanceArcher.class);
 
     private Class<? extends BaseAttack> list;
 
