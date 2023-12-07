@@ -38,6 +38,22 @@ public class SkillList {
                     baseEnum.set(5, BaseAttackEnum.IBA);
                     baseEnum.set(6, BaseAttackEnum.LBA);
                 }
+                case 3 -> {
+                    baseEnum.set(1, BaseAttackEnum.ABMa);
+                    baseEnum.set(2, BaseAttackEnum.EBMa);
+                    baseEnum.set(3, BaseAttackEnum.ElBMa);
+                    baseEnum.set(4, BaseAttackEnum.FBMa);
+                    baseEnum.set(5, BaseAttackEnum.IBMa);
+                    baseEnum.set(6, BaseAttackEnum.LBMa);
+                }
+                case 4 ->{
+                    baseEnum.set(1, BaseAttackEnum.ABM);
+                    baseEnum.set(2, BaseAttackEnum.EBM);
+                    baseEnum.set(3, BaseAttackEnum.ElBM);
+                    baseEnum.set(4, BaseAttackEnum.FBM);
+                    baseEnum.set(5, BaseAttackEnum.IBM);
+                    baseEnum.set(6, BaseAttackEnum.LBM);
+                }
             }
 
             return BaseAttackEnum.get(baseEnum.get(element));
