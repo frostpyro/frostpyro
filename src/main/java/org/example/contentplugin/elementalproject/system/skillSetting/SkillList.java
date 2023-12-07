@@ -1,7 +1,7 @@
 package org.example.contentplugin.elementalproject.system.skillSetting;
 
 import org.bukkit.entity.Player;
-import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.BaseAttack;
+import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.*;
 import org.example.contentplugin.elementalproject.system.skillSetting.enums.*;
 
 import java.util.ArrayList;
@@ -61,5 +61,21 @@ public class SkillList {
 
 
         return BaseAttackEnum.get(baseEnum.get(element));
+    }
+
+    public Class<? extends Right> skill1(int cType, int element){
+        return null;
+    }
+
+    public Class<? extends RNS> skill2(int cType, int element){
+        return null;
+    }
+
+    public Class<? extends LNS> skill3(int cType, int element){
+        return null;
+    }
+
+    public Class<? extends SNS> ult(int cType, int element){
+        return null;
     }
 }
