@@ -58,7 +58,40 @@ public class SkillList {
 
             return BaseAttackEnum.get(baseEnum.get(element));
         }
-
+        switch(cType){
+            case 1 ->{
+                baseEnum.set(1, BaseAttackEnum.AES);
+                baseEnum.set(2, BaseAttackEnum.EES);
+                baseEnum.set(3, BaseAttackEnum.ElES);
+                baseEnum.set(4, BaseAttackEnum.FES);
+                baseEnum.set(5, BaseAttackEnum.IES);
+                baseEnum.set(6, BaseAttackEnum.LES);
+            }
+            case 2 ->{
+                baseEnum.set(1, BaseAttackEnum.AEA);
+                baseEnum.set(2, BaseAttackEnum.EEA);
+                baseEnum.set(3, BaseAttackEnum.ElEA);
+                baseEnum.set(4, BaseAttackEnum.FEA);
+                baseEnum.set(5, BaseAttackEnum.IEA);
+                baseEnum.set(6, BaseAttackEnum.LEA);
+            }
+            case 3 -> {
+                baseEnum.set(1, BaseAttackEnum.AEMa);
+                baseEnum.set(2, BaseAttackEnum.EEMa);
+                baseEnum.set(3, BaseAttackEnum.ElEMa);
+                baseEnum.set(4, BaseAttackEnum.FEMa);
+                baseEnum.set(5, BaseAttackEnum.IEMa);
+                baseEnum.set(6, BaseAttackEnum.LEMa);
+            }
+            case 4 ->{
+                baseEnum.set(1, BaseAttackEnum.AEM);
+                baseEnum.set(2, BaseAttackEnum.EEM);
+                baseEnum.set(3, BaseAttackEnum.ElEM);
+                baseEnum.set(4, BaseAttackEnum.FEM);
+                baseEnum.set(5, BaseAttackEnum.IEM);
+                baseEnum.set(6, BaseAttackEnum.LEM);
+            }
+        }
 
         return BaseAttackEnum.get(baseEnum.get(element));
     }

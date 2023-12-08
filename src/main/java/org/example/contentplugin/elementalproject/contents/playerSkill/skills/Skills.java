@@ -81,8 +81,21 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[0] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[0] = 0L;
             }
+            if(skillClass == itemNum(p)) return;
             if(modifier.deactivated(p)){
-                Class<? extends BaseAttack> skill = list.baseAttack(true, skillClass, 4);
+                Class<? extends BaseAttack> skill = list.baseAttack(modifier.deactivated(p), skillClass, 4);
+                if(skill == null){
+                    return;
+                }
+                try{
+                    baseAttack = skill.getDeclaredConstructor().newInstance();
+                }catch(NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e){
+                    e.printStackTrace();
+                    return;
+                }
+            }
+            else if(modifier.activated(p)){
+                Class<? extends BaseAttack> skill = list.baseAttack(!modifier.deactivated(p), skillClass, 4);
                 if(skill == null){
                     return;
                 }
@@ -360,5 +373,24 @@ public class Skills {
         if(!itemStack.getItemMeta().hasCustomModelData()) return false;
 
         return itemStack.getType().equals(material) && itemMeta.getCustomModelData() == model;
+    }
+
+    private int itemNum(Player p){
+        ItemStack itemStack = p.getInventory().getItemInMainHand();
+        switch (itemStack.getType()){
+            case NETHERITE_SWORD -> {
+                return 1;
+            }
+            case WOODEN_SWORD -> {
+                return 2;
+            }
+            case DIAMOND_SWORD -> {
+                return 3;
+            }
+            case WOODEN_HOE -> {
+                return 4;
+            }
+        }
+        return 0;
     }
 }
