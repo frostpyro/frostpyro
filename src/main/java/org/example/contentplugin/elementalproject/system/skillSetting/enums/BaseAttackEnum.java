@@ -60,7 +60,7 @@ public enum BaseAttackEnum {
     LBM(LightBaseMage.class),
     LEM(LightEnhanceMage.class);
 
-    private Class<? extends BaseAttack> list;
+    private final Class<? extends BaseAttack> list;
 
     BaseAttackEnum(Class<? extends BaseAttack> list){
         this.list = list;
