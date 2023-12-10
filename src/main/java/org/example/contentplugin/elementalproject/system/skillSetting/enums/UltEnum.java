@@ -8,4 +8,7 @@ public enum UltEnum {
     UltEnum(Class<? extends SNS> ult){
         this.ult = ult;
     }
+    public static Class<? extends SNS> get(UltEnum td){
+        return td.ult;
+    }
 }

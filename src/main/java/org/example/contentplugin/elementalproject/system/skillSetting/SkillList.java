@@ -16,7 +16,7 @@ public class SkillList {
 
     public Class<? extends BaseAttack> baseAttack(boolean enhance, int cType, int element){
         for(int i = 0; i < 7; i++){
-            if(!baseEnum.isEmpty()) return null;
+            if(!baseEnum.isEmpty()) break;
             baseEnum.add(null);
         }
 
@@ -97,18 +97,32 @@ public class SkillList {
     }
 
     public Class<? extends Right> skill1(int cType, int element){
-        return null;
+        for(int i = 0; i < 7; i++){
+            if(!skill1Enum.isEmpty()) break;
+            skill1Enum.add(null);
+        }
+        switch(cType){
+            case 1->{
+                skill1Enum.set(1, Skill1Enum.AS);
+
+            }
+            case 2 ->{}
+            case 3 ->{}
+            case 4 ->{}
+        }
+
+        return Skill1Enum.get(skill1Enum.get(element));
     }
 
     public Class<? extends RNS> skill2(int cType, int element){
-        return null;
+        return Skill2Enum.get(skill2Enum.get(element));
     }
 
     public Class<? extends LNS> skill3(int cType, int element){
-        return null;
+        return Skill3Enum.get(skill3Enum.get(element));
     }
 
     public Class<? extends SNS> ult(int cType, int element){
-        return null;
+        return UltEnum.get(ultEnum.get(element));
     }
 }

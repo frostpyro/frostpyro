@@ -9,4 +9,8 @@ public enum Skill2Enum {
     Skill2Enum(Class<? extends RNS> skill2){
         this.skill2 = skill2;
     }
+
+    public static Class<? extends RNS> get(Skill2Enum td){
+        return td.skill2;
+    }
 }

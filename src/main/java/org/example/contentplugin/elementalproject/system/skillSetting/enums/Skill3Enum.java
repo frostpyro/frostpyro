@@ -8,4 +8,8 @@ public enum Skill3Enum {
     Skill3Enum(Class<? extends LNS> skill3){
         this.skill3 = skill3;
     }
+
+    public static Class<? extends LNS> get(Skill3Enum td){
+        return td.skill3;
+    }
 }
