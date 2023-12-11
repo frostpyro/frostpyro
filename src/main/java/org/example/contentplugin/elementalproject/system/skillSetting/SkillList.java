@@ -104,10 +104,16 @@ public class SkillList {
         switch(cType){
             case 1->{
                 skill1Enum.set(1, Skill1Enum.AS);
-
+                skill1Enum.set(2, Skill1Enum.ES);
             }
-            case 2 ->{}
-            case 3 ->{}
+            case 2 ->{
+                skill1Enum.set(1, Skill1Enum.AA);
+                skill1Enum.set(2, Skill1Enum.EA);
+            }
+            case 3 ->{
+                skill1Enum.set(1, Skill1Enum.AMa);
+                skill1Enum.set(2, Skill1Enum.EMa);
+            }
             case 4 ->{}
         }
 
