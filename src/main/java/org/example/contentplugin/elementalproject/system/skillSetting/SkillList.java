@@ -5,19 +5,17 @@ import org.example.contentplugin.elementalproject.contents.playerSkill.attackMet
 import org.example.contentplugin.elementalproject.system.skillSetting.enums.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SkillList {
-    private final List<BaseAttackEnum> baseEnum = new ArrayList<>();
-    private final List<Skill1Enum> skill1Enum = new ArrayList<>();
-    private final List<Skill2Enum> skill2Enum = new ArrayList<>();
-    private final List<Skill3Enum> skill3Enum = new ArrayList<>();
-    private final List<UltEnum> ultEnum = new ArrayList<>();
+    private final List<BaseAttackEnum> baseEnum = new ArrayList<>(Arrays.asList(null, null, null, null, null, null, null));
+    private final List<Skill1Enum> skill1Enum = new ArrayList<>(Arrays.asList(null, null, null, null, null, null, null));
+    private final List<Skill2Enum> skill2Enum = new ArrayList<>(Arrays.asList(null, null, null, null, null, null, null));
+    private final List<Skill3Enum> skill3Enum = new ArrayList<>(Arrays.asList(null, null, null, null, null, null, null));
+    private final List<UltEnum> ultEnum = new ArrayList<>(Arrays.asList(null, null, null, null, null, null, null));
 
     public Class<? extends BaseAttack> baseAttack(boolean enhance, int cType, int element){
-        for(int i = 0; i < 7; i++){
-            baseEnum.add(i, null);
-        }
 
         if(enhance){
             switch(cType){
@@ -96,9 +94,7 @@ public class SkillList {
     }
 
     public Class<? extends Right> skill1(int cType, int element){
-        for(int i = 0; i < 7; i++){
-            skill1Enum.add(i, null);
-        }
+
         switch(cType){
             case 1->{
                 skill1Enum.set(1, Skill1Enum.AS);
@@ -119,23 +115,17 @@ public class SkillList {
     }
 
     public Class<? extends RNS> skill2(int cType, int element){
-        for(int i = 0; i < 7; i++){
-            skill2Enum.add(i, null);
-        }
+
         return Skill2Enum.get(skill2Enum.get(element));
     }
 
     public Class<? extends LNS> skill3(int cType, int element){
-        for(int i = 0; i < 7; i++){
-            skill3Enum.add(i, null);
-        }
+
         return Skill3Enum.get(skill3Enum.get(element));
     }
 
     public Class<? extends SNS> ult(int cType, int element){
-        for(int i = 0; i < 7; i++){
-            ultEnum.add(i, null);
-        }
+
         return UltEnum.get(ultEnum.get(element));
     }
 }
