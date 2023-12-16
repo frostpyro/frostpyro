@@ -99,33 +99,95 @@ public class SkillList {
             case 1->{
                 skill1Enum.set(1, Skill1Enum.AS);
                 skill1Enum.set(2, Skill1Enum.ES);
+                skill1Enum.set(3, Skill1Enum.ElS);
+                skill1Enum.set(4, Skill1Enum.FS);
+                skill1Enum.set(5, Skill1Enum.IS);
+                skill1Enum.set(6, Skill1Enum.LS);
             }
             case 2 ->{
                 skill1Enum.set(1, Skill1Enum.AA);
                 skill1Enum.set(2, Skill1Enum.EA);
+                skill1Enum.set(3, Skill1Enum.ElA);
+                skill1Enum.set(4, Skill1Enum.FA);
+                skill1Enum.set(5, Skill1Enum.IA);
+                skill1Enum.set(6, Skill1Enum.LA);
             }
             case 3 ->{
                 skill1Enum.set(1, Skill1Enum.AMa);
                 skill1Enum.set(2, Skill1Enum.EMa);
+                skill1Enum.set(3, Skill1Enum.ElMa);
+                skill1Enum.set(4, Skill1Enum.FMa);
+                skill1Enum.set(5, Skill1Enum.IMa);
+                skill1Enum.set(6, Skill1Enum.LMa);
             }
-            case 4 ->{}
+            case 4 ->{
+                skill1Enum.set(1, Skill1Enum.AM);
+                skill1Enum.set(2, Skill1Enum.EM);
+                skill1Enum.set(3, Skill1Enum.ElM);
+                skill1Enum.set(4, Skill1Enum.FM);
+                skill1Enum.set(5, Skill1Enum.IM);
+                skill1Enum.set(6, Skill1Enum.LM);
+            }
         }
 
         return Skill1Enum.get(skill1Enum.get(element));
     }
 
     public Class<? extends RNS> skill2(int cType, int element){
-
+        switch(cType){
+            case 1 ->{
+                skill2Enum.set(1, Skill2Enum.AS);
+                skill2Enum.set(2, Skill2Enum.ES);
+                skill2Enum.set(3, Skill2Enum.ElS);
+                skill2Enum.set(4, Skill2Enum.FS);
+                skill2Enum.set(5, Skill2Enum.IS);
+                skill2Enum.set(6, Skill2Enum.LS);
+            }
+            case 2 ->{
+                skill2Enum.set(1, Skill2Enum.AA);
+                skill2Enum.set(2, Skill2Enum.EA);
+                skill2Enum.set(3, Skill2Enum.ElA);
+                skill2Enum.set(4, Skill2Enum.FA);
+                skill2Enum.set(5, Skill2Enum.IA);
+                skill2Enum.set(6, Skill2Enum.LA);
+            }
+            case 3 ->{
+                skill2Enum.set(1, Skill2Enum.AMa);
+                skill2Enum.set(2, Skill2Enum.EMa);
+                skill2Enum.set(3, Skill2Enum.ElMa);
+                skill2Enum.set(4, Skill2Enum.FMa);
+                skill2Enum.set(5, Skill2Enum.IMa);
+                skill2Enum.set(6, Skill2Enum.LMa);
+            }
+            case 4 ->{
+                skill2Enum.set(1, Skill2Enum.AM);
+                skill2Enum.set(2, Skill2Enum.EM);
+                skill2Enum.set(3, Skill2Enum.ElM);
+                skill2Enum.set(4, Skill2Enum.FM);
+                skill2Enum.set(5, Skill2Enum.IM);
+                skill2Enum.set(6, Skill2Enum.LM);
+            }
+        }
         return Skill2Enum.get(skill2Enum.get(element));
     }
 
     public Class<? extends LNS> skill3(int cType, int element){
-
+        switch(cType){
+            case 1 ->{}
+            case 2 ->{}
+            case 3 ->{}
+            case 4 ->{}
+        }
         return Skill3Enum.get(skill3Enum.get(element));
     }
 
     public Class<? extends SNS> ult(int cType, int element){
-
+        switch(cType){
+            case 1 ->{}
+            case 2 ->{}
+            case 3 ->{}
+            case 4 ->{}
+        }
         return UltEnum.get(ultEnum.get(element));
     }
 }

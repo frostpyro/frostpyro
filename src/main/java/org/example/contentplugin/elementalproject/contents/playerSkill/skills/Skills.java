@@ -129,54 +129,17 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[1] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[1] = 0L;
             }
-            switch(skillClass){
-                case 1 ->{
-                    if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
-                    right = new FireSkill1Sword();
-                    switch(getSkill){
-                        case 1 -> right = new AirSkill1Sword();
-                        case 2 -> right = new EarthSkill1Sword();
-                        case 3 -> right = new ElectSkill1Sword();
-                        case 4 -> right = new FireSkill1Sword();
-                        case 5 -> right = new IceSkill1Sword();
-                        case 6 -> right = new LightSkill1Sword();
-                    }
-                }
-                case 2 ->{
-                    if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
-                    switch(getSkill){
-                        case 1 -> right = new AirSkill1Archer();
-                        case 2 -> right = new EarthSkill1Archer();
-                        case 3 -> right = new ElectSkill1Archer();
-                        case 4 -> right = new FireSkill1Archer();
-                        case 5 -> right = new IceSkill1Archer();
-                        case 6 -> right = new LightSkill1Archer();
-                    }
-                }
-                case 3 ->{
-                    if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
-                    switch(getSkill){
-                        case 1 -> right = new AirSkill1Mar();
-                        case 2 -> right = new EarthSkill1Mar();
-                        case 3 -> right = new ElectSkill1Mar();
-                        case 4 -> right = new FireSkill1Mar();
-                        case 5 -> right = new IceSkill1Mar();
-                        case 6 -> right = new LightSkill1Mar();
-                    }
-                }
-                case 4 ->{
-                    if(!getItem(p, Material.WOODEN_HOE, 1)) return;
-                    switch(getSkill){
-                        case 1 -> right = new AirSkill1Mage();
-                        case 2 -> right = new EarthSkill1Mage();
-                        case 3 -> right = new ElectSkill1Mage();
-                        case 4 -> right = new FireSkill1Mage();
-                        case 5 -> right = new IceSkill1Mage();
-                        case 6 -> right = new LightSkill1Mage();
-                    }
-                }
+            if(skillClass == itemNum(p)) return;
+            Class<? extends Right> skill = list.skill1(skillClass, 4);
+            if(skill == null){
+                return;
             }
-            if(right == null) return;
+            try{
+                right = skill.getDeclaredConstructor().newInstance();
+            }catch(NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
+                e.printStackTrace();
+                return;
+            }
             right.attacking(p, entitySet);
             cooldowns.get(p.getUniqueId())[1] = System.currentTimeMillis() + (sec * 1000);
         }
@@ -200,54 +163,16 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[2] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[2] = 0L;
             }
-            switch(skillClass){
-                case 1 ->{
-                    if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
-                    rns = new FireSkill2Sword();
-                    switch (getSkill){
-                        case 1 -> rns = new AirSkill2Sword();
-                        case 2 -> rns = new EarthSkill2Sword();
-                        case 3 -> rns = new ElectSkill2Sword();
-                        case 4 -> rns = new FireSkill2Sword();
-                        case 5 -> rns = new IceSkill2Sword();
-                        case 6 -> rns = new LightSkill2Sword();
-                    }
-                }
-                case 2 ->{
-                    if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
-                    switch (getSkill){
-                        case 1 -> rns = new AirSkill2Archer();
-                        case 2 -> rns = new EarthSkill2Archer();
-                        case 3 -> rns = new ElectSkill2Archer();
-                        case 4 -> rns = new FireSkill2Archer();
-                        case 5 -> rns = new IceSkill2Archer();
-                        case 6 -> rns = new LightSkill2Archer();
-                    }
-                }
-                case 3 ->{
-                    if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
-                    switch (getSkill){
-                        case 1 -> rns = new AirSkill2Mar();
-                        case 2 -> rns = new EarthSkill2Mar();
-                        case 3 -> rns = new ElectSkill2Mar();
-                        case 4 -> rns = new FireSkill2Mar();
-                        case 5 -> rns = new IceSkill2Mar();
-                        case 6 -> rns = new LightSkill2Mar();
-                    }
-                }
-                case 4 ->{
-                    if(!getItem(p, Material.WOODEN_HOE, 1)) return;
-                    switch (getSkill){
-                        case 1 -> rns = new AirSkill2Mage();
-                        case 2 -> rns = new EarthSkill2Mage();
-                        case 3 -> rns = new ElectSkill2Mage();
-                        case 4 -> rns = new FireSkill2Mage();
-                        case 5 -> rns = new IceSkill2Mage();
-                        case 6 -> rns = new LightSkill2Mage();
-                    }
-                }
+            Class<? extends RNS> skill = list.skill2(skillClass, 4);
+            if(skill == null){
+                return;
             }
-            if(rns == null)return;
+            try{
+                rns = skill.getDeclaredConstructor().newInstance();
+            }catch(NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e){
+                e.printStackTrace();
+                return;
+            }
             rns.attacking(p, entitySet);
             cooldowns.get(p.getUniqueId())[2] = System.currentTimeMillis() + (sec * 1000);
         }
