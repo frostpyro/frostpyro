@@ -81,7 +81,7 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[0] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[0] = 0L;
             }
-            if(skillClass == itemNum(p)) return;
+            if(skillClass != itemNum(p)) return;
             if(modifier.deactivated(p)){
                 Class<? extends BaseAttack> skill = list.baseAttack(modifier.deactivated(p), skillClass, 4);
                 if(skill == null){
@@ -129,6 +129,7 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[1] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[1] = 0L;
             }
+            if(skillClass != itemNum(p)) return;
             if(skillClass == itemNum(p)) return;
             Class<? extends Right> skill = list.skill1(skillClass, 4);
             if(skill == null){
@@ -163,6 +164,7 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[2] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[2] = 0L;
             }
+            if(skillClass != itemNum(p)) return;
             Class<? extends RNS> skill = list.skill2(skillClass, 4);
             if(skill == null){
                 return;
@@ -190,60 +192,24 @@ public class Skills {
         int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[3];
         try{
             if(modifier.activated(p)) return;
-            PlayerStat playerStat = getPlayerStat(p);
+
             if(cooldowns.get(p.getUniqueId())[3] != 0){
                 if(cooldowns.get(p.getUniqueId())[3] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[3] = 0L;
             }
+            PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
-            switch(skillClass){
-                case 1 ->{
-                    if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
-                    lns = new FireSkill3Sword();
-                    switch(getSkill) {
-                        case 1 -> lns = new AirSkill3Sword();
-                        case 2 -> lns = new EarthSkill3Sword();
-                        case 3 -> lns = new ElectSkill3Sword();
-                        case 4 -> lns = new FireSkill3Sword();
-                        case 5 -> lns = new IceSkill3Sword();
-                        case 6 -> lns = new LightSkill3Sword();
-                    }
-                }
-                case 2 ->{
-                    if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
-                    switch(getSkill) {
-                        case 1 -> lns = new AirSkill3Archer();
-                        case 2 -> lns = new EarthSkill3Archer();
-                        case 3 -> lns = new ElectSkill3Archer();
-                        case 4 -> lns = new FireSkill3Archer();
-                        case 5 -> lns = new IceSkill3Archer();
-                        case 6 -> lns = new LightSkill3Archer();
-                    }
-                }
-                case 3 ->{
-                    if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
-                    switch(getSkill) {
-                        case 1 -> lns = new AirSkill3Mar();
-                        case 2 -> lns = new EarthSkill3Mar();
-                        case 3 -> lns = new ElectSkill3Mar();
-                        case 4 -> lns = new FireSkill3Mar();
-                        case 5 -> lns = new IceSkill3Mar();
-                        case 6 -> lns = new LightSkill3Mar();
-                    }
-                }
-                case 4 ->{
-                    if(!getItem(p, Material.WOODEN_HOE, 1)) return;
-                    switch(getSkill) {
-                        case 1 -> lns = new AirSkill3Mage();
-                        case 2 -> lns = new EarthSkill3Mage();
-                        case 3 -> lns = new ElectSkill3Mage();
-                        case 4 -> lns = new FireSkill3Mage();
-                        case 5 -> lns = new IceSkill3Mage();
-                        case 6 -> lns = new LightSkill3Mage();
-                    }
-                }
+            if(skillClass != itemNum(p)) return;
+            Class<? extends LNS> skill = list.skill3(skillClass, 4);
+            if(skill == null){
+                return;
             }
-            if(lns == null) return;
+            try{
+                lns = skill.getDeclaredConstructor().newInstance();
+            }catch(NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e){
+                e.printStackTrace();
+                return;
+            }
             lns.attacking(p, entitySet);
             cooldowns.get(p.getUniqueId())[3] = System.currentTimeMillis() + (sec * 1000);
         }
@@ -265,23 +231,17 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[4] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[4] = 0L;
             }
-            switch(skillClass){
-                case 1 ->{
-                    if(!getItem(p, Material.NETHERITE_SWORD, 1)) return;
-                    sns = new FireUltSword(1);
-                }
-                case 2 ->{
-                    if(!getItem(p, Material.WOODEN_SWORD, 1)) return;
-                }
-                case 3 ->{
-                    if(!getItem(p, Material.DIAMOND_SWORD, 1)) return;
-                    sns = new EarthUltMar(1);
-                }
-                case 4 ->{
-                    if(!getItem(p, Material.WOODEN_HOE, 1)) return;
-                }
+            Class<? extends SNS> skill = list.ult(skillClass, 4);
+            if(skillClass != itemNum(p)) return;
+            if(skill == null){
+                return;
             }
-            if(sns == null) return;
+            try{
+                sns = skill.getDeclaredConstructor().newInstance();
+            }catch(NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e){
+                e.printStackTrace();
+                return;
+            }
             sns.attacking(p, entitySet);
             cooldowns.get(p.getUniqueId())[4] = System.currentTimeMillis() + (sec * 1000);
         }

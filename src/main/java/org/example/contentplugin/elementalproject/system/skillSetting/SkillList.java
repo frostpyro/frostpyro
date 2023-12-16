@@ -173,20 +173,76 @@ public class SkillList {
 
     public Class<? extends LNS> skill3(int cType, int element){
         switch(cType){
-            case 1 ->{}
-            case 2 ->{}
-            case 3 ->{}
-            case 4 ->{}
+            case 1 ->{
+                skill3Enum.set(1, Skill3Enum.AS);
+                skill3Enum.set(2, Skill3Enum.ES);
+                skill3Enum.set(3, Skill3Enum.ElS);
+                skill3Enum.set(4, Skill3Enum.FS);
+                skill3Enum.set(5, Skill3Enum.IS);
+                skill3Enum.set(6, Skill3Enum.LS);
+            }
+            case 2 ->{
+                skill3Enum.set(1, Skill3Enum.AA);
+                skill3Enum.set(2, Skill3Enum.EA);
+                skill3Enum.set(3, Skill3Enum.ElA);
+                skill3Enum.set(4, Skill3Enum.FA);
+                skill3Enum.set(5, Skill3Enum.IA);
+                skill3Enum.set(6, Skill3Enum.LA);
+            }
+            case 3 ->{
+                skill3Enum.set(1, Skill3Enum.AMa);
+                skill3Enum.set(2, Skill3Enum.EMa);
+                skill3Enum.set(3, Skill3Enum.ElMa);
+                skill3Enum.set(4, Skill3Enum.FMa);
+                skill3Enum.set(5, Skill3Enum.IMa);
+                skill3Enum.set(6, Skill3Enum.LMa);
+            }
+            case 4 ->{
+                skill3Enum.set(1, Skill3Enum.AM);
+                skill3Enum.set(2, Skill3Enum.EM);
+                skill3Enum.set(3, Skill3Enum.ElM);
+                skill3Enum.set(4, Skill3Enum.FM);
+                skill3Enum.set(5, Skill3Enum.IM);
+                skill3Enum.set(6, Skill3Enum.LM);
+            }
         }
         return Skill3Enum.get(skill3Enum.get(element));
     }
 
     public Class<? extends SNS> ult(int cType, int element){
         switch(cType){
-            case 1 ->{}
-            case 2 ->{}
-            case 3 ->{}
-            case 4 ->{}
+            case 1 ->{
+                ultEnum.set(1, UltEnum.AS);
+                ultEnum.set(2, UltEnum.ES);
+                ultEnum.set(3, UltEnum.ElS);
+                ultEnum.set(4, UltEnum.FS);
+                ultEnum.set(5, UltEnum.IS);
+                ultEnum.set(6, UltEnum.LS);
+            }
+            case 2 ->{
+                ultEnum.set(1, UltEnum.AA);
+                ultEnum.set(2, UltEnum.EA);
+                ultEnum.set(3, UltEnum.ElA);
+                ultEnum.set(4, UltEnum.FA);
+                ultEnum.set(5, UltEnum.IA);
+                ultEnum.set(6, UltEnum.LA);
+            }
+            case 3 ->{
+                ultEnum.set(1, UltEnum.AMa);
+                ultEnum.set(2, UltEnum.EMa);
+                ultEnum.set(3, UltEnum.ElMa);
+                ultEnum.set(4, UltEnum.FMa);
+                ultEnum.set(5, UltEnum.IMa);
+                ultEnum.set(6, UltEnum.LMa);
+            }
+            case 4 ->{
+                ultEnum.set(1, UltEnum.AM);
+                ultEnum.set(2, UltEnum.EM);
+                ultEnum.set(3, UltEnum.ElM);
+                ultEnum.set(4, UltEnum.FM);
+                ultEnum.set(5, UltEnum.IM);
+                ultEnum.set(6, UltEnum.LM);
+            }
         }
         return UltEnum.get(ultEnum.get(element));
     }
