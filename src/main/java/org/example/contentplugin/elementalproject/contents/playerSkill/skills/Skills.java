@@ -67,8 +67,8 @@ public class Skills {
         PersistentDataContainer container = p.getPersistentDataContainer();
         if(!container.has(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)) container.set(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY, new int[5]);
 
-        int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[0];
-        int enhanceIndex = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[4];
+        int getSkill = Objects.requireNonNull(container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY))[0];
+        int enhanceIndex = Objects.requireNonNull(container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY))[4];
         try{
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
@@ -116,7 +116,7 @@ public class Skills {
         PersistentDataContainer container = p.getPersistentDataContainer();
         if(!container.has(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)) container.set(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY, new int[5]);
 
-        int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[1];
+        int getSkill = Objects.requireNonNull(container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY))[1];
         try{
             if(modifier.activated(p)) return;
             PlayerStat playerStat = getPlayerStat(p);
@@ -152,7 +152,7 @@ public class Skills {
         PersistentDataContainer container = p.getPersistentDataContainer();
         if(!container.has(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)) container.set(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY, new int[5]);
 
-        int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[2];
+        int getSkill = Objects.requireNonNull(container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY))[2];
         try{
             if(modifier.activated(p)) return;
             PlayerStat playerStat = getPlayerStat(p);
@@ -187,7 +187,7 @@ public class Skills {
         PersistentDataContainer container = p.getPersistentDataContainer();
         if(!container.has(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)) container.set(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY, new int[5]);
 
-        int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[3];
+        int getSkill = Objects.requireNonNull(container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY))[3];
         try{
             if(modifier.activated(p)) return;
 
@@ -222,7 +222,7 @@ public class Skills {
         PersistentDataContainer container = p.getPersistentDataContainer();
         if(!container.has(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)) container.set(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY, new int[5]);
 
-        int getSkill = container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY)[4];
+        int getSkill = Objects.requireNonNull(container.get(ElementalProject.skill(), PersistentDataType.INTEGER_ARRAY))[4];
         try{
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
