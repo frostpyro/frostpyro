@@ -43,11 +43,6 @@ public class Skills {
 
     private final DataBase dataBase = new DataBase();
 
-    private BaseAttack baseAttack;
-    private Right right;
-    private RNS rns;
-    private LNS lns;
-    private SNS sns;
 
     SkillList list = new SkillList();
 
@@ -81,6 +76,7 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[0] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[0] = 0L;
             }
+            BaseAttack baseAttack;
             if(skillClass != itemNum(p)) return;
             if(modifier.deactivated(p)){
                 Class<? extends BaseAttack> skill = list.baseAttack(modifier.deactivated(p), skillClass, 4);
@@ -94,7 +90,7 @@ public class Skills {
                     return;
                 }
             }
-            else if(modifier.activated(p)){
+            else{
                 Class<? extends BaseAttack> skill = list.baseAttack(!modifier.deactivated(p), skillClass, 4);
                 if(skill == null){
                     return;
@@ -129,6 +125,7 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[1] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[1] = 0L;
             }
+            Right right;
             if(skillClass != itemNum(p)) return;
             if(skillClass == itemNum(p)) return;
             Class<? extends Right> skill = list.skill1(skillClass, 4);
@@ -164,6 +161,7 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[2] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[2] = 0L;
             }
+            RNS rns;
             if(skillClass != itemNum(p)) return;
             Class<? extends RNS> skill = list.skill2(skillClass, 4);
             if(skill == null){
@@ -197,6 +195,7 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[3] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[3] = 0L;
             }
+            LNS lns;
             PlayerStat playerStat = getPlayerStat(p);
             int skillClass = playerStat.getSkillClass();
             if(skillClass != itemNum(p)) return;
@@ -231,6 +230,7 @@ public class Skills {
                 if(cooldowns.get(p.getUniqueId())[4] >= System.currentTimeMillis()) return;
                 cooldowns.get(p.getUniqueId())[4] = 0L;
             }
+            SNS sns;
             Class<? extends SNS> skill = list.ult(skillClass, 4);
             if(skillClass != itemNum(p)) return;
             if(skill == null){
