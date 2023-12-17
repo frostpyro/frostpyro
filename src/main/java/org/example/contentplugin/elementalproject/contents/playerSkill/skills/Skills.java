@@ -127,7 +127,6 @@ public class Skills {
             }
             Right right;
             if(skillClass != itemNum(p)) return;
-            if(skillClass == itemNum(p)) return;
             Class<? extends Right> skill = list.skill1(skillClass, 4);
             if(skill == null){
                 return;
@@ -237,7 +236,7 @@ public class Skills {
                 return;
             }
             try{
-                sns = skill.getDeclaredConstructor().newInstance();
+                sns = skill.getConstructor(int.class).newInstance(2);
             }catch(NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e){
                 e.printStackTrace();
                 return;

@@ -121,7 +121,7 @@ public class SkillEffectFireSword {
             ((LivingEntity)entity).damage(5, p);
         }
 
-        for(int i = 1; i <= 10; i++){
+        for(int i = 1; i <= 7; i++){
             int temp = i;
             new BukkitRunnable(){
                 @Override
@@ -141,7 +141,7 @@ public class SkillEffectFireSword {
             public void run() {
                 display.remove();
             }
-        }.runTaskLater(ElementalProject.getPlugin(), 9);
+        }.runTaskLater(ElementalProject.getPlugin(), 8);
     }
 
     public void fireSkill1Sword(Player p, Set<UUID> entitySet){
