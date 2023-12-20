@@ -121,8 +121,8 @@ public class SkillEffectFireSword {
             ((LivingEntity)entity).damage(5, p);
         }
 
-        for(int i = 1; i <= 7; i++){
-            int temp = i;
+        for(int i = 0; i < 7; i++){
+            int temp = i+1;
             new BukkitRunnable(){
                 @Override
                 public void run() {

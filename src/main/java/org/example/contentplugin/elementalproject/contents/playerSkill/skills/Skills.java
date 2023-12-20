@@ -91,7 +91,7 @@ public class Skills {
                 }
             }
             else{
-                Class<? extends BaseAttack> skill = list.baseAttack(!modifier.deactivated(p), skillClass, 4);
+                Class<? extends BaseAttack> skill = list.baseAttack(modifier.deactivated(p), skillClass, 4);
                 if(skill == null){
                     return;
                 }
