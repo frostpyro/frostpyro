@@ -191,3 +191,33 @@ baseSpeed:
   archer: 2.5
   martial: 3.5
   mage: 1.5
+
+ultTime:
+  melee:
+    air: 5
+    earth: 3
+    elect: 3
+    fire: 1
+    ice: 1
+    light: 1
+  archer:
+    air: 5
+    earth: 3
+    elect: 6
+    fire: 1
+    ice: 1
+    light: 2
+  martial:
+    air: 1
+    earth: 1
+    elect: 6
+    fire: 1
+    ice: 1
+    light: 0
+  mage:
+    air: 5
+    earth: 3
+    elect: 6
+    fire: 0
+    ice: 1
+    light: 2
