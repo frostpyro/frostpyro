@@ -2,6 +2,9 @@ package org.example.contentplugin.elementalproject;
 
 import org.bukkit.*;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.example.contentplugin.elementalproject.system.DataBase;
@@ -11,6 +14,8 @@ import org.example.contentplugin.elementalproject.listners.ClickEvent;
 import org.example.contentplugin.elementalproject.listners.DBSet;
 import org.example.contentplugin.elementalproject.listners.EntityInteraction;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 /**
  * This code is main class
@@ -31,8 +36,10 @@ public class ElementalProject extends JavaPlugin {
      */
     @Override
     public void onEnable() {
-
+        plugin = this;
+        configFunc();
         this.dataBase = new DataBase();
+        dataBase.configFunc();
         saveConfig();
 
 
@@ -40,9 +47,9 @@ public class ElementalProject extends JavaPlugin {
         levelPoint = new LevelPoint();
 
 
-        plugin = this;
+
         CustomRecipe custom = new CustomRecipe(this);
-        dataBase.configFunc();
+
 
         reloadConfig();
 
@@ -94,5 +101,32 @@ public class ElementalProject extends JavaPlugin {
 
     public static NamespacedKey skill(){
         return new NamespacedKey(plugin, "skill");
+    }
+
+
+    private FileConfiguration sqlConfig;
+
+    private void configFunc(){
+
+
+        File sqlFile = new File(getDataFolder(), "dataBase.yml");
+
+        if(!sqlFile.exists()){
+            sqlFile.getParentFile().mkdirs();
+            saveResource("dataBase.yml", false);
+        }
+
+
+        sqlConfig = new YamlConfiguration();
+
+        try{
+
+            sqlConfig.load(sqlFile);
+        }
+        catch (IOException | InvalidConfigurationException e){
+            e.printStackTrace();
+            return;
+        }
+        Bukkit.getConsoleSender().sendMessage("config enabled!");
     }
 }

@@ -1,0 +1,5 @@
+MySQL:
+  name: "root"
+  URL: "jdbc:mysql://localhost/player_stat"
+  password: ""
+  quarry: "CREATE TABLE IF NOT EXISTS player_data (uuid varchar(36) primary key, level int, killCount int, exp double, balance double, skillClass int, point int, dailyQuest int, lastLogin DATE, lastLogout DATE)"

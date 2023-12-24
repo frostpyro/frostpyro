@@ -2,23 +2,54 @@ package org.example.contentplugin.elementalproject.system.DBset;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.example.contentplugin.elementalproject.ElementalProject;
 import org.example.contentplugin.elementalproject.system.playerData.PlayerStat;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputFilter;
 import java.sql.*;
 
 public class SQLBase {
     private Connection connection;
+
+    private File file;
+    private FileConfiguration config;
+
+
     public Connection getConnection() throws SQLException{
 
         if(connection != null){
             return connection;
         }
 
-        String url = "jdbc:mysql://localhost/player_stat";
+        file = new File(ElementalProject.getPlugin().getDataFolder(), "dataBase.yml");
+        if(!file.exists()) return null;
+        if(config == null){
+            config = new YamlConfiguration();
+        }
+        try{
+            config.load(file);
+        }
+        catch (IOException| InvalidConfigurationException e){
+            return null;
+        }
+        ConfigurationSection section = config.getConfigurationSection("MySQL");
+        if(section == null) return null;
+        String url = section.getString("URL");
 
-        String name = "root";
+        String name = section.getString("name");
 
-        String password = "";
+        String password = section.getString("password");
+
+        if(url == null||name == null||password == null){
+            return null;
+        }
 
         Connection connection = DriverManager.getConnection(url, name, password);
 
@@ -29,9 +60,12 @@ public class SQLBase {
         return connection;
     }
     public void initialize() throws SQLException{
+        if(getConnection() == null) return;
+        ConfigurationSection section = config.getConfigurationSection("MySQL");
+        if(section == null) return;
         Statement statement = getConnection().createStatement();
 
-        String sql = "CREATE TABLE IF NOT EXISTS player_data (uuid varchar(36) primary key, level int, killCount int, exp double, balance double, skillClass int, point int, dailyQuest int, lastLogin DATE, lastLogout DATE)";
+        String sql = section.getString("quarry");
 
         statement.execute(sql);
 
