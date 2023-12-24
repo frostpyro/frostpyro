@@ -21,11 +21,11 @@ public class EntitySkill {
 
 
     Set<UUID> coolDown = new HashSet<>();
-    public void entitySkill(Entity entity, Entity targetEntity, EntityTargetEvent event){
+    public void entitySkill(Entity entity, Entity targetEntity){
         PersistentDataContainer data = entity.getPersistentDataContainer();
         if(!data.has(ElementalProject.level(), PersistentDataType.INTEGER)) return;
         if(data.get(ElementalProject.level(), PersistentDataType.INTEGER) < 40) return;
-        if(coolDown.contains(entity.getUniqueId())) return;
+
         EntityType entityType = entity.getType();
         if(entity.isDead()){
             coolDown.remove(entity.getUniqueId());
@@ -34,10 +34,11 @@ public class EntitySkill {
         new BukkitRunnable(){
             @Override
             public void run() {
-                if(event.isCancelled()){
+                if(entity.getLocation().distance(targetEntity.getLocation()) > 20){
                     cancel();
                 }
                 if(!(targetEntity instanceof Player)) return;
+                if(coolDown.contains(entity.getUniqueId())) return;
                 switch(entityType){
                     case ZOMBIE -> {
                         ((LivingEntity)entity).addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 3, 3));
@@ -62,6 +63,9 @@ public class EntitySkill {
                     }
                     case CREEPER -> {
                         ((Creeper)entity).setExplosionRadius(7);
+                        if(entity.isDead()){
+                            cancel();
+                        }
                         new BukkitRunnable(){
                             @Override
                             public void run() {
