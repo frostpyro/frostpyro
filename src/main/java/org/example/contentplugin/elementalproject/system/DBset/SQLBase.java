@@ -56,7 +56,6 @@ public class SQLBase {
 
         this.connection = connection;
 
-        Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "Connected to database");
 
         return connection;
     }
@@ -71,6 +70,7 @@ public class SQLBase {
         statement.execute(sql);
 
         statement.close();
+        Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "Connected to database");
     }
 
     public PlayerStat findUUID(String uuid) throws SQLException{
@@ -163,6 +163,7 @@ public class SQLBase {
             return;
         }
         PreparedStatement statement = getConnection().prepareStatement(quarry);
+        statement.executeUpdate();
         section.set("modQuarry", "");
         try{
             config.save(file);
