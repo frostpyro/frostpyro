@@ -158,12 +158,18 @@ public class SQLBase {
             return;
         }
         String quarry = section.getString("modQuarry");
-        if(Objects.equals(quarry, "")){
+        if(quarry.isEmpty()){
+            Bukkit.getConsoleSender().sendMessage("test:"+quarry);
             return;
         }
         PreparedStatement statement = getConnection().prepareStatement(quarry);
         section.set("modQuarry", "");
-
+        try{
+            config.save(file);
+        }catch (IOException e){
+            e.printStackTrace();
+            return;
+        }
         statement.close();
     }
 }

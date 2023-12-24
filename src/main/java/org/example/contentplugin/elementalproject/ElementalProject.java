@@ -55,6 +55,7 @@ public class ElementalProject extends JavaPlugin {
 
         try{
             this.dataBase.initialize();
+            this.dataBase.sqlUpdate();
         }
         catch (SQLException e){
             e.printStackTrace();
