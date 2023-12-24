@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputFilter;
 import java.sql.*;
+import java.util.Objects;
 
 public class SQLBase {
     private Connection connection;
@@ -135,6 +136,33 @@ public class SQLBase {
         statement.setString(1, playerStat.getPlayerUUID());
 
         statement.executeUpdate();
+
+        statement.close();
+    }
+    public void sqlUpdate() throws SQLException{
+        file = new File(ElementalProject.getPlugin().getDataFolder(), "dataBase.yml");
+        if(!file.exists()) return;
+        if(config == null){
+            config = new YamlConfiguration();
+        }
+        try{
+            config.load(file);
+        }
+        catch (IOException| InvalidConfigurationException e){
+            e.printStackTrace();
+            return;
+        }
+        ConfigurationSection section = config.getConfigurationSection("MySQL");
+        if(section == null){
+            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "section:MySQL is NULL!");
+            return;
+        }
+        String quarry = section.getString("modQuarry");
+        if(Objects.equals(quarry, "")){
+            return;
+        }
+        PreparedStatement statement = getConnection().prepareStatement(quarry);
+        section.set("modQuarry", "");
 
         statement.close();
     }
