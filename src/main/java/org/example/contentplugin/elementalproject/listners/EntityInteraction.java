@@ -71,6 +71,6 @@ public class EntityInteraction implements Listener {
         Entity entity = event.getEntity();
         if(!(event.getTarget() instanceof Player)) return;
         Entity target = event.getTarget();
-        entitySkill.entitySkill(entity, target);
+        entitySkill.entitySkill(entity, target, event);
     }
 }
