@@ -2,14 +2,18 @@ package org.example.contentplugin.elementalproject.contents.playerSkill.skills.s
 
 import org.bukkit.entity.Player;
 import org.example.contentplugin.elementalproject.contents.playerSkill.attackMethod.BaseAttack;
+import org.example.contentplugin.elementalproject.contents.playerSkill.items.sword.SkillEffectAirSword;
 
 import java.util.Set;
 import java.util.UUID;
 
 public class AirBaseSword implements BaseAttack {
+
+    SkillEffectAirSword effect = new SkillEffectAirSword();
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
         if(player.isSneaking()) return;
         player.sendMessage("baseAttack");
+        effect.airBaseSword(player, entitySet);
     }
 }

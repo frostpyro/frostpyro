@@ -11,6 +11,7 @@ import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
 import org.example.contentplugin.elementalproject.ElementalProject;
 
+import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
@@ -20,9 +21,20 @@ public class SkillEffectAirSword {
         ItemStack itemStack = new ItemStack(Material.CYAN_DYE);
         Transformation transformation = display.getTransformation();
         transformation.getScale().set(12f);
+
+        Random random = new Random();
+        int template = 0;
+        int c = random.nextInt(3);
+        switch(c){
+            case 0,1 -> template = c * 10;
+            case 2 -> {
+                display.setRotation(90, 90);
+                transformation.getRightRotation().z = 0.7f;
+            }
+        }
         display.setTransformation(transformation);
-        for(int i = 0; i < 7; i++){
-            int temp = i + 1;
+        for(int i = 1; i <= 7; i++){
+            int temp = i + template;
             new BukkitRunnable(){
                 @Override
                 public void run() {

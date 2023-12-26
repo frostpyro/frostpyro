@@ -19,14 +19,16 @@ public class AirUltSword implements SNS {
         this.sec = sec;
     }
     StatusModifier modifier = new StatusModifier();
+    SkillEffectAirSword effect = new SkillEffectAirSword();
     @Override
     public void attacking(Player player, Set<UUID> entitySet) {
         modifier.activeEnhance(player);
+        effect.airUltSword(player, entitySet);
         new BukkitRunnable(){
             @Override
             public void run() {
                 modifier.deactivateEnhance(player);
             }
-        }.runTaskLater(ElementalProject.getPlugin(), sec * 20L);
+        }.runTaskLater(ElementalProject.getPlugin(), 6 * 20L);
     }
 }
