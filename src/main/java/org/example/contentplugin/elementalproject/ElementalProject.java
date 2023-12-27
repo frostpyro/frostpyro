@@ -48,7 +48,6 @@ public class ElementalProject extends JavaPlugin {
 
 
 
-        CustomRecipe custom = new CustomRecipe(this);
 
 
         reloadConfig();
@@ -70,7 +69,8 @@ public class ElementalProject extends JavaPlugin {
                 dailyQuest.countReset(p);
             }
         }, 0, 2);
-        custom.summary();
+
+        CustomRecipe.register();
     }
 
     @Override
