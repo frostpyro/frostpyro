@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.example.contentplugin.elementalproject.ElementalProject;
-import org.example.contentplugin.elementalproject.system.DataBase;
+import org.example.contentplugin.elementalproject.system.DBset.DataBase;
 import org.example.contentplugin.elementalproject.system.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.playerSkill.skills.StatusModifier;
 import org.example.contentplugin.elementalproject.interaction.click.Clicking;

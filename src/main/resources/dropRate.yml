@@ -1,0 +1,9 @@
+material:
+  cores: 1
+  enchant: 4
+
+builds:
+  common: 70
+  uncommon: 20
+  rare: 9
+  legendary: 1

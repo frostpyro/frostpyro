@@ -105,7 +105,6 @@ public class SQLBase {
         statement.setInt(8, playerStat.getDailyQuest());
         statement.setDate(9, new Date(playerStat.getLastLogin().getTime()));
         statement.setDate(10, new Date(playerStat.getLastLogout().getTime()));
-
         statement.executeUpdate();
 
         statement.close();

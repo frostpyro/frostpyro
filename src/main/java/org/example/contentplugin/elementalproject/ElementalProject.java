@@ -2,12 +2,13 @@ package org.example.contentplugin.elementalproject;
 
 import org.bukkit.*;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.example.contentplugin.elementalproject.system.DataBase;
+import org.example.contentplugin.elementalproject.system.DBset.DataBase;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuestGet;
 import org.example.contentplugin.elementalproject.contents.leveling.LevelPoint;
 import org.example.contentplugin.elementalproject.listners.ClickEvent;
@@ -52,12 +53,29 @@ public class ElementalProject extends JavaPlugin {
 
         reloadConfig();
 
+        File file = new File(getDataFolder(), "dataBase.yml");
+        FileConfiguration config = new YamlConfiguration();
+        try{
+            config.load(file);
+        }catch (IOException|InvalidConfigurationException e){
+            e.printStackTrace();
+            return;
+        }
+
         try{
             this.dataBase.initialize();
             this.dataBase.sqlUpdate();
         }
         catch (SQLException e){
             e.printStackTrace();
+            ConfigurationSection section = config.getConfigurationSection("MySQL");
+            section.set("modQuarry", "");
+            try {
+                config.save(file);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                return;
+            }
             console.sendMessage(ChatColor.RED + "Failed to initialize data");
         }
         new DBSet(this);
@@ -105,24 +123,31 @@ public class ElementalProject extends JavaPlugin {
     }
 
 
-    private FileConfiguration sqlConfig;
+    private FileConfiguration sqlConfig, dropConfig;
 
     private void configFunc(){
 
 
         File sqlFile = new File(getDataFolder(), "dataBase.yml");
+        File dropFile = new File(getDataFolder(), "dropRate.yml");
 
         if(!sqlFile.exists()){
             sqlFile.getParentFile().mkdirs();
             saveResource("dataBase.yml", false);
         }
 
+        if(!dropFile.exists()){
+            dropFile.getParentFile().mkdirs();
+            saveResource("dropRate.yml", false);
+        }
 
         sqlConfig = new YamlConfiguration();
+        dropConfig = new YamlConfiguration();
 
         try{
 
             sqlConfig.load(sqlFile);
+            dropConfig.load(dropFile);
         }
         catch (IOException | InvalidConfigurationException e){
             e.printStackTrace();

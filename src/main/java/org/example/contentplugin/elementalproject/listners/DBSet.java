@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.example.contentplugin.elementalproject.ElementalProject;
-import org.example.contentplugin.elementalproject.system.DataBase;
+import org.example.contentplugin.elementalproject.system.DBset.DataBase;
 import org.example.contentplugin.elementalproject.system.playerData.PlayerStat;
 import org.example.contentplugin.elementalproject.contents.dailyQuest.DailyQuestGet;
 
@@ -44,6 +44,7 @@ public class DBSet implements Listener {
             playerStat.setLastLogin(new Date());
             dailyQuest.countReset(p);
             playerStat.setSkillClass(1);
+            dataBase.setName(p);
             dataBase.updateData(playerStat);
 
         }catch (SQLException e){
