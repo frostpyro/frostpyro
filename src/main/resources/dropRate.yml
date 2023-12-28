@@ -1,9 +1,8 @@
-material:
+dropRate:
   cores: 1
   enchant: 4
-
+  buildDropRate: 10
 builds:
-  baseDropRade: 10
   common: 70
   uncommon: 20
   rare: 9

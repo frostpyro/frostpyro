@@ -42,11 +42,11 @@ public class EntityInteraction implements Listener {
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    private Builds builds(ItemStack item, int dropRate, int model, int id, FileConfiguration configuration) {
+    private Builds builds(ItemStack item, int dropRate, int model, FileConfiguration configuration) {
         Builds build;
         Class<Builds> init = Builds.class;
         try{
-            build = init.getConstructor(ItemStack.class, int.class, int.class, int.class, FileConfiguration.class).newInstance(item, dropRate, model, id, configuration);
+            build = init.getConstructor(ItemStack.class, int.class, FileConfiguration.class).newInstance(item, dropRate, configuration);
         }
         catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e){
             e.printStackTrace();
