@@ -123,13 +123,14 @@ public class ElementalProject extends JavaPlugin {
     }
 
 
-    private FileConfiguration sqlConfig, dropConfig;
+    private FileConfiguration sqlConfig, dropConfig, buildConfig;
 
     private void configFunc(){
 
 
         File sqlFile = new File(getDataFolder(), "dataBase.yml");
         File dropFile = new File(getDataFolder(), "dropRate.yml");
+        File buildFile = new File(getDataFolder(), "build.yml");
 
         if(!sqlFile.exists()){
             sqlFile.getParentFile().mkdirs();
@@ -141,13 +142,19 @@ public class ElementalProject extends JavaPlugin {
             saveResource("dropRate.yml", false);
         }
 
+        if(!buildFile.exists()){
+            buildFile.getParentFile().mkdirs();
+            saveResource("build.yml", false);
+        }
+
         sqlConfig = new YamlConfiguration();
         dropConfig = new YamlConfiguration();
+        buildConfig = new YamlConfiguration();
 
         try{
-
             sqlConfig.load(sqlFile);
             dropConfig.load(dropFile);
+            buildConfig.load(buildFile);
         }
         catch (IOException | InvalidConfigurationException e){
             e.printStackTrace();

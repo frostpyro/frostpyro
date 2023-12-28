@@ -1,0 +1,55 @@
+common:
+  health:
+    name: "활력"
+    base: 1.1
+    add: 0.1
+    maxRank: 10
+  defence:
+    name: "인내"
+    base: 1
+    add: 0.1
+    maxRank: 10
+  attackDamage:
+    name: "스트라이크"
+    base: 1
+    add: 4
+    maxRank: 10
+
+uncommon:
+  attackSpeed:
+    name: "레이피드 스트라이크"
+    base: 0.1
+    add: 0.1
+    maxRank: 5
+
+
+
+rare:
+  moveSpeed:
+    name: "헤르메스의 정수"
+    base: 0.1
+    add: 0.4
+    maxRank: 3
+  healthRegen:
+    name: "급속 회복 정수"
+    base: 1
+    add: 1
+    maxRank: 3
+  ultDamage:
+    name: "얼티밋 스트라이크"
+    base: 20
+    add: 20
+    maxRank: 3
+
+
+legendary:
+  coolDown:
+    name: "엔드리스 워"
+    base: 0.5
+    add: 0.05
+    maxRank: 0
+  massiveStrike:
+    name: "럭-엔-로드"
+    base: 0.1
+    add: 0.05
+    maxRank: 0
