@@ -1,15 +1,18 @@
 common:
   health:
-    name: "활력"
+    id: 1
+    name: "바이탈리티"
     base: 1.1
     add: 0.1
     maxRank: 10
   defence:
-    name: "인내"
+    id: 2
+    name: "엔듀런스"
     base: 1
     add: 0.1
     maxRank: 10
   attackDamage:
+    id: 3
     name: "스트라이크"
     base: 1
     add: 4
@@ -17,25 +20,34 @@ common:
 
 uncommon:
   attackSpeed:
+    id: 4
     name: "레이피드 스트라이크"
     base: 0.1
     add: 0.1
     maxRank: 5
-
+  itemGet:
+    id: 5
+    name: "마그네틱"
+    base: 1
+    add: 0.5
+    maxRank: 5
 
 
 rare:
   moveSpeed:
-    name: "헤르메스의 정수"
+    id: 7
+    name: ""
     base: 0.1
     add: 0.4
     maxRank: 3
   healthRegen:
-    name: "급속 회복 정수"
+    id: 8
+    name: "셀 부스트"
     base: 1
     add: 1
     maxRank: 3
   ultDamage:
+    id: 9
     name: "얼티밋 스트라이크"
     base: 20
     add: 20
@@ -44,12 +56,20 @@ rare:
 
 legendary:
   coolDown:
+    id: 10
     name: "엔드리스 워"
     base: 0.5
     add: 0.05
     maxRank: 0
   massiveStrike:
+    id: 11
     name: "럭-엔-로드"
     base: 0.1
     add: 0.05
+    maxRank: 0
+  doubleStrike:
+    id: 12
+    name: "써드 핸드"
+    base: 25
+    add: 25
     maxRank: 0

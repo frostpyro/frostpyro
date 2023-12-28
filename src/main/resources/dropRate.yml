@@ -3,6 +3,7 @@ material:
   enchant: 4
 
 builds:
+  baseDropRade: 10
   common: 70
   uncommon: 20
   rare: 9

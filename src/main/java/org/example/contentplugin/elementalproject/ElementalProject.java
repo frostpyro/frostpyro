@@ -122,6 +122,12 @@ public class ElementalProject extends JavaPlugin {
         return new NamespacedKey(plugin, "skill");
     }
 
+    public static NamespacedKey rank(){
+        return new NamespacedKey(plugin, "rank");
+    }
+    public static NamespacedKey id(){
+        return new NamespacedKey(plugin, "id");
+    }
 
     private FileConfiguration sqlConfig, dropConfig, buildConfig;
 
